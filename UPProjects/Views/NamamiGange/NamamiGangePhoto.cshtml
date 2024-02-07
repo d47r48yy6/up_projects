@@ -1,0 +1,302 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.NamamiGange
+@{
+    ViewData["Title"] = "NamamiGangePhoto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS{
+    <style>
+        img#imgFile {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
+}
+
+<label id="GalleryId" style="display:none;">@ViewBag.Id</label>
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Upload Namami Gange Photo</h4>
+            @*<div style="float:right;">
+                <a href="/Master/AlbumMaster" class="btn btn-outline-primary btn-rounded btn-fw">Add New Album</a>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="NamamiGangePhoto"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span class="text-danger">*</span>
+                            <label asp-for="Title"> </label>
+                            <textarea class="form-control" asp-for="Title" id="Title" rows="2"> </textarea>
+                            <span asp-validation-for="Title" class="text-danger"> </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Description"> </label>
+                            <textarea class="form-control" asp-for="Description" id="Description" rows="2"> </textarea>
+                            <span asp-validation-for="Description" class="text-danger"> </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label asp-for="File"> Upload Photo<span style="color:red"> &nbsp;(Photo must be in png,jpg or jpeg format and size should be less than or equal to 1MB.) </span> </label>
+                            <input type="file" id="file" asp-for="File" class="form-control">
+                            <span asp-validation-for="File" class="text-danger"> </span>
+                        </div>
+                        <div class="col-sm-6">
+                            @if (Model != null)
+                            {
+                                if (!string.IsNullOrEmpty(Model.FileName))
+                                {
+                                    <img id="imgFile" src="@Model.FileName" height="300px" width="800px" />
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mr-2" id="btnsub">@ViewBag.ButtonText </button>
+                <a class="btn btn-light" href="/Gallery/PhotoGalleryList"> Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Photo</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var id = $("#GalleryId").html();
+        });
+    </script>
+    <script type="text/javascript">
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#imgFile').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
+
+
+$("#file").change(function() {
+  readURL(this);
+});
+
+
+        var onBegin = function () {
+
+            //if ($("#Title").val() == "" || $("#Title").val() == null || $("#Title").val() == "0") {
+            //    alert("Please Fill Title");
+            //    return false;
+            //}
+            if ($('#file').val() !== '') {
+                var file = $('#file').get(0);
+                var FileSize = file.files[0].size;
+                var path = $('#file').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "png" || ext == "jpg" || ext == "jpeg") {
+                    if (FileSizeKB > 1024) {
+                        alert("Photo Size must be less than or equal to 1024 KB (1 MB).");
+                        $(this).val("");
+                        $(this).focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Upload photo must be in png, jpg or jpeg format.");
+                    $('#file').focus();
+                    $('#file').val('');
+                    return false;
+                }
+            }
+            else {
+                var flag = "@ViewBag.ButtonText";
+                if (flag=== "Submit") {
+                    alert("Please upload Photo.");
+                    $('#file').focus();
+                    $('#file').val('');
+                    return false;
+                }
+            }
+
+
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+
+            alert(Response.dynamicResult.innerresult.Message);
+            if (parseInt(Response.dynamicResult.innerresult.Status) > 0) {
+
+               // BindTable($("#AlbumId").val());
+                $('#Title').val('');
+                $('#file').val('');
+                $('#Description').val('');
+            }
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+
+
+        function BindAlbum() {
+
+            var url = "/Gallery/BindAlbum";
+            $("#AlbumId").empty();
+            $('#AlbumId').append('<option value="0">Select Album </option>');
+            $.getJSON(url, function (data) {
+
+
+                for (var i = 0; i < data.length; i++) {
+                    $('#AlbumId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                }
+
+                var album = $("#alm").html();
+                if (album == "" || album == null || album == "0") {
+
+                }
+                else {
+                    $('#AlbumId').val($("#alm").html());
+                      BindTable($("#AlbumId").val())
+                }
+
+
+            })
+        }
+
+        function BindTable(Id) {
+            var param = Id;
+            var url = "/Gallery/PhotoGalleryUploadedListByAlbum?Albumid=" + Id;
+              $.getJSON(url, function (data) {
+
+                BindDataTable(data);
+            })
+        }
+
+        function BindDataTable(data) {
+
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "AlbumTitleName" },
+
+                         { "data": "HNAlbumTitleName" },
+                        { "data": "FileNameButton" },
+
+                        { "data": "EditButton" },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="DeleteAlbum(' + row.Id + ')" class="text-primary" >Delete</a>';
+                                return a;
+                            }, className: "text-left"
+                        }
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+                $("#tblList").show();
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+        }
+
+       
+
+       function DeleteAlbum(Id) {
+                        if (confirm("Are you sure?")) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Gallery/DelPhotos",
+                                data: { Id: Id },
+                                success: function (data) {
+                                    alert(data);
+                                    BindTable($("#AlbumId").val());
+                                  $('#file').val('');
+                                  $('#Description').val('');
+                                }
+
+
+                            })
+                        }
+                    }
+    </script>
+
+}
+
+

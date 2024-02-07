@@ -1,0 +1,117 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.AlbumMaster
+@{
+    ViewData["Title"] = "AlbumMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var count = 1;
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Album Master</h4>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="AlbumMaster"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label asp-for="AlbumTitle"></label> <span class="text-danger"> *</span>
+                            <input type="text" asp-for="AlbumTitle" class="form-control" id="AlbumTitle" placeholder="Album Title" autocomplete="off" />
+                            <span asp-validation-for="AlbumTitle" class="text-danger"> </span>
+                        </div>
+                        <div class="col-sm-4">
+                            <label asp-for="HNAlbumTitle"></label>
+                            <input type="text" asp-for="HNAlbumTitle" class="form-control" id="HNAlbumTitle" placeholder="Album Title" autocomplete="off" />
+                            <span asp-validation-for="HNAlbumTitle" class="text-danger"> </span>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success mr-2 mt-4" id="btnsub">@ViewBag.ButtonText </button>
+                            <button type="button" class="btn btn-dark mr-2 mt-4" id="btnsub1">Back</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+            <br />
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>SL.No</th>
+                        <th>Title (English)</th>
+                        <th>Album (Hindi)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.List)
+                    {
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.AlbumTitle</td>
+                        <td>@item.HNAlbumTitle</td>
+                        <td>
+                            <input type="button" value="Edit" class="btn btn-primary btn-sm" onclick="UpdateAlbum(@item.Id)" />
+                            <input type="button" value="Delete" class="btn btn-danger btn-sm" onclick="DeleteAlbum(@item.Id)" />
+                        </td>
+                    </tr>
+                        count++;
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+
+        function UpdateAlbum(Id) {
+            location.href = "/Master/AlbumMaster/" + Id;
+        }
+        function DeleteAlbum(Id) {
+            if (confirm("Do you want to delete this record?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Master/DeleteAlbum",
+                    data: { Id: Id },
+                    success: function (data) {
+                        alert(data);
+                        window.location.href = "/Master/AlbumMaster/0";
+                    }
+
+                });
+            }
+
+        }
+         var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            alert(Response.dynamicResult.innerresult.Msg);
+            window.location.reload();
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+
+        $("#btnsub1").click(function () {
+
+            location.href = "/Gallery/PhotoGallery";
+
+        })
+    </script>
+
+}
+

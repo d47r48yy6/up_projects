@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "CompleteProjects";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Complete Projects </h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="Projects"></div>
+
+            </div>
+        </div>
+        <div class="row" style="display:none; " id="divNoRecord">
+            <div class="col-md-12" align="center">
+                <span style="font-weight:bold; color:maroon; font-size: 33px;"> Projects not available. </span>
+            </div>
+        </div>
+        @*<div class="back"><a id="idback"><span class="arrow_link">  <img src="/assets1/images/left-arrow.svg"></span></a></div>*@
+    </div>
+
+</section>
+
+@section Scripts{
+    <script src="~/APPjs/GetQuerryString.js"></script>
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var unit = getQuerryStringDataByName("units", "");
+            var zone = getQuerryStringDataByName("zone", "");
+            $('#idback').attr("href", "/home/CompletedProjects");
+            Bindunits(unit);
+            GetUpdatedRecords("ongoingprojects_uppcl");
+    });
+
+        function Bindunits(unit) {
+            $('#loader').css("display","block");
+            $.get('@Url.Action("GetCompltedProjects","Home")', {
+                unit:unit
+    }, function (data) {
+                    try {
+                        if (data.length > 0) {
+                            var htmlCont = '<div class="services_box"><div class="row">';
+                            var counter = 1;
+                            $('#Projects').empty();
+                            $.each(data, function (key, value) {
+                                htmlCont = htmlCont + '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><a href="/home/CompleteProjects_Photos?unit=' + unit + '&pid=' + (value.ProjectId).toString() + '"><img src="/upload/ProgressPhoto/' + (value.ImageId).toString() + '/' + (value.FileName).toString() + '">' +
+                                    '<span class="our_services_text">' + value.ProjectTitle + '</span><span class="arrow_link"><img src="/assets1/images/right-arrow.svg"></span></a></div >';
+                                counter = counter + 1;
+                            });
+                            $('#Projects').append(htmlCont + '</div></div>');
+                        }
+                        else {
+                              $('#divNoRecord').css("display", "block");
+                        }
+                        $('#loader').css("display", "none");
+        }
+                    catch (err) {
+                        $('#loader').css("display","none");
+        }
+            }).done(function (data) {
+        $('#loader').css("display","none");
+        })
+                .fail(function (data) {
+            $('#loader').css("display","none");
+        });
+        }
+    </script>
+
+}
+<!-- /End Board of Directors Tabler -->

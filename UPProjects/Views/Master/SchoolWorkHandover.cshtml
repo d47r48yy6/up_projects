@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "SchoolWorkHandover";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="row page-title-header">
+        <div class="col-12">
+            <div class="page-header">
+                <h4 class="page-title text-center">
+                    School Work Handover
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <span><a href="~/Sample/SchoolWorkFormat.xlsx">  Download School Work Handover Format <i class="fa fa-download"></i></a></span>
+                    </div>
+                </div>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+                                <label class="form-label"><b>Upload School Work Handover</b></label>
+                                <input type="file" class="form-control" id="uploadexcel" accept=".xlsx" onchange="CheckFile(this)" />
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 form-group" style="margin-top:25px;">
+                                <input type="submit" value="upload" id="uploadexcelfile" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+@section Scripts{
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+ <script type="text/javascript">
+     function CheckFile(obj) {
+         if ($(obj).val() !== '') {
+             var filetender = $(obj).get(0);
+             var FileSize = filetender.files[0].size;
+             var path = $(obj).val();
+             var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+             if (ext !== "xlsx" && ext !== "xls") {
+                 alert("Please Upload Excel File ,file must be in .xlsx Format");
+                 $(obj).focus();
+                 $(obj).val('');
+                 return false;
+             }
+         }
+     }
+     $("#uploadexcelfile").click(function () {
+         if ($("#uploadexcel").val() == "") {
+             alert("Please Upload Excel File ,file must be in .xlsx Format");
+             return false;
+         }
+         var fileUpload = $("#uploadexcel").get(0);
+         var files = fileUpload.files;
+         var data = new FormData();
+         data.append(files[0].name, files[0]);
+         $.ajax({
+             type: "POST",
+             url: "/Master/UploadSchoolWorkHandover",
+             contentType: false,
+             processData: false,
+             data: data,
+             async: false,
+             beforeSend: function () {
+
+             },
+             success: function (data) {
+                 var resultdata = data.resultdata;
+                 if (resultdata.Status == "1") {
+                     alert(resultdata.Message);
+                     $("#uploadexcel").val('');
+                 }
+                 else {
+
+                     alert(resultdata.Message);
+                     return false;
+                 }
+             },
+             error: function () {
+                 alert("Error!");
+             },
+             complete: function () {
+                 $("#divloader").hide()
+             }
+         });
+     });
+                        </script>
+}
+

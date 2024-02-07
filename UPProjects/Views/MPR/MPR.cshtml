@@ -1,0 +1,184 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.MPR
+@{
+    ViewData["Title"] = "MPRMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">MPR Master</h4>
+        </div>
+    </div>
+</div>
+<div class="table-responsive" id="AddMPR">
+    @{
+
+        await Html.RenderPartialAsync("_AddMPR" );
+    }
+
+</div>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive" id="Results">
+                    @{
+                        if (ViewBag.MPRList != null)
+                            await Html.RenderPartialAsync("_MPRList");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+
+    var onBegin = function () {
+        if ($('#FinancialYear').val() == "0") {
+            alert('Financial Year is Required');
+            $('#FinancialYear').focus();
+            return false;
+        }
+        else if ($('#Month').val() == "0") {
+            alert('Month is Required');
+            $('#Month').focus();
+            return false;
+        }
+        else if ($('#myfile').val() == "") {
+            alert('File is Required');
+            $('#myfile').focus();
+            return false;
+        }
+        else { return true; }
+    };
+    var onComplete = function (result) {
+        debugger;
+    };
+    var onSuccess = function (Response) {
+        $('#ddlfinyear').val('0').trigger('change');
+        $('#ddlMonth').val('0').trigger('change');
+        $('#myfile').val('');
+        debugger;
+        alert(Response.innerresult[0].ResultMessage);
+        BindTable();
+    };
+    var onFailed = function () {
+        debugger;
+    };
+
+
+    var onEditComplete = function (result) {
+        debugger;
+        $('#AddMPR').html(result.responseJSON.data);
+    };
+    var onEditSuccess = function (Response) {
+
+    };
+
+    var onChangeStatusComplete = function (Response) {
+        debugger;
+        $('#Results').html(Response.data);
+    };
+    var onChangeStatusSuccess = function (Response) {
+        $('#Results').html(Response.data);
+    };
+</script>
+<script type="text/javascript">
+
+        $(document).ready(function () {
+            BindTable();
+        });
+        function BindTable() {
+            $.get('@Url.Action("GetMPRList","MPR")', {
+
+        }, function (data) {
+
+                 })
+                .done(function (result) {
+                    if (result != null) {
+                        $('#Results').html(result.data);
+                        $('#AddMPR').html(result.data1);
+                    }
+                 })
+                .fail(function (data) {
+
+                 });
+    }
+
+</script>
+@*<script>
+          $("#btnSubmit").click(function ()
+        {
+            if ($('#ddlfinyear').val() == "Select") {
+                alert('Financial Year is Required');
+                $('#ddlfinyear').focus();
+                return false;
+            }
+              if ($('#ddlMonth').val() == "Select") {
+                  alert('Month is Required');
+                  $('#ddlMonth').focus();
+                  return false;
+            }
+            if ($('#myfile').val() == "") {
+                alert('File is Required');
+                $('#myfile').focus();
+                return false;
+            }
+
+            var formData = new FormData();
+            formData.append('file', $('#myfile')[0].files[0]);
+            formData.append('FinancialYear', $('#ddlfinyear').val());
+            formData.append('Month', $('#ddlMonth').val());
+             $.ajax({
+                    url: '/MPR/AddMPR',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: formData,
+                 success: function (result) {
+                        debugger
+                       // $('#Results').html(result.data);
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+            @*$.post('@Url.Action("AddMPR","MPR")',
+                                        {
+                                          formData :formData
+                                        },
+                                        function (data, status) {
+
+                                        //alert('');
+
+                                        })
+                                        .done(function (result) {
+
+                                            $('#Results').html(result.data);
+
+                                        })
+                .fail(function (data) {
+                    debugger
+                                        });
+          });
+        function SuccessInsert(data) {
+            console.log(data);
+            $("#tbodyPerson").append(data);
+
+
+        }
+        function SuccessDelete(data) {
+            $("#tr" + data.id).fadeOut();
+        }
+    </script>*@
+
+
+@*@using (Ajax.BeginForm("Method", "Controller", new AjaxOptions { HttpMethod = "POST" }))
+    {
+
+    }*@

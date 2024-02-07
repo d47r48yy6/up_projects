@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "ISOCertificate";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+       string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>ISO Certificate</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section ISO_certifate">
+    <div class="container">
+        <div class="certificate_box">
+            <img src="../assets1/images/ISO_certificate.jpg" alt="Certificate Image" />
+        </div>
+    </div>
+</section>
+<!-- /End Board of Directors Tabler -->
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+              GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}

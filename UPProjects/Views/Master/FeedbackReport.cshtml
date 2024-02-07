@@ -1,0 +1,75 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.FeedbackMaster>
+@{
+    ViewData["Title"] = "FeedbackReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var count = 1;
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Feedbacks</h4>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Name</th>
+                                <th>Email Id</th>
+                                <th>Mobile No</th>
+                                <th>Address</th>
+                                <th>Feedback</th>
+                                <th>Date</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.EmailId</td>
+                                    <td>@item.MobileNo</td>
+                                    <td>@item.Address</td>
+                                    <td>@item.FeedbackQuery</td>
+                                    <td>@item.QueryAskOn</td>
+                                </tr>
+                                count++; 
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $("#tblData").DataTable( {
+       // dom: 'Blfrtip',
+            dom:'Bfrtip',
+          buttons: [
+            {
+                extend: 'print',
+                title: 'Feedbacks'
+            },
+            {
+                extend: 'excel',
+                title: 'Feedbacks'
+            }
+            ]
+    } );
+    </script>
+}

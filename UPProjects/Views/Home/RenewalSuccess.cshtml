@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "RenewalSuccess";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js
+
+
+
+"></script>
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Contractor Renewal Form Uploaded</h1>
+    </div>
+</section>
+
+<section class="bod_section">
+    <div class="container">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  col-xs-12">
+            <center>
+                <h2>
+                    <img src="~/assets1/images/Tick.png" width="100" />
+                    <br />
+                    <u>Success !</u>
+                    <br />Renewal Document Uploaded Successfully.<br />
+                </h2>
+                <p> <b> Transaction ID is : <label id="txnId"></label> for future reference.</b></p>
+
+                <a href="~/home"><u>Click here for Goto Home Page</u></a>
+            </center>
+
+
+
+        </div>
+    </div>
+</section>
+<script>
+
+    $(document).ready(function () {
+        var TxnId = getUrlVars()["TxnId"];
+        $("#txnId").text(TxnId);
+    });
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+</script>

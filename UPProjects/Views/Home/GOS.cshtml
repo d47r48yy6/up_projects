@@ -1,0 +1,62 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.GOS>
+@{
+    ViewData["Title"] = "GO's";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>GO's</h1>
+    </div>
+</section>
+<section class="bod_section">
+    <div class="container">
+        <table class="table table-bordered table-hover table-striped css-serial">
+            <thead class="thead-dark">
+                <tr>
+                    <th>S.N.</th>
+                    <th>Title</th>
+                    <th>GO'S Date</th>
+
+                    <th>View/ Download</th>
+                    <th>Size</th>
+                    <th>Format</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                @foreach (var item in Model)
+                {
+
+                <tr>
+                    <td></td>
+                    <td>@item.Title</td>
+                    <td>@item.GOSDate</td>
+
+                    <td><a href="@item.FileName" target="_blank" class="download_link">View</a></td>
+                    <td>@item.FileSize</td>
+                    <td>@item.FileType</td>
+                </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+                GetUpdatedRecords($("#CurrentName").html());
+        })
+
+         
+    </script>
+}
+
+

@@ -1,0 +1,248 @@
+﻿
+@{
+    ViewData["Title"] = "SurveyList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var Sitetype = ViewBag.SiteType;
+    var type = ViewBag.type;
+    var name = "";
+    var SiteName = "";
+    if (type == "V")
+    {
+        name = "Total Number of Visited Sites";
+    }
+    else if (type == "E")
+    {
+        name = "Sites where electricity available";
+    }
+    else if (type == "H")
+    {
+        name = "Sites where handpump available";
+    }
+    else if (type == "WT")
+    {
+        name = "Sites where Tap Water available";
+    }
+    else if (type == "RM")
+    {
+        name = "Sites where handpump Red Marked";
+    }
+    else if (type == "F")
+    {
+        name = "Total Number of feasible sites";
+    }
+    else if (type == "NF")
+    {
+        name = "Total Number of non feasible sites";
+    }
+    if (Sitetype == "S")
+    {
+        SiteName = "School";
+    }
+    if (Sitetype == "A")
+    {
+        SiteName = "Anganwadi";
+    }
+    if (Sitetype == "AS")
+    {
+        SiteName = "Aashram";
+    }
+    if (Sitetype == "T")
+    {
+        SiteName = "Total Survey";
+    }
+}
+<input type="hidden" value="@ViewBag.SiteType" id="SiteType" />
+<input type="hidden" value="@ViewBag.type" id="type" />
+<input type="hidden" value="@ViewBag.DistrictId" id="DistrictId" />
+<input type="hidden" value="@ViewBag.Date" id="Date" />
+<input type="hidden" value="@ViewBag.ZoneId" id="ZoneId" />
+<input type="hidden" value="@ViewBag.UnitId" id="UnitId" />
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title text-uppercase">@SiteName (@name)</h4>
+        </div>
+    </div>
+</div>
+<br />
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Zone Name</th>
+                                <th>UnitName</th>
+                                <th>District</th>
+                                <th>Tehsil</th>
+                                <th>Block</th>
+                                <th>Gram Sabha</th>
+                                <th>SiteType</th>
+                                <th>Electricity</th>
+                                <th>HandPump Water</th>
+                                <th>Tap Water</th>
+                                <th>Red Marked</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>FullAddress</th>
+                                <th>Survey Date</th>
+                                <th class="not-export-column">Img-1</th>
+                                <th class="not-export-column">Img-2</th>
+                                <th class="not-export-column"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+             $('#loader').css("display", "block");
+            BindTable();
+        });
+    </script>
+    <script type="text/javascript">
+        function BindTable() {
+
+            var SiteType = $("#SiteType").val();
+            var type = $('#type').val();
+           
+
+            var url = "/User/GetSurveryCompletedList?Sitetype=" + SiteType + "&type=" + type+"&DistrictId=" + $("#DistrictId").val() + "&Date=" + $("#Date").val() + "&ZoneId=" + $("#ZoneId").val() + "&UnitId=" + $("#UnitId").val();
+
+             
+              $.getJSON(url, function (data) {
+                BindDataTable(data);
+
+              })
+            
+        }
+        function BindDataTable(data) {
+
+           
+         $("#tblList").show();
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                  
+                    "searching": true,
+                    "paging": false,
+                    "scrollY": '50vh',
+                    "scrollX": '50vh',
+                     dom:'Bfrtip',
+          buttons: [
+            {
+                extend: 'print',
+                  title: 'Survey List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Survey List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+                    
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "ZoneName" },
+                        { "data": "UnitName" },
+                        { "data": "DistrictName" },
+                         { "data": "TehsilName" },
+                        { "data": "BlockName" },
+                        { "data": "GramSabhaNameE" },
+                        { "data": "SiteType" },
+                        { "data": "ElectricityStatus" },
+                        { "data": "HandPupWaterStatus" },
+                        { "data": "Whethertapwater" },
+                        { "data": "Whetherredmark" },
+                        { "data": "latitude" },
+                        { "data": "longitude" },
+                        { "data": "FullAddress" },
+                        { "data": "SurveyOn" },
+                        { "data": "Image1" },
+                        { "data": "Image2" },
+                        { "data": "StatusButton" }
+                       
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+             $('#loader').css("display", "none");
+        }
+    
+
+
+            function UpdateSurveyStatus(e) {     
+              var $row = $(e).closest("tr");
+                var Id = $row.find(".ids").val();
+                var UpdateStatus = 0;
+                var CurrentStatus = $row.find(".sstatus").val();
+                if (parseInt(CurrentStatus) === 1) {
+                    UpdateStatus = 0;
+                }
+                else {
+                    UpdateStatus = 1;
+                }
+               // $row.closest('tr').remove();
+             $.post('/User/UpdateSurveyStatus',
+                $.param({
+                    Id: Id,
+                    st: UpdateStatus,
+                  
+                }, true), function (data) {
+
+                    alert(data.ResultMessage);   
+                    $('#loader').css("display", "block");
+                   BindTable();
+                    
+                   
+
+                });
+    }
+
+
+       
+
+    </script>
+
+}

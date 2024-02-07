@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Financial";
+    Layout = "~/Views/Shared/_HNLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>
+
+            निगम की वित्तीय स्थिति
+        </h1>
+    </div>
+</section>
+<section class="bod_section">
+    <div class="container">
+        <p style="text-align: right;">( रुपए करोड़  में)</p>
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered table-hover table-striped css-serial">
+                <thead class="thead-dark">
+                    <tr>
+                    <tr>
+                        <th>
+                            क्रम.संख्या
+                        </th>
+                        <th>साल</th>
+                        <th>
+                            काम किया
+                        </th>
+
+                        <th>
+                            ख़ालिस लाभ
+                        </th>
+                        <th>संचयी आरक्षण </th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td></td>
+                            <td>@item.FinancialYearText</td>
+                            <td>@item.WorkDone</td>
+                            <td>@item.NetProfit</td>
+                            <td>@item.CumulativeReservers</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+       GetUpdatedRecords($("#CurrentName").html());
+        });
+    </script>
+}

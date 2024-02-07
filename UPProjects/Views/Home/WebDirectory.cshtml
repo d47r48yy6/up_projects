@@ -1,0 +1,98 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.WebDirectoryMaster>
+@{
+    ViewData["Title"] = "WebDirectory";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName =ViewContext.RouteData.Values["action"].ToString();
+    var CategoryId = "";
+    var ZoneId = 0;
+    var first = 1;
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+        <h1>Web Directory</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container">
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered table-hover table-striped css-serial">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>S.N.</th>
+                        <th>Name </th>
+                        <th style="width:30%;">Position</th>
+                        <th>Address</th>
+                        <th style="width: 180px;">Telephone No.</th>
+                        <th>CUG NO.</th>
+                        <th>Mobile No.</th>
+                        <th>Email ID</th>
+
+                    </tr>
+                </thead>
+                <tbody class="">
+                    @foreach (var item in Model.OrderBy(X=>X.ZoneId))
+                    {
+
+                        @if (CategoryId != item.CategoryId)
+                        {
+                            if (first == 1)
+                            {
+
+                            }
+                            else
+                            {
+
+                                <tr><th colspan="8">@item.CategoryName</th></tr>
+
+                            }
+
+                        }
+                        if (item.ZoneId != ZoneId)
+                        {
+                            if (item.CategoryId != "4")
+                            {
+                                <tr><th colspan="8">@item.ZoneName  </th></tr>
+                            }
+
+                        }
+                        <tr>
+                            <td></td>
+                            <td>@item.Name</td>
+                            <td>@item.Position</td>
+                            <td>@item.Address</td>
+                            <td>@item.TelephoneNo</td>
+                            <td>@item.CugNo</td>
+                            <td>@item.MobileNo</td>
+                            <td><a href="mailto:" class="email_link">@item.EmailId</a></td>
+                        </tr>
+
+                        CategoryId = item.CategoryId;
+                        ZoneId = item.ZoneId;
+                        first++;
+
+
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- /End Board of Directors Tabler -->
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+            GetUpdatedRecords($("#CurrentName").html())
+        })
+
+          
+    </script>
+}

@@ -1,0 +1,317 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.SurveyorMaster
+@{
+    ViewData["Title"] = "Servey Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Survey Details</h4>
+
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+           
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3">
+
+                            <label><b>Survey Date</b></label>
+                            <input type="text" class="form-control calender" readonly autocomplete="off" id="SurveyDate" name="SurveyDate">
+                        </div>
+
+                        <div class="col-sm-3">
+
+                            <label asp-for="DistictId"><b>Select District</b></label>
+                            <select id="DistictId" asp-for="DistictId" asp-items="@Model.DistrictList" name="DistictId" class="form-control" onchange="BindTehsil()">
+                            </select>
+                            <span class="text-danger" asp-validation-for="DistictId"></span>
+                        </div>
+                        <div class="col-sm-3">
+                            <label><b>Select Tehsil</b></label>
+                            <select id="tehsil" name="tehsil" class="form-control" onchange="BindBlock()">
+                                <option value="0">Select</option>
+                            </select>
+
+                        </div>
+                        <div class="col-sm-3">
+                            <label><b>Select Block</b></label>
+                            <select id="block" name="block" class="form-control" onchange="BindGramSabha()">
+                                <option value="0">Select</option>
+                            </select>
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+                  
+                    
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label><b>Select Gram Sabha</b></label>
+                            <select id="gramsabha" name="gramsabha" class="form-control">
+                                <option value="0">Select</option>
+                            </select>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-success mr-2 mt-4" id="btnsub">Submit</button>
+                            <button type="button" class="btn btn-dark mr-2 mt-4" id="reset">Reset</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+           
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Survey Date</th>
+                                <th>Surveyor Name</th>
+                                <th>District</th>
+                                <th>Tehsil</th>
+                                <th>Block</th>
+                                <th>Gram Sabha</th>
+                                <th></th>
+                                @*<th></th>*@
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+           $(document).ready(function () {
+            $(".calender").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy',
+                    //minDate: new Date()
+                });
+        
+
+
+        });
+        });
+    </script>
+    <script type="text/javascript">
+        function BindTable() {
+
+            var surveyDate = $("#SurveyDate").val();
+            var dist = $('#DistictId').val();
+            var tehsilid = $('#tehsil').val();
+            var blockid = $('#block').val();
+            var grmsabha = $('#gramsabha').val();
+
+            var url = "/Master/GetSurveryCompleteList?dist=" + dist + "&tehsil=" + tehsilid + "&block=" + blockid + "&gram=" + grmsabha+"&surveyDate="+surveyDate;
+
+              $.getJSON(url, function (data) {
+                BindDataTable(data);
+            })
+        }
+        function BindDataTable(data) {
+            
+            $("#tblList").show();
+
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "SurveyDate" },
+                        { "data": "SurveyorName" },
+                        { "data": "DistrictNameEnglish" },
+                         { "data": "TehsilName" },
+                        { "data": "BlockName" },
+                        { "data": "GramSabhaNameE" },                      
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="ViewCompleteDetails(' + row.Id + ')" class="text-primary" target="_blank" >View Complete Details</a>';
+                                return a;
+                            }, className: "text-left"
+                        }
+                        
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+               
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+             $('#loader').css("display","none");
+        }
+
+        
+        function BindTehsil() {
+            $('#loader').css("display","block");
+            var unit = $('#DistictId').val();
+            $.get('@Url.Action("BindTehsilbyDistrict","Master")', {
+                Id:unit
+    }, function (data) {
+                    try {   
+
+                        $('#tehsil').empty();
+                          $('#tehsil').append('<option value="0">select</option>');  
+                                           
+                        $.each(data, function (key, value) {
+                        
+                            $('#tehsil').append('<option value="'+value.id+'">'+value.value+'</option>');
+                        });$('#loader').css("display","none");
+        }
+                    catch (err) {
+                        $('#loader').css("display","none");
+        }
+            }).done(function (data) {
+        $('#loader').css("display","none");
+        })
+                .fail(function (data) {
+            $('#loader').css("display","none");
+        });
+        }
+
+         function BindBlock() {
+            $('#loader').css("display","block");
+             var dist = $('#DistictId').val();
+              var tehsilid = $('#tehsil').val();
+            $.get('@Url.Action("BindBlockByDistrictTehsil","Master")', {
+                dist: dist,
+                tehsil:tehsilid
+
+    }, function (data) {
+                    try {   
+                        
+                        $('#block').empty();   
+                         $('#block').append('<option value="0">select</option>');   
+                        $.each(data, function (key, value) {
+                        
+                            $('#block').append('<option value="'+value.id+'">'+value.value+'</option>');
+                        });$('#loader').css("display","none");
+        }
+                    catch (err) {
+                        $('#loader').css("display","none");
+        }
+            }).done(function (data) {
+        $('#loader').css("display","none");
+        })
+                .fail(function (data) {
+            $('#loader').css("display","none");
+        });
+        }
+
+
+
+        function BindGramSabha() {
+            $('#loader').css("display","block");
+            var tehsilid = $('#tehsil').val();
+             var blockid = $('#block').val();
+            $.get('@Url.Action("BindGramSabhaByTehsilBlock","Master")', {
+                
+                tehsil: tehsilid,
+                blockid:blockid
+
+    }, function (data) {
+                    try {   
+
+                        $('#gramsabha').empty();   
+                        $('#gramsabha').append('<option value="0">select</option>');   
+                                           
+                        $.each(data, function (key, value) {
+                        
+                            $('#gramsabha').append('<option value="'+value.id+'">'+value.value+'</option>');
+                        });$('#loader').css("display","none");
+        }
+                    catch (err) {
+                        $('#loader').css("display","none");
+        }
+            }).done(function (data) {
+        $('#loader').css("display","none");
+        })
+                .fail(function (data) {
+            $('#loader').css("display","none");
+        });
+        }
+
+        $("#reset").click(function () {
+
+            location.reload();
+        })
+
+        $("#btnsub").click(function () {
+            var dist = $('#DistictId').val();
+            var tehsilid = $('#tehsil').val();
+            var blockid = $('#block').val();
+            var grmsabha = $('#gramsabha').val();
+          $('#loader').css("display","block");
+            BindTable();
+
+        })
+
+        function ViewCompleteDetails(Id) {
+
+            window.open("/Master/GetCompleteDetails/" + Id);
+        }
+      
+
+    </script>
+
+}
+
+
+
+

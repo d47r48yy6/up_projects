@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "vision2020";
+    Layout = "~/Views/Shared/_HNLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>
+            दृष्टि, मिशन और मूल्य
+        </h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="abt_img">
+                    <img src="/assets1/images/vision_banner.jpg">
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <ul class="visison_list">
+                    <li>यूपी प्रोजेक्ट्स कॉर्पोरेशन लिमिटेड, पेशेवर रूप से प्रबंधित किया जाएगा और ग्राहक संतुष्टि और शेयरहोल्डर्स मूल्य बढ़ाने के लिए प्रतिबद्ध है।</li>
+                    <li>
+                        हम देने के लिए प्रतिबद्ध हैं और
+                        हम कभी भी उत्कृष्टता का प्रदर्शन करते हैं
+                        करना।
+                    </li>
+
+                    <li>
+                        हम देने के लिए प्रतिबद्ध हैं और
+                        हम कभी भी उत्कृष्टता का प्रदर्शन करते हैं
+                        करना। उच्च गुणवत्ता, टिकाऊ प्रदान करके राष्ट्र की वृद्धि जारी रखना
+                        के माध्यम से बुनियादी ढाँचा विकास
+                        नवीन और विश्व स्तरीय निर्माण
+                        समाधान
+                    </li>
+                    <li>
+                        हम मानव गरिमा के सम्मान में विश्वास करते हैं और हम इसे संरक्षित करने की आवश्यकता का सम्मान करते हैं
+                        हमारे आसपास का वातावरण।
+                    </li>
+                    <li>
+                        हम लगातार नए विकास का समर्थन करते हैं
+                        प्रौद्योगिकियों, उत्पादों, बेहतर प्रक्रियाओं, बेहतर सेवाओं और प्रबंधन प्रथाओं।
+                    </li>
+                    <li>हम निर्माण व्यवसाय में सर्वश्रेष्ठ व्यावसायिक प्रथाओं और अत्याधुनिक तकनीकों को अपनाने के लिए प्रतिबद्ध हैं।</li>
+                    <li>हम अपने ग्राहकों को सर्वोत्तम समाधान और सेवाएं प्रदान करने के लिए एक टीम के रूप में काम करते हैं।</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}
+
+
+

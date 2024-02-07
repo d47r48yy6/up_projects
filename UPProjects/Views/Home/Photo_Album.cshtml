@@ -1,0 +1,56 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.PhotoGallery>
+@{
+    ViewData["Title"] = "Photo_Album";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    var ch = 0;
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Photo Album </h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="services_box">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            if (ch != item.AlbumId)
+                            {
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <a href="/home/Photo_Gallery/@item.AlbumId"><img src=@item.FileName> <span class="our_services_text">@item.AlbumTitleName</span><span class="arrow_link"><img src="/assets1/images/right-arrow.svg"></span></a>
+                                </div>
+                            }
+                            ch = item.AlbumId;
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- /End Board of Directors Tabler -->
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+              GetUpdatedRecords($("#CurrentName").html());
+        })
+
+       
+    </script>
+}

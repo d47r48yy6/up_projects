@@ -1,0 +1,312 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.OurProjectMaster
+@{
+    ViewData["Title"] = "Our Project Master";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<label id="pid" style="display:none;">@Model.ProjectId</label>
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Our Project Details</h4>
+          
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="OurProjectMaster"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <label>Project </label><span class="text-danger"> *</span>
+                            <select asp-for="ProjectId" class="form-control" id="ProjectId">
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="file"> Upload Photo </label><span class="text-danger"> *</span>
+                            <input type="file" id="file" asp-for="file" class="form-control">
+                            <span style="color:red; font-size:12px;"> &nbsp;(Photo must be in png,jpg or jpeg format and size should be less than or equal to 1MB.) </span>
+                            <span asp-validation-for="file" class="text-danger"> </span>
+                            @if (Model != null)
+                            {
+                                if (!string.IsNullOrEmpty(Model.FileName))
+                                {
+                                    <img id="imgFile" src="@Model.FileName" height="300px" width="300px" />
+
+                                }
+                            }
+
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                       
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success mr-2 mt-4" id="btnsub">@ViewBag.ButtonText </button>
+                            <button type="button" class="btn btn-dark mr-2 mt-4" id="reset">Reset</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Title (English)</th>
+                                <th>Title (Hindi)</th>
+                                <th>View </th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+                    $(document).ready(function () {
+                        BindTable();
+                        ProjectBind();
+                    });
+    </script>
+    <script type="text/javascript">
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#imgFile').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
+
+
+$("#file").change(function() {
+  readURL(this);
+});
+
+
+        var onBegin = function () {
+            debugger;
+            if ($("#ProjectId").val() == "0" || $("#ProjectId").val() == null) {
+                alert("Please select  project name .");
+                return false;
+            }
+           
+            if ($('#file').val() !== '') {
+                var file = $('#file').get(0);
+                var FileSize = file.files[0].size;;
+                var path = $('#file').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "png" || ext == "jpg" || ext == "jpeg") {
+                    if (FileSizeKB > 1024) {
+                        alert("Photo Size must be less than or equal to 1024 KB (1 MB).");
+                        $(this).val("");
+                        $(this).focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Upload photo must be in png, jpg or jpeg format.");
+                    $('#file').focus();
+                    $('#file').val('');
+                    return false;
+                }
+            }
+            else {
+                var flag = "@ViewBag.ButtonText";
+                if (flag=== "Submit") {
+                    alert("Please upload Photo.");
+                    $('#file').focus();
+                    $('#file').val('');
+                    return false;
+                }
+            }
+
+
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            alert(Response.dynamicResult.innerresult.Message);
+            if (parseInt(Response.dynamicResult.innerresult.Status) > 0) {
+
+                if (Response.dynamicResult.innerresult.Action == "U") {
+
+
+                }
+                else {
+
+                    window.location.reload();
+                }
+              
+                 BindTable();
+            }
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+
+
+
+
+        function BindTable() {
+            var url = "/Master/GetOurProjectMaster";
+              $.getJSON(url, function (data) {
+                BindDataTable(data);
+            })
+        }
+
+        function BindDataTable(data) {
+            debugger;
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                         { "data": "Title" },
+                          { "data": "HNTitle" },
+                          { "data": "FileNameButton" },
+
+                         {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="EditServices(' + row.Id + ')" class="text-primary" >Edit</a>';
+                                return a;
+                            }, className: "text-left"
+                        },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="DeleteServices(' + row.Id + ')" class="text-primary" >Delete</a>';
+                                return a;
+                            }, className: "text-left"
+                        }
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+                $("#tblList").show();
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+        }
+
+           function DeleteServices(Id) {
+                        if (confirm("Are you sure?")) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Master/DeleteOurProject",
+                                data: { Id: Id },
+                                success: function (data) {
+                                    alert(data);
+                                    location.href = "/Master/OurProjectMaster";
+                                    BindTable();
+                                    ProjectBind();
+                               
+                                }
+
+
+                            })
+                        }
+        }
+                      function EditServices(Id) {
+            location.href = "/Master/OurProjectMaster/" + Id;
+        }
+
+
+
+           function ProjectBind() {
+
+            var url = "/Master/GetProjects";
+            $("#ProjectId").empty();
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#ProjectId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                }
+
+                var id = $("#pid").html();
+                if (id == "" || id == "0" || id == null) {
+                    console.log(1);
+                }
+                else {
+                    $("#ProjectId").val(id);
+                }
+               
+            })
+        }
+        
+
+          $("#reset").click(function () {
+
+            location.href = "/Master/OurProjectMaster";
+        })
+    </script>
+
+}
+
+

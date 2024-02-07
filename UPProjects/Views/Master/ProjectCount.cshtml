@@ -1,0 +1,99 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.Projects_Count
+@{
+    ViewData["Title"] = "ProjectCount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">ProjectCount</h4>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post"  asp-action="ProjectCount">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <label>Total Projects</label> <span class="text-danger"> *</span>
+                            <input type="number" class="form-control" id="TotalProjects" placeholder="Total Projects" name="TotalProjects" value="@Model.TotalProjects"  required autocomplete="off" maxlength="100" />
+                        </div>
+                        <div class="col-sm-6">
+
+                            <label>Completed Projects</label><span class="text-danger"> *</span>
+                            <input type="number" class="form-control" id="CompletedProjects" value="@Model.CompletedProjects" placeholder="Completed Projects" required name="CompletedProjects" autocomplete="off" maxlength="100" />
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <label>Handover Projects</label> <span class="text-danger"> *</span>
+                            <input type="number" value="@Model.HandoverProjects" class="form-control" required name="HandoverProjects" id="HandoverProjects" placeholder="Handover Projects" autocomplete="off" maxlength="100" />
+                        </div>
+                        <div class="col-sm-6">
+
+                            <label>Non Handover Projects</label><span class="text-danger"> *</span>
+                            <input type="number" class="form-control" id="NonHandoverProjects" required value="@Model.NonHandoverProjects" placeholder="Non Handover Projects" name="NonHandoverProjects" autocomplete="off" maxlength="100" />
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <label>Total Ongoing Projects</label> <span class="text-danger"> *</span>
+                            <input type="number" class="form-control" id="TotalOngoingProjects" placeholder="Total Ongoing Projects" value="@Model.TotalOngoingProjects" name="TotalOngoingProjects" autocomplete="off" required maxlength="100" />
+                        </div>
+                        <div class="col-sm-6">
+
+                           
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success mr-2 mt-4" id="btnsub"> Update </button>
+                          
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+           
+            var msg = '@ViewBag.msg';
+            if (msg != "" && msg != null) {
+                alert(msg);
+             
+            }
+        })
+    </script>
+
+}
+
+

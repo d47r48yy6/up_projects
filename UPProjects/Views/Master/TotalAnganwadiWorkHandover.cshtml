@@ -1,0 +1,201 @@
+﻿
+@{
+    ViewData["Title"] = "TotalAnganwadiWorkHandover";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title text-uppercase">Total Anganwadi Work Handover</h4>
+        </div>
+    </div>
+</div>
+<br />
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <div class="text-right">
+                        <button class="btn btn-danger" onclick="DeleteData();" id="btndelete" style="display:none"> Delete <i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>District Name</th>
+                                <th>
+                                    Block/Development block
+                                </th>
+                                <th>
+                                    Village Panchayat
+                                </th>
+                                <th>
+                                    Name Of Anganwadi
+
+                                </th>
+
+                                <th>
+                                    Details of Pipe Drinking Water Covered Under 100 Days Campaign
+                                </th>
+                                <th>
+                                    Details of Pipe Drinking Water Covered Prior to 100 Days Campaign
+                                </th>
+                                <th>Entry Date</th>
+                                <th>Select<input type="checkbox" class="form-check" id="chkCheckAll" /></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+             $('#loader').css("display", "block");
+            BindTable();
+        });
+    </script>
+    <script type="text/javascript">
+          $("#chkCheckAll").click(function () {
+            if ($("#chkCheckAll").prop("checked") == true) {
+                $(".checkBoxClass").prop('checked', true);
+            }
+            else {
+                $(".checkBoxClass").prop('checked', false);
+            }
+        });
+        function BindTable() {
+
+            var url = "/Master/GetlAnganwadiWorkHandoverList";
+              $.getJSON(url, function (data) {
+                BindDataTable(data);
+
+              })
+        }
+        function BindDataTable(data) {
+         $("#tblList").show();
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                 $("#btndelete").show();
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+
+                    "searching": true,
+                    "paging": false,
+                    "scrollY": '50vh',
+                    "scrollX": '50vh',
+                     dom:'Bfrtip',
+          buttons: [
+            {
+                extend: 'print',
+                  title: 'Anganwadi Work Handover List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Anganwadi Work Handover List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "DistrictName" },
+                        { "data": "BlockName" },
+                        { "data": "VillageName" },
+                         { "data": "AnganwadiName" },
+                        { "data": "DetailsUnder100Days" },
+                        { "data": "DetailsPrior100Days" },
+                        { "data": "CreatedOn" },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<input type="checkbox" id="RowId" class="form-check checkBoxClass" name="chk" value="' + row.Id + '"/>';
+                                return a;
+                            }, className: "text-left"
+                        }
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+             $('#loader').css("display", "none");
+        }
+        function DeleteData() {
+            if (confirm("Are you sure! you want to Delete Selected record ?")) {
+                var RowData = "";
+
+                $("#tblData tbody tr").each(function () {
+                    var RowId = $(this).find("#RowId").val();
+                    var chk = $(this).find('input[id^="RowId"]');
+
+                    if (chk.prop("checked") === true) {
+                        RowData = RowData + RowId + ",";
+                    }
+                });
+                if (RowData !== "") {
+                    $.ajax({
+                        url: '/Master/DeleteAnganwadiHandover',
+                        method: 'Post',
+                        data: { "RowData": RowData },
+                        success: function (data) {
+                            alert(data[0].ResMSG);
+                            BindTable();
+                        },
+                        error: function (ex) {
+                            $('#loader').css("display", "none");
+                        }
+                    });
+                }
+                else {
+                    alert("Please Select at least one row ");
+                    return false;
+                }
+            }
+            else {
+                alert("Cancelled by User");
+                return false;
+            }
+        }
+    </script>
+}
+

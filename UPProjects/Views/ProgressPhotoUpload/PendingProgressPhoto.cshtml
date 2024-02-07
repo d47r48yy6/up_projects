@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewData["Title"] = "PendingProgressPhoto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">List Of Pending Images for Approval</h4>
+            @*<div style="float:right;">
+                    <a href="/tender/tender" class="btn btn-outline-primary btn-rounded btn-fw">Create New Tender</a>
+                </div>*@
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="tblData">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Name of Unit</th>
+                                <th>Category</th>
+                                <th>Project</th>
+                                <th>Description of Images</th>
+                                <th>Uploaded On</th>
+                                <th>Image of Progress</th>
+                                <th>Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+    });
+        function BindTable() {
+            $.get('@Url.Action("GetPendingListofProgressPhotos","ProgressPhotoUpload")', {
+    }, function (data) {
+                    try {
+                        BindDataTable(data);
+        }
+        catch (err) {
+        }
+    })
+        .done(function (data) {
+        })
+        .fail(function (data) {
+        });
+        }
+
+        function BindDataTable(data) {
+            
+            
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "UnitName" },
+                         { "data": "Category" },
+                        { "data": "ProjectTitle" },
+                        { "data": "Description" },
+                       
+                        { "data": "UploadedOn" },
+                        {
+                            "targets": 1,
+                            "render": function (data, type, row) {
+                             return '<a  id="viewanchor" target="_blank"  href="/upload/ProgressPhoto/'+row.id+'/' + row.FileName + '">View Image</a>';  },
+                                "className": 'text-center'
+                        },
+                                   {
+
+                "targets": 1,
+                    "render": function (data, type, row) {
+                                           return '<a href="#" id="viewApprove" data-ajax="true" data-ajax-begin="OnBeginApp('+row.id+')" data-ajax-complete="onComplete" data-ajax-success="onComplete" >Approve</a > &nbsp;|&nbsp;<a href="#" id="viewApprove" data-ajax="true" data-ajax-begin="OnBeginRej('+row.id+')" data-ajax-complete="onComplete" data-ajax-success="onComplete" >Reject</a > ';
+                                            },
+                                "className": 'text-center'
+                                },
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true
+                });
+            }
+            else {
+            $("#tblData tbody").empty();
+            }
+        }
+
+        var OnBeginApp = function (id) {
+
+            if (confirm('Are you sure?')) {
+                $('#loader').css("display", "block");
+                try {
+                    $.post('@Url.Action("Approve","ProgressPhotoUpload")', {
+                        Id: id
+                    },
+                        function (data) {                            
+                            if (data === "Success") {
+                                alert("Progress Image has been approved.");
+                                BindTable();
+                            }
+                            $('#loader').css("display", "none");
+                        }).done(function (data) {
+        })
+                        .fail(function (data) {
+            $('#loader').css("display", "none");
+        });                }
+                catch (err) { alert(err);$('#loader').css("display", "none");}
+                return true;
+            }
+            else
+                return false;
+        };
+        var OnBeginRej = function (id) {
+            if (confirm('Are you sure?')) {
+                $('#loader').css("display", "block");
+                try {
+                    $.post('@Url.Action("Reject","ProgressPhotoUpload")', {
+                        Id: id
+                    },
+                        function (data) {
+                            if (data === "Success") {
+                                alert("Progress Image has been rejected.");
+                                  BindTable();
+                            }
+                             $('#loader').css("display", "none");
+                        }).done(function (data) {
+        })
+        .fail(function (data) {
+        });                }
+                catch (err) { alert(err); }
+                return true;
+            }
+            else
+                return false;
+        };
+        var onComplete = function (result) {
+        };
+        var onSuccess = function (Response) {
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+    </script>
+
+}
+
+

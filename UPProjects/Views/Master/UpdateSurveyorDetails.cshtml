@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateSurveyorDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Content/Assets/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+<style>
+    .modal-dialog {
+        width: 600px;
+    }
+
+    img#imgprofile {
+        width: 100%;
+        height: auto;
+    }
+
+    #tblData tr td img:hover {
+        cursor: pointer;
+    }
+</style>
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Survey Details</h4>
+
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Sr No.</th>
+                                <th>Surveyor Name</th>
+                                <th>District</th>
+                                <th>Tehsil</th>
+                                <th>Block</th>
+                                <th>Gram Sabha</th>
+                                <th>Image 1</th>
+                                <th>Image 2</th>
+                                <th>Electricity</th>
+                                <th>Hand Pump Water</th>
+                                <th>Whether tap water</th>
+                                <th>Whether red mark</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-success mr-2 mt-4" id="btnsub">Submit</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="lblimg" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <img src="" id="imgprofile" />
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        document.write('<script src="../../APPjs/UpdateSurveyorDetails.js?v=' +@DateTime.Now.Ticks +'" type="text/javascript"><\/script>');
+    </script>
+}

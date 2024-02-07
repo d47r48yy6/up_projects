@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewData["Title"] = "ContractorList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">List Of Contractors</h4>
+            <div style="float:right;">
+                @*<a href="/Master/CreateContractor" class="btn btn-outline-primary btn-rounded btn-fw">Add New Contractor</a>*@
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="tblData">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Name of Contractor</th>
+                                <th>Firm Name</th>
+                                <th>Mobile</th>
+                              
+                                <th>No. of Supervisors</th>
+                              
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+        });
+        function BindTable() {
+            $.get('@Url.Action("GetContractorList","Master")', {
+        }, function (data) {
+                    try {
+                        BindDataTable(data);
+        }
+        catch (err) {
+        }
+        })
+        .done(function (data) {
+        })
+        .fail(function (data) {
+        });
+        }
+
+        function BindDataTable(data) {
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                      dom:'Bfrtip',
+                    buttons: [
+            {
+                extend: 'print',
+                  title: 'District Contractors',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'District Contractors',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                      columns: [
+                {
+                    'data': null,
+                    'render': function (data, type, fill, meta) {
+                        return meta.row + 1;
+                    }
+                },
+                { "data": "ApplicantName" },
+                { "data": "FirmName" },
+                 { "data": "Mobile" },
+                   
+                      {
+                    "data": "TotalSupervisors",
+                    render: function (data, type, row, meta) {
+
+                        var act = "";
+                        if (row.TotalSupervisors == 0) {
+                            return '0';
+                        }
+                        else {
+                           return '<a target="_blank" href="/Master/GetSupervisorListById/'+row.id+'"  data-placement="top"  data-toggle="tooltip" title="Edit" ><i class="icon-pencil7" ></i>'+row.TotalSupervisors+'</a>';
+
+                        }
+
+                    },
+                },
+              
+
+
+            ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true
+                });
+            }
+            else {
+                $("#tblData").DataTable({
+                    data: null               ,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    }
+                });
+            }
+        }
+
+        var onBegin = function () {
+            if (confirm('Are you sure?')) {
+                $('#loader').css("display", "block");
+                return true;
+            }
+            else
+                return false;
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            BindDataTable(Response);
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+    </script>
+
+}
+

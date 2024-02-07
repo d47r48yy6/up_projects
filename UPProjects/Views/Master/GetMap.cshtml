@@ -1,0 +1,354 @@
+﻿
+@{
+    ViewData["Title"] = "Map Location";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    <style type="text/css">
+    a.survey-card {
+    cursor: pointer;
+}
+
+    #progressBackgroundFilter {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        background-color: #000;
+        filter: alpha(opacity=50);
+        opacity: 0.5;
+        z-index: 1000;
+    }
+
+    #processMessage {
+        position: fixed;
+        top: 30%;
+        left: 43%;
+        padding: 10px;
+        width: 14%;
+        z-index: 1001;
+        background-color: #fff;
+        border: solid 1px #000;
+        text-align: center;
+    }
+
+
+    .modalBackground {
+        background-color: Gray;
+        filter: alpha(opacity=80);
+        opacity: 0.8;
+        z-index: 10000;
+    }
+
+    .w-states .stretch-card:nth-child(n+1) .survey-card h2 {
+        color: #007bff;
+    }
+
+    .w-states .stretch-card:nth-child(2n) .survey-card h2 {
+        color: #28a745;
+    }
+
+    .w-states .stretch-card:nth-child(3n) .survey-card h2 {
+        color: #dc3545;
+    }
+
+    .w-states .stretch-card:nth-child(4n) .survey-card h2 {
+        color: #ffc107;
+    }
+
+
+    /*.w-states .stretch-card:nth-child(n+1) .survey-card {
+            border: 1px solid #007bff;
+        }
+
+        .w-states .stretch-card:nth-child(2n) .survey-card {
+            border: 1px solid #28a745;
+        }
+
+        .w-states .stretch-card:nth-child(3n) .survey-card {
+            border: 1px solid #dc3545;
+        }
+
+        .w-states .stretch-card:nth-child(4n) .survey-card  {
+            border: 1px solid #ffc107;
+        }*/
+    .stretch-card {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        -webkit-box-pack: stretch;
+        -ms-flex-pack: stretch;
+        justify-content: stretch;
+    }
+
+    .survey-card {
+        margin-bottom: 20px;
+        width: 100%;
+        border-radius: 5px;
+        padding: 20px 10px;
+        position: relative;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        transition: all 0.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+        text-decoration: none;
+        overflow: hidden;
+        -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+        box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+    }
+
+        .survey-card:focus {
+            border-color: #e6e6e6;
+            -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+            box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+        }
+
+        .survey-card:hover {
+            text-decoration: none;
+            background: rgb(239, 239, 239, 0.3);
+            -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+            box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+        }
+
+    .card-img-absolute1 {
+        position: absolute;
+        top: 0;
+        right: -54px;
+        opacity: 0.5;
+        width: 65%;
+        transition: all 0.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    }
+
+    .survey-card:hover .card-img-absolute1 {
+        transform: scale(1.08);
+        text-decoration: none;
+        transition: all 0.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    }
+
+    .survey-card h4 {
+        margin-top: 0px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        text-transform: uppercase;
+    }
+
+    .filter-fields {
+        display: none;
+    }
+</style>
+    <div class="row page-title-header mb-2">
+        <div class="col-12">
+            <div class="page-header">
+                <h4 class="page-title"> Map Dashboard</h4>
+
+            </div>
+        </div>
+
+    </div>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+
+            <div class="form-group">
+                <div class="row">
+
+
+                    <div class="col-sm-3">
+
+                        <label><b>Select District</b></label>
+                        <select id="district" name="district" class="form-control">
+                        </select>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success mr-2 mt-4" id="btnsub" onclick="BindMapByFilters()">Submit</button>
+                        <button type="button" class="btn btn-dark mr-2 mt-4" id="reset">Reset</button>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <div id="map1" style="width:100% !important; height:400px !important; border:2px solid black;position: relative; overflow: hidden;">
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfCKpWIdL--v7hbeitpdhZSEbT0CJsy7c&callback=initMap" type="text/javascript"></script>
+    <script src="~/APPjs/gmaps.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+             $("#loader").css("display", "block");
+            BindDistrict();
+             var url = "/Master/GetLocation";
+
+            $.getJSON(url, { dist: null }, function (data) {
+              GetMap2(data,1);
+              //  ViewMap(data)
+
+            })
+              
+        });
+
+        function BindDistrict() {
+
+
+            $.get("/Master/GetMapDistrict", function (data) {
+                try {
+                    $('#district').empty();
+                    $('#district').append('<option value="0">---Select District ----</option>');
+                    $.each(data, function (key, value) {
+
+                        $('#district').append('<option value="' + value.id + '">' + value.value + '</option>');
+                    });
+
+                }
+                catch (err) {
+                    $('#loader').css("display", "none");
+                }
+            }).done(function (data) {
+               // $('#loader').css("display", "none");
+            })
+                .fail(function (data) {
+                    $('#loader').css("display", "none");
+                });
+        }
+       
+
+
+        ////////////////////////Get Second Google Map/////////////////////////////////////////////////////////
+        function GetMap2(json,ch) {
+            var mapStyle = [
+                {
+                    featureType: "administrative.country",
+                    elementType: "labels",
+                    stylers: [
+                        { visibility: "off" }
+                    ]
+                }
+            ];
+            var z = 0;
+            if (ch == 1) {
+                z = 6;
+            }
+            else {
+                z =10;
+            }
+
+            // Creating a new map
+            var map = new google.maps.Map(document.getElementById("map1"), {
+                center: new google.maps.LatLng(json[0].latitude, json[0].longitude),
+                zoom: z,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                styles: mapStyle
+              
+            
+            });
+
+
+
+
+
+
+            // Creating a global infoWindow object that will be reused by all markers
+            var infowindow = new google.maps.InfoWindow(
+                {
+                    size: new google.maps.Size(150, 50)
+                });
+
+            var infoWindow = new google.maps.InfoWindow();
+            // Looping through the JSON data
+            for (var i = 0, length = json.length; i < length; i++) {
+                var data = json[i],
+                    latLng = new google.maps.LatLng(data.latitude, data.longitude);
+
+
+                // Creating a marker and putting it on the map
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                   // title: data.locationName,
+                   icon: {url: "http://maps.google.com/mapfiles/ms/icons/pink-dot.png"}
+                });
+
+                // Creating a closure to retain the correct data, notice how I pass the current data in the loop into the closure (marker, data)
+                (function (marker, data) {
+
+                    // Attaching a click event to the current marker
+                    google.maps.event.addListener(marker, "click", function (e) {
+                        infoWindow.setContent(data.locationName);
+                        infoWindow.open(map, marker);
+                    });
+
+
+                })(marker, data);
+
+            }
+
+
+            $("#map").css("overflow", "visible");
+           // setTimeout(function(){ $("#loader").css("display", "none");}, 5000);
+
+            $("#loader").css("display", "none");
+
+        }
+
+
+        function BindMapByFilters() {
+
+            var dist = $('#district').val();
+            if (dist === "0") {
+                alert("Please select District");
+                return false;
+            }
+
+            var url = "/Master/GetLocation";
+             $("#loader").css("display", "block");
+
+            $.getJSON(url, { dist: dist }, function (data) {
+              GetMap2(data,2);
+              //  ViewMap(data)
+
+            })
+
+        }
+
+
+        $("#reset").click(function () {
+
+            location.reload();
+        })
+
+    </script>
+
+
+}
+
+
+
+

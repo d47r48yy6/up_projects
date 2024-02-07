@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewData["Title"] = "ListofStateofGSTNumber";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>List of State GST Number</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<section class="bod_section">
+    <div class="container">
+
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered table-hover table-striped css-serial">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>S.N.</th>
+                        <th>Documents Name</th>
+
+
+                        <th>Documents Number</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    <tr>
+                        <th colspan="3" style="text-align: center;">
+                            UTTAR PRADESH
+                        </th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>GSTN</td>
+                        <td>09AAACU3393F1Z8</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>PAN</td>
+                        <td>AAACU3393F</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Corporate Identity Number/Foreign Company Registration Number
+                        </td>
+                        <td>U15209UP1976SGC004285</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover table-striped css-serial">
+
+                <tbody class="">
+
+                    <tr>
+                        <th colspan="3" style="text-align: center;">
+                            ODISHA
+                        </th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>GSTN</td>
+                        <td>21AAACU3393F1ZM</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>PAN</td>
+                        <td>AAACU3393F</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Corporate Identity Number/Foreign Company Registration Number
+                        </td>
+                        <td>U15209UP1976SGC004285</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover table-striped css-serial">
+
+                <tbody class="">
+
+                    <tr>
+                        <th colspan="3" style="text-align: center;">
+                            HARYANA
+                        </th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>GSTN</td>
+                        <td>06AAACU3393F1ZE</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>PAN</td>
+                        <td>AAACU3393F</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Corporate Identity Number/Foreign Company Registration Number
+                        </td>
+                        <td>U15209UP1976SGC004285</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover table-striped css-serial">
+
+                <tbody class="">
+
+                    <tr>
+                        <th colspan="3" style="text-align: center;">
+                            JHARKHAND
+                        </th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>GSTN</td>
+                        <td>20AAACU3393F1ZO</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>PAN</td>
+                        <td>AAACU3393F</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Corporate Identity Number/Foreign Company Registration Number
+                        </td>
+                        <td>U15209UP1976SGC004285</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover table-striped css-serial">
+
+                <tbody class="">
+
+                    <tr>
+                        <th colspan="3" style="text-align: center;">
+                            UTTARAKHAND
+                        </th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>GSTN</td>
+                        <td>05AAACU3393F1ZG</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>PAN</td>
+                        <td>AAACU3393F</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Corporate Identity Number/Foreign Company Registration Number
+                        </td>
+                        <td>U15209UP1976SGC004285</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered table-hover table-striped css-serial">
+
+                <tbody class="">
+
+                    <tr>
+                        <th colspan="3" style="text-align: center;">
+                            MADHYA PRADESH
+                        </th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>GSTN</td>
+                        <td>23AAACU3393F1ZI</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>PAN</td>
+                        <td>AAACU3393F</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Corporate Identity Number/Foreign Company Registration Number
+                        </td>
+                        <td>U15209UP1976SGC004285</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div></div>
+</section>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetUpdatedRecords("ListofStateofGSTNumber")
+        });
+
+    </script>
+
+}

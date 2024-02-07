@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "MDMessage";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Message of Managing Director</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 md-pic"><img src="/assets1/images/navin_kapoor.png"></div>
+            <div class="col-md-8 chairman-massage ">
+
+                <h2>Navin Kapoor </h2>
+                <p class="subtitle">Managing Director <span>U. P. Projects Corporation Ltd.</span></p>
+                <p class="mt-20">
+                    We recognize that the ability to excel is to competitively meet our client’ s needs. This depends on the integrity, knowledge, skill, diversity and teamwork of our employees, and we value these qualities most highly.
+                </p>
+                <p class="mt-05">We have to be innovative in all spheres of our activities and to think of new ways to manage cost, improve quality and ramp up efficiency in Construction so that commercial viability is achieved.  </p>
+                <p class="mt-05">
+                    Our Corporation continues to stand committed to its Corporate Social responsibility. As done in previous years, we are contributing generously to CM Relief fund for upliftment of various sections of society.
+                </p>
+                <p class="mt-05">Let our success not make us complacent. We have miles to go and the path of excellence is unending. We have to develop a clean, green and swachh India. I'm confident that with our versatile, adaptable and technology led efforts, we will meet the exacting standards of our clients."</p>
+                <p><em> Let us make our corporation a great corporation contributing to the growth of our nation and let us invoke together a brighter future that beckons us.</em></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+              GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}
+

@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewData["Title"] = "SiteList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">List Of Sites</h4>
+
+        </div>
+    </div>
+</div>
+<input type="hidden" value="@ViewBag.type" id="type" />
+       <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="tblData">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Site Type</th>
+                                <th>District</th>
+                                <th>Tehsil</th>
+                                <th>Block</th>
+                                <th>Gram Sabha</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Supervisor</th>
+                                <th>Contractor</th>
+                                <th>Full Address</th>
+                                <th>Status</th>
+                                <th>Remark</th>
+                                <th class="not-export-column">View Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+        });
+        function BindTable() {
+            debugger
+           
+
+            var url = "/Master/GetSitesFromWorktype?type="+$("#type").val()
+            $.get(url, {
+                }, function (data) {
+                    try {
+                        BindDataTable(data);
+                    }
+                    catch (err) {
+                    }
+                })
+        .done(function (data) {
+                })
+        .fail(function (data) {
+                });
+        }
+
+        function BindDataTable(data) {
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                      dom:'Bfrtip',
+                    buttons: [
+            {
+                     extend: 'print',
+                     title: 'Site List',
+                     exportOptions: {
+                     columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Site List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                    "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                      columns: [
+                {
+                    'data': null,
+                    'render': function (data, type, fill, meta) {
+                        return meta.row + 1;
+                    }
+                },
+                { "data": "SiteType" },
+                { "data": "DistrictName" },
+                { "data": "TehsilName" },
+                { "data": "BlockName" },
+                { "data": "GramSabhaName" },
+                { "data": "Latitude" },
+                { "data": "Longitude" },
+                { "data": "SupervisorName" },
+                { "data": "ApplicantName" },
+                { "data": "FullAddress" },
+                { "data": "SiteStatus" },
+                 { "data": "PaymentRemark" },
+                {
+                      "data": "CompleteDetailsId",
+                      render: function (data, type, row, meta) {
+                          var act = "";
+                          var lnk = "";
+                          if (row.CurrentWorkPhoto != "") {
+                              lnk += '<a href="' + row.CurrentWorkPhoto + '" target="_blank"  data-placement="top"  data-toggle="tooltip" title="Edit" ><i class="icon-pencil7" ></i>View Uploaded Photo</a><br/><br/>';
+
+                          }
+                          if (row.CompleteDetailsId != "") {
+                              lnk += '<a href="/Master/ViewCompletedetails?SiteId=' + row.SiteId + '&SupervisorId='+ row.SupervisorId +'" target="_blank"   data-placement="top"  data-toggle="tooltip" title="Edit" ><i class="icon-pencil7" ></i>View Complete Details</a>';
+
+                          }
+
+                           return lnk;
+                      },
+                }
+            ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true
+                });
+            }
+            else {
+                $("#tblData").DataTable({
+                    data: null               ,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    }
+                });
+            }
+        }
+
+        var onBegin = function () {
+            if (confirm('Are you sure?')) {
+                $('#loader').css("display", "block");
+                return true;
+            }
+            else
+                return false;
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            BindDataTable(Response);
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+    </script>
+
+}
+
+
+
+

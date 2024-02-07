@@ -1,0 +1,144 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.BoardOfDirectors>
+
+@{
+    ViewData["Title"] = "boardofdirectors";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Board of Directors</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container">
+
+        <div style="overflow-x:auto">
+            <table class="table table-bordered table-hover table-striped css-serial">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>S.N.</th>
+                        <th>Name of Directors</th>
+                        <th>Designation</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    @{
+                        int s = 1;
+                        if (Model.Count() > 0)
+                        {
+                            @foreach (var item in Model.OrderBy(a => a.PriorityOrder))
+                            {
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>@item.DirectorName</td>
+                                    <td>@item.Designation</td>
+                                    <td>@item.DirectorAddress</td>
+
+                                </tr>
+                                s++;
+                            }
+                        }
+            else
+            {
+               
+            }
+                    }
+
+                    @*<tr>
+            <td></td>
+            <td>Mr. Anil Garg, I.A.S.</td>
+            <td>Chairman</td>
+            <td>Principal Secretary, Department of Irrigation & Water Resources, Govt. of Uttar Pradesh</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Mr. Navin Kapoor</td>
+            <td>Managing Director</td>
+            <td>U.P. Projects Corporation Limited, Lucknow</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Mrs. Anita Verma Singh</td>
+            <td>Director</td>
+            <td>Special Secretary, Irrigation and water Resources, Govt of U.P., Lucknow</td>
+        </tr>*@
+                    @*<tr>
+            <td></td>
+            <td>Mr. V K Niranjan</td>
+            <td>Director </td>
+            <td>Director </td>
+        </tr>*@
+                    @*<tr>
+            <td></td>
+            <td>Mr. Ashok Kumar Singh</td>
+            <td>Director</td>
+            <td>Engineer-in-Chief & Head of Department, Department of Irrigation and Water Resources, Lucknow</td>
+        </tr>*@
+                    @*<tr>
+            <td></td>
+            <td>Mr. Mushtaq Ahmad</td>
+            <td>Director</td>
+            <td>Engineer-in-Chief & Head of Department, Department of Irrigation and Water Resources, Lucknow</td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>Mr. Devendra Agarwal</td>
+            <td>Director </td>
+            <td>Engineer-in-Chief (Mech.), Department of Irrigation and Water Resources, Lucknow</td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td> Mr. Satyendra Kumar Singh </td>
+            <td>Director</td>
+            <td>Joint Director, Bureau of public enterprises</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Mr. Saurabh Kumar </td>
+            <td>Director</td>
+            <td>Director (CADWM), RD&GR, Ministry of Water Resources, Govt of India, New Delhi</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Mr. Pankaj Saxena </td>
+            <td>Director</td>
+            <td>Special Secretary, Finance, Govt of U.P., Lucknow</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Mr. Gopal Mishra </td>
+            <td>Director</td>
+            <td>Chief General Manager, U.P.Projects Corporation Limited, Lucknow</td>
+        </tr>*@
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+<!-- /End Board of Directors Tabler -->
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}

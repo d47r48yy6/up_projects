@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewData["Title"] = "Rejected Survey List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title text-uppercase">Rejected Survey List</h4>
+        </div>
+    </div>
+</div>
+<br />
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>PM Name</th>
+                                <th>Surveyor Name</th>
+                                <th>Zone Name</th>
+                                <th>UnitName</th>
+                                <th>District</th>
+                                <th>Tehsil</th>
+                                <th>Block</th>
+                                <th>Gram Sabha</th>
+                                <th>SiteType</th>
+                                <th>Electricity</th>
+                                <th>HandPump Water</th>
+                                <th>Tap Water</th>
+                                <th>Red Marked</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>FullAddress</th>
+                                <th>Survey Date</th>
+                                <th class="not-export-column">Img-1</th>
+                                <th class="not-export-column">Img-2</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+             $('#loader').css("display", "block");
+            BindTable();
+        });
+    </script>
+    <script type="text/javascript">
+        function BindTable() {
+
+
+            var url = "/User/GetSurveryRejectedList";
+
+
+              $.getJSON(url, function (data) {
+                BindDataTable(data);
+
+              })
+
+        }
+        function BindDataTable(data) {
+
+
+         $("#tblList").show();
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+
+                    "searching": true,
+                    "paging": false,
+                    "scrollY": '50vh',
+                    "scrollX": '50vh',
+                     dom:'Bfrtip',
+          buttons: [
+            {
+                extend: 'print',
+                  title: 'Rejected Survey List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Rejected Survey List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "Name" },
+                        { "data": "SurveyorName" },
+                        { "data": "ZoneName" },
+                        { "data": "UnitName" },
+                        { "data": "DistrictName" },
+                         { "data": "TehsilName" },
+                        { "data": "BlockName" },
+                        { "data": "GramSabhaNameE" },
+                        { "data": "SiteType" },
+                        { "data": "ElectricityStatus" },
+                        { "data": "HandPupWaterStatus" },
+                        { "data": "Whethertapwater" },
+                        { "data": "Whetherredmark" },
+                        { "data": "latitude" },
+                        { "data": "longitude" },
+                        { "data": "FullAddress" },
+                        { "data": "SurveyOn" },
+                        { "data": "Image1" },
+                        { "data": "Image2" },
+                       
+
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+             $('#loader').css("display", "none");
+        }
+
+
+
+          
+
+
+
+
+    </script>
+
+}

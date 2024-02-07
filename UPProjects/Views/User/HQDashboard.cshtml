@@ -1,0 +1,695 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.PMList
+@{
+    ViewData["Title"] = "HQDashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    a.survey-card {
+    cursor: pointer;
+}
+
+    #progressBackgroundFilter {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        background-color: #000;
+        filter: alpha(opacity=50);
+        opacity: 0.5;
+        z-index: 1000;
+    }
+
+    #processMessage {
+        position: fixed;
+        top: 30%;
+        left: 43%;
+        padding: 10px;
+        width: 14%;
+        z-index: 1001;
+        background-color: #fff;
+        border: solid 1px #000;
+        text-align: center;
+    }
+
+
+    .modalBackground {
+        background-color: Gray;
+        filter: alpha(opacity=80);
+        opacity: 0.8;
+        z-index: 10000;
+    }
+
+    .w-states .stretch-card:nth-child(n+1) .survey-card h2 {
+        color: #007bff;
+    }
+
+    .w-states .stretch-card:nth-child(2n) .survey-card h2 {
+        color: #28a745;
+    }
+
+    .w-states .stretch-card:nth-child(3n) .survey-card h2 {
+        color: #dc3545;
+    }
+
+    .w-states .stretch-card:nth-child(4n) .survey-card h2 {
+        color: #ffc107;
+    }
+
+
+    /*.w-states .stretch-card:nth-child(n+1) .survey-card {
+            border: 1px solid #007bff;
+        }
+
+        .w-states .stretch-card:nth-child(2n) .survey-card {
+            border: 1px solid #28a745;
+        }
+
+        .w-states .stretch-card:nth-child(3n) .survey-card {
+            border: 1px solid #dc3545;
+        }
+
+        .w-states .stretch-card:nth-child(4n) .survey-card  {
+            border: 1px solid #ffc107;
+        }*/
+    .stretch-card {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        -webkit-box-pack: stretch;
+        -ms-flex-pack: stretch;
+        justify-content: stretch;
+    }
+
+    .survey-card {
+        margin-bottom: 20px;
+        width: 100%;
+        border-radius: 5px;
+        padding: 20px 10px;
+        position: relative;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        transition: all 0.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+        text-decoration: none;
+        overflow: hidden;
+        -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+        box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+    }
+
+        .survey-card:focus {
+            border-color: #e6e6e6;
+            -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+            box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+        }
+
+        .survey-card:hover {
+            text-decoration: none;
+            background: rgb(239, 239, 239, 0.3);
+            -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+            box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+        }
+
+    .card-img-absolute1 {
+        position: absolute;
+        top: 0;
+        right: -54px;
+        opacity: 0.5;
+        width: 65%;
+        transition: all 0.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    }
+
+    .survey-card:hover .card-img-absolute1 {
+        transform: scale(1.08);
+        text-decoration: none;
+        transition: all 0.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    }
+
+    .survey-card h4 {
+        margin-top: 0px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        text-transform: uppercase;
+    }
+
+    .filter-fields {
+        display: none;
+    }
+</style>
+<div class="row page-title-header mb-2">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Dashboard</h4>
+
+        </div>
+    </div>
+
+</div>
+<label id="UserRole" style="display:none;">@ViewBag.UserRole</label>
+<label id="ZoneIdCurrent" style="display:none;">@ViewBag.ZoneId1</label>
+<label id="UnitIdCurrent" style="display:none;">@ViewBag.UnitId1</label>
+<div class="filter-box mb-3">
+    <button class="btn btn-primary filter-btn" type="button">Filter</button>
+    <div class="filter-fields mt-2" id="Filters">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>District</label>
+                            <select class="form-control custom-select" id="DistictId" asp-items="@Model.DistrictList" name="DistictId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Survey Date</label>
+                            <input type="text" class="form-control calender" readonly autocomplete="off" id="SurveyDate" name="SurveyDate">
+                        </div>
+                    </div>
+                   
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Zone</label>
+                            <select class="form-control custom-select" id="ZoneId" asp-items="@Model.ZoneList" name="ZoneId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Unit Name</label>
+                            <select class="form-control custom-select" id="UnitId">
+                                <option value="0">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-12">
+                        <button class="btn btn-primary" type="button" id="btnSearch">Apply</button>
+                        <button type="button" class="btn btn-dark" id="reset">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header p-3">
+        <h2 class="card-title text-uppercase" style="font-size:20px;">School</h2>
+    </div>
+    <div class="card-body px-3 pt-3 pb-0">
+        <div class="row w-states">
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('S','V')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="TotalSchool"></h2>
+                    <h4 class="info">Total Number of Visited Schools</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('S','E')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="ElectricityAvl"></h2>
+                    <h4 class="info">Sites where electricity available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('S','H')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WaterAvl"></h2>
+                    <h4 class="info">Sites where handpump available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('S','WT')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="watertap"></h2>
+                    <h4 class="info">Sites where  Tap Water  available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('S','RM')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="redmark"></h2>
+                    <h4 class="info">Sites where handpump Red Marked</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('S','F')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="feasiblesite"></h2>
+                    <h4 class="info">Total Number of feasible sites</h4>
+
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('S','NF')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="nonfeasible"></h2>
+                    <h4 class="info">Total Number of non feasible sites</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a  href="/Master/TotalSchoolWorkHandover" target="_blank" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WorkHandoverSchool"></h2>
+                    <h4 class="info">Handpump and Submersible pump installed by UPPCL</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-header p-3">
+        <h2 class="card-title text-uppercase" style="font-size:20px;">Anganwadi</h2>
+    </div>
+    <div class="card-body px-3 pt-3 pb-0">
+        <div class="row w-states">
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('A','V')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="TotalAngan"></h2>
+                    <h4 class="info">Total Number of Visited Anganwadi</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('A','E')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="ElectricityAvlAngan"></h2>
+                    <h4 class="info">Sites where electricity available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('A','H')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WaterAvlAngan"></h2>
+                    <h4 class="info">Sites where handpump available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('A','WT')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="watertapAngn"></h2>
+                    <h4 class="info">Sites where Tap Water  available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('A','RM')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="redmarkAngn"></h2>
+                    <h4 class="info">Sites where handpump Red Marked</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('A','F')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="feasiblesiteAngan"></h2>
+                    <h4 class="info">Total Number of feasible sites</h4>
+
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('A','NF')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="nonfeasibleAgan"></h2>
+                    <h4 class="info">Total Number of non feasible sites</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a href="/Master/TotalAnganwadiWorkHandover" target="_blank" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WorkHandoverAnganWadi"></h2>
+                    <h4 class="info">Handpump and Submersible pump installed by UPPCL</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-header p-3">
+        <h2 class="card-title text-uppercase" style="font-size:20px;">Aashram</h2>
+    </div>
+    <div class="card-body px-3 pt-3 pb-0">
+        <div class="row w-states">
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('AS','V')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="TotalAshram"></h2>
+                    <h4 class="info">Total Number of Visited Aashram</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('AS','E')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="ElectricityAvlAshram"></h2>
+                    <h4 class="info">Sites where electricity available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('AS','H')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WaterAvlAshram"></h2>
+                    <h4 class="info">Sites where handpump available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('AS','WT')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="watertapAshram"></h2>
+                    <h4 class="info">Sites where Tap Water  available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('AS','RM')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="redmarkAshram"></h2>
+                    <h4 class="info">Sites where handpump Red Marked</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('AS','F')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id=feasiblesiteAshram></h2>
+                    <h4 class="info">Total Number of feasible sites</h4>
+
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('AS','NF')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="nonfeasibleAshram"></h2>
+                    <h4 class="info">Total Number of non feasible sites</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a href="javascript:void(0);" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WorkHandoverAshram"></h2>
+                    <h4 class="info">Handpump and Submersible pump installed by UPPCL</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-header p-3">
+        <h4 class="card-title text-uppercase" style="font-size:20px;">Total Survey</h4>
+    </div>
+    <div class="card-body px-3 pt-3 pb-0">
+        <div class="row w-states">
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('T','V')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="TotalT"></h2>
+                    <h4 class="info">Total Number of Visited Site</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('T','E')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="ElectricityAvlT"></h2>
+                    <h4 class="info">Sites where electricity available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('T','H')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WaterAvlT"></h2>
+                    <h4 class="info">Sites where handpump available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('T','WT')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="watertapT"></h2>
+                    <h4 class="info">Sites where Tap Water  available</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('T','RM')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="redmarkT"></h2>
+                    <h4 class="info">Sites where handpump Red Marked</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('T','F')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="feasiblesiteT"></h2>
+                    <h4 class="info">Total Number of feasible sites</h4>
+
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('T','NF')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="nonfeasibleT"></h2>
+                    <h4 class="info">Total Number of non feasible sites</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a href="javascript:void(0);" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WorkHandoverTotal"></h2>
+                    <h4 class="info">Handpump and Submersible pump installed by UPPCL</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            $(".filter-btn").click(function () {
+                $(".filter-fields").slideToggle();
+            });
+            $(".calender").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy',
+      
+                });
+           
+
+            var role = $("#UserRole").html();
+                if (role == "gm") {
+                   
+                    $("#ZoneId").val($("#ZoneIdCurrent").html());
+                    $('#ZoneId').attr("disabled", true);
+                    BindUnit($("#ZoneIdCurrent").html());
+                }
+                if (role == "unit") {
+                    $("#ZoneId").val($("#ZoneIdCurrent").html());
+                    $('#ZoneId').attr("disabled", true);
+                    BindUnit($("#ZoneIdCurrent").html());
+                }
+        });
+    </script>
+
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $(document).ready(function () {
+            // BindDistrict()
+            setTimeout(function () { BindSchool(); }, 1500);
+
+            setTimeout(function () { BindAnganWadi(); }, 1500);
+            setTimeout(function () { BindAshram(); }, 1500);
+            setTimeout(function () { BindTotal(); }, 1500);
+
+
+
+
+
+        })
+
+
+
+
+        //////////////////////////////////////////////////Bind School/////////////////////////////////////////
+        function BindSchool() {
+
+            $("#loader").css("display", "block");
+          
+            var data1 = { DistrictId: $("#DistictId").val(),Date: $("#SurveyDate").val(), ZoneId: $("#ZoneId").val(), UnitId: $("#UnitId").val(), Type: "School" };
+            $.post("/User/GetDashBoardSchool", data1, function (data) {
+              
+                if (data != null) {
+
+                    $("#TotalSchool").html(data.totalVisited);
+                    $("#ElectricityAvl").html(data.electricityAvailibity);
+                    $("#WaterAvl").html(data.handPumpAvailibity);
+                    $("#watertap").html(data.whetherTapWater);
+                    $("#redmark").html(data.whetherRedMark);
+                    $("#feasiblesite").html(data.feasibility);
+                    $("#nonfeasible").html(data.nonFeasibiliy);
+                     $("#WorkHandoverSchool").html(data.schoolWorkHandover);
+
+
+                }
+                $("#loader").css("display", "none");
+            });
+        }
+
+
+        /////////////////////////////////////////////////Bind Anganwadi///////////////////////////////////////
+
+        function BindAnganWadi() {
+
+            $("#loader").css("display", "block");
+           
+           var data1 = { DistrictId: $("#DistictId").val(),Date: $("#SurveyDate").val(), ZoneId: $("#ZoneId").val(), UnitId: $("#UnitId").val(), Type: "Anganwadi" };
+            $.post("/User/GetDashBoardSchool", data1, function (data) {
+             
+                if (data != null) {
+
+                    $("#TotalAngan").html(data.totalVisited);
+                    $("#ElectricityAvlAngan").html(data.electricityAvailibity);
+                    $("#WaterAvlAngan").html(data.handPumpAvailibity);
+                    $("#watertapAngn").html(data.whetherTapWater);
+                    $("#redmarkAngn").html(data.whetherRedMark);
+                    $("#feasiblesiteAngan").html(data.feasibility);
+                    $("#nonfeasibleAgan").html(data.nonFeasibiliy);
+                     $("#WorkHandoverAnganWadi").html(data.anganwadiWorkHandover);
+
+
+                }
+                $("#loader").css("display", "none");
+            });
+        }
+
+        ////////////////////////////////////////////////Bind ////////////////////////////////////////////////////
+
+        function BindAshram() {
+            $("#loader").css("display", "block");
+         
+           var data1 = { DistrictId: $("#DistictId").val(),SurveyDateTo: $("#SurveyDate").val(), ZoneId: $("#ZoneId").val(), UnitId: $("#UnitId").val(), Type: "Aashram" };
+            $.post("/User/GetDashBoardSchool", data1, function (data) {
+               
+                if (data != null) {
+
+                    $("#TotalAshram").html(data.totalVisited);
+                    $("#ElectricityAvlAshram").html(data.electricityAvailibity);
+                    $("#WaterAvlAshram").html(data.handPumpAvailibity);
+                    $("#watertapAshram").html(data.whetherTapWater);
+                    $("#redmarkAshram").html(data.whetherRedMark);
+                    $("#feasiblesiteAshram").html(data.feasibility);
+                    $("#nonfeasibleAshram").html(data.nonFeasibiliy);
+                      $("#WorkHandoverAshram").html(data.workHandover);
+                }
+                $("#loader").css("display", "none");
+            });
+        }
+
+
+        ////////////////////////////////////////////////Bind Total ///////////////////////////////////////////////
+
+        function BindTotal() {
+
+            $("#loader").css("display", "block");
+         
+           var data1 = { DistrictId: $("#DistictId").val(),Date: $("#SurveyDate").val(), ZoneId: $("#ZoneId").val(), UnitId: $("#UnitId").val(), Type: "" };
+            $.post("/User/GetDashBoardSchool", data1, function (data) {
+                
+                if (data != null) {
+
+                    $("#TotalT").html(data.totalVisited);
+                    $("#ElectricityAvlT").html(data.electricityAvailibity);
+                    $("#WaterAvlT").html(data.handPumpAvailibity);
+                    $("#watertapT").html(data.whetherTapWater);
+                    $("#redmarkT").html(data.whetherRedMark);
+                    $("#feasiblesiteT").html(data.feasibility);
+                    $("#nonfeasibleT").html(data.nonFeasibiliy);
+                    $("#WorkHandoverTotal").html(data.totalWorkHandover);
+                }
+                $("#loader").css("display", "none");
+            });
+        }
+
+
+        function BindUnit(id) {
+            $('#loader').css("display", "block");
+            var url = "/MPR/BindUnits?ZoneId=" + id;
+            $("#UnitId").empty();
+            $('#UnitId').append('<option value="0">Select Unit</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#UnitId').append('<option value="' + data[i].id + '">' + data[i].unitName + '</option>');
+                }
+                if (parseInt($("#UnitIdCurrent").html()) > 0) {
+                    $("#UnitId").val($("#UnitIdCurrent").html());
+                    $('#UnitId').attr("disabled", true);
+                }
+
+
+
+            })
+            $('#loader').css("display", "none");
+        }
+
+         $("#ZoneId").change(function () {
+            var Zone = $("#ZoneId").val();
+            BindUnit(Zone)
+
+        })
+
+        $("#btnSearch").click(function () {
+
+            setTimeout(function () { BindSchool(); }, 1500);
+
+            setTimeout(function () { BindAnganWadi(); }, 1500);
+            setTimeout(function () { BindAshram(); }, 1500);
+            setTimeout(function () { BindTotal(); }, 1500);
+
+
+        });
+
+        ////////////////////////////////////School Visited////////////////////////////////////////////
+        function  CommonFunction(a, v) {
+         
+            var url = "/User/SurveyList?Sitetype="+a+"&type="+v+"&DistrictId=" + $("#DistictId").val() + "&Date=" + $("#SurveyDate").val() + "&ZoneId=" + $("#ZoneId").val() + "&UnitId=" + $("#UnitId").val();
+            window.open(url);
+        }
+
+
+        ///////////////////////////////////////////////////////Reset Filters//////////////////////////////
+
+        $("#reset").click(function () {
+
+            $("#DistictId").val(0)
+            $("#SurveyDateFrom").val("")
+             $("#SurveyDateTo").val("")
+
+             var role = $("#UserRole").html();
+                if (role == "gm") {
+                   
+                    $("#ZoneId").val($("#ZoneIdCurrent").html());
+                    $('#ZoneId').attr("disabled", true);
+                    BindUnit($("#ZoneIdCurrent").html());
+            }
+             if (role == "admin") {
+                   
+                 $("#ZoneId").val(0);
+                 $("#UnitId").val(0);
+                    
+                }
+                
+
+
+        });
+      
+
+
+
+    </script>
+}

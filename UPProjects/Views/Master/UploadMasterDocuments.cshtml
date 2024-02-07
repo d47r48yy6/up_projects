@@ -1,0 +1,415 @@
+﻿@using UPProjects.Models;
+@model Projects_Count
+@{
+    ViewData["Title"] = "UploadMasterDocuments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Upload Documents</h4>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="mb-3">Contractor Registration form (Only PDF)</h5>
+            <form id="RegForm">
+
+                <div class="form-group">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label> Upload Document </label><span class="text-danger"> *</span>
+                            <input type="file" id="Regfile" class="form-control">
+                            <span style="color:red; font-size:12px;"> &nbsp;(Document must be in only pdf format and size should be less than or equal to 1MB.) </span>
+                            <span @*asp-validation-for="file"*@ class="text-danger"> </span>
+                           
+                        </div>
+                        <div class="col-sm-4">
+                            @{
+                                var regForm = "Javascript:void()";
+                                if (Model.RegistrationForm != null && Model.RegistrationForm != "")
+                                {
+                                    regForm = "/Upload/MasterDocuments/" + Model.RegistrationForm;
+                                    <a href="@regForm" target="_blank" class="btn btn-dark mr-2 mt-4 text-white">View</a>
+                                }
+                            }
+
+                            <button type="button" onclick="UpdateRegForm()" class="btn btn-success mr-2 mt-4" id="btnsub">Update </button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="mb-3">Organization Structure (Only SVG)</h5>
+            <form id="OrgForm">
+
+                <div class="form-group">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label> Upload Document </label><span class="text-danger"> *</span>
+                            <input type="file" id="Orgfile" class="form-control">
+                            <span style="color:red; font-size:12px;"> &nbsp;(Photo must be in svg format and size should be less than or equal to 1MB.) </span>
+                            <span @*asp-validation-for="file"*@ class="text-danger"> </span>
+                            
+                        </div>
+                        <div class="col-sm-4">
+                            @{
+                                var orgForm = "Javascript:void()";
+                                if (Model.OrganizationImg != null && Model.OrganizationImg != "")
+                                {
+                                    orgForm = "/Upload/MasterDocuments/" + Model.OrganizationImg;
+                                    <a href="@orgForm" target="_blank" class="btn btn-dark mr-2 mt-4 text-white">View</a>
+                                }
+                            }
+
+                            <button type="button" onclick="UpdateOrgForm()" class="btn btn-success mr-2 mt-4" id="btnsub">Update </button>
+                            @*<button type="button" class="btn btn-dark mr-2 mt-4" id="reset">Reset</button>*@
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="mb-3">Tender Document (Only PDF )</h5>
+            <form id="TendForm">
+              
+
+                <div class="form-group">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label> Upload Document </label><span class="text-danger"> *</span>
+                            <input type="file" id="Tendfile" class="form-control">
+                            <span style="color:red; font-size:12px;"> &nbsp;(Document must be in pdf format and size should be less than or equal to 1MB.) </span>
+                            <span @*asp-validation-for="file"*@ class="text-danger"> </span>
+                           
+                        </div>
+                        <div class="col-sm-4">
+                            @{
+                                var tenfile = "Javascript:void()";
+                                if (Model.TenderForm != null && Model.TenderForm != "")
+                                {
+                                    tenfile = "/Upload/MasterDocuments/" + Model.TenderForm;
+                                    <a href="@tenfile" target="_blank" class="btn btn-dark mr-2 mt-4 text-white">View</a>
+                                }
+                            }
+
+                            <button type="button" onclick="UpdateTenForm()" class="btn btn-success mr-2 mt-4" id="btnsub">Update </button>
+                            @*<button type="button" class="btn btn-dark mr-2 mt-4" id="reset">Reset</button>*@
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="mb-3">Architect Annexure Document (Only PDF )</h5>
+            <form id="TendForm">
+
+
+                <div class="form-group">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label> Upload Document </label><span class="text-danger"> *</span>
+                            <input type="file" id="Anxfile" class="form-control">
+                            <span style="color:red; font-size:12px;"> &nbsp;(Document must be in pdf format and size should be less than or equal to 1MB.) </span>
+                            <span @*asp-validation-for="file"*@ class="text-danger"> </span>
+
+                        </div>
+                        <div class="col-sm-4">
+                            @{
+                                var Anxfile = "Javascript:void()";
+                                if (Model.AnnexureForm != null && Model.AnnexureForm != "")
+                                {
+                                    Anxfile = "/Upload/MasterDocuments/" + Model.AnnexureForm;
+
+                                    <a href="@Anxfile" target="_blank" class="btn btn-dark mr-2 mt-4 text-white">View</a>
+                                }
+                            }
+
+
+                            <button type="button" onclick="UpdateAnnexureForm()" class="btn btn-success mr-2 mt-4" id="btnsub">Update </button>
+                            @*<button type="button" class="btn btn-dark mr-2 mt-4" id="reset">Reset</button>*@
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+        });
+    </script>
+    <script type="text/javascript">
+
+  
+
+
+  $("#Regfile").change(function () {
+   
+    if ($('#Regfile').val() !== '') {
+        var file = $('#Regfile').get(0);
+        var FileSize = file.files[0].size;;
+        var path = $('#Regfile').val();
+        var FileSizeKB = (FileSize / 1024).toFixed(2);
+        var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+        if (ext == "pdf") {
+            if (FileSizeKB > 1024) {
+                alert("Photo Size must be less than or equal to 1024 KB (1 MB).");
+                $(this).val("");
+                $(this).focus();
+                return false;
+            }
+        }
+        else {
+            alert("Upload photo must be in pdf format.");
+            $(this).focus();
+            $(this).val("");
+            return false;
+        }
+    }
+  });
+        $("#Tendfile").change(function () {
+
+            if ($('#Tendfile').val() !== '') {
+                var file = $('#Tendfile').get(0);
+                var FileSize = file.files[0].size;;
+                var path = $('#Tendfile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Photo Size must be less than or equal to 1024 KB (1 MB).");
+                        $(this).val("");
+                        $(this).focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Upload photo must be in pdf format.");
+                    $(this).focus();
+                    $(this).val("");
+                    return false;
+                }
+            }
+        });
+
+        $("#Orgfile").change(function () {
+
+            if ($('#Orgfile').val() !== '') {
+                var file = $('#Orgfile').get(0);
+                var FileSize = file.files[0].size;;
+                var path = $('#Orgfile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "svg") {
+                    if (FileSizeKB > 1024) {
+                        alert("Photo Size must be less than or equal to 1024 KB (1 MB).");
+                        $(this).val("");
+                        $(this).focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Upload photo must be in svg format.");
+                    $(this).focus();
+                    $(this).val("");
+                    return false;
+                }
+            }
+        });
+
+        $("#Anxfile").change(function () {
+
+            if ($('#Anxfile').val() !== '') {
+                var file = $('#Anxfile').get(0);
+                var FileSize = file.files[0].size;;
+                var path = $('#Anxfile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Photo Size must be less than or equal to 1024 KB (1 MB).");
+                        $(this).val("");
+                        $(this).focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Upload photo must be in svg format.");
+                    $(this).focus();
+                    $(this).val("");
+                    return false;
+                }
+            }
+        });
+
+        function UpdateRegForm() {
+            if ($('#Regfile').val() !== '') {
+                var formData = new FormData();
+                formData.append('Docfile', $('#Regfile')[0].files[0]);
+                formData.append('type', 1);
+                $.ajax({
+                    processData: false,
+                    contentType: false,
+                    url: "/Master/UploadMasterDocuments",
+                    type: "POST",
+                    data: formData,
+                    datatype: "json",
+                    success: function (data) {
+                      //  console.log(data)
+                        alert(data.dynamicResult.innerresult.Message);
+                    }
+                    ,
+                    error: function (data) {
+                        alert(data.dynamicResult.innerresult.Message);
+                      
+                    }
+                });
+            }
+            else {
+                alert("Choose file.")
+            }
+           
+        }
+      
+        function UpdateOrgForm() {
+            if ($('#Orgfile').val() !== '') {
+                var formData = new FormData();
+                formData.append('Docfile', $('#Orgfile')[0].files[0]);
+                formData.append('type', 2);
+                $.ajax({
+                    processData: false,
+                    contentType: false,
+                    url: "/Master/UploadMasterDocuments",
+                    type: "POST",
+                    data: formData,
+                    datatype: "json",
+                    success: function (data) {
+                        //  console.log(data)
+                        $('#Orgfile').val('')
+                        alert(data.dynamicResult.innerresult.Message);
+                    }
+                    ,
+                    error: function (data) {
+                        alert(data.dynamicResult.innerresult.Message);
+
+                    }
+                });
+            }
+            else {
+                alert("Choose file.")
+            }
+        }
+
+        function UpdateTenForm() {
+           
+            if ($('#Tendfile').val() !== '') {
+                var formData = new FormData();
+                formData.append('Docfile', $('#Tendfile')[0].files[0]);
+                formData.append('type', 3);
+                $.ajax({
+                    processData: false,
+                    contentType: false,
+                    url: "/Master/UploadMasterDocuments",
+                    type: "POST",
+                    data: formData,
+                    datatype: "json",
+                    success: function (data) {
+                        //  console.log(data)
+                        $('#Tendfile').val('')
+                        alert(data.dynamicResult.innerresult.Message);
+                    }
+                    ,
+                    error: function (data) {
+                        alert(data.dynamicResult.innerresult.Message);
+
+                    }
+                });
+            }
+            else {
+                alert("Choose file.")
+            }
+        }
+
+
+        function UpdateAnnexureForm() {
+
+            if ($('#Anxfile').val() !== '') {
+                var formData = new FormData();
+                formData.append('Docfile', $('#Anxfile')[0].files[0]);
+                formData.append('type', 4);
+                $.ajax({
+                    processData: false,
+                    contentType: false,
+                    url: "/Master/UploadMasterDocuments",
+                    type: "POST",
+                    data: formData,
+                    datatype: "json",
+                    success: function (data) {
+                        //  console.log(data)
+                        $('#Anxfile').val('')
+                        alert(data.dynamicResult.innerresult.Message);
+                    }
+                    ,
+                    error: function (data) {
+                        alert(data.dynamicResult.innerresult.Message);
+
+                    }
+                });
+            }
+            else {
+                alert("Choose file.")
+            }
+        }
+    </script>
+
+}
+
+

@@ -1,0 +1,136 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.FeedbackMaster
+@{
+    ViewData["Title"] = "Feedback";
+    Layout = "~/Views/Shared/_HindiLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>प्रतिपुष्टि</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="login-block bod_section">
+    <div class="container">
+        <div class="login_box">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 login-sec">
+                    <h2 class="text-center">प्रतिपुष्टि</h2>
+                    <form class="login-form feedback forms-sample" method="post" asp-action="Feedback"
+                          enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                          data-ajax-complete="onComplete"
+                          data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                        <div asp-validation-summary="ModelOnly" class="text-white"> </div>
+                        <div>
+                            <span asp-validation-for="Name" class="text-white"> </span>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fa fa-user text-info"></i></div>
+                                </div>
+                                <input type="text" class="form-control" id="Name" name="Name" asp-for="Name" placeholder="नाम" required="" maxlength="100" autocomplete="off">
+
+                            </div>
+
+
+                        </div>
+                        <div>
+                            <span asp-validation-for="EmailId" class="text-white"> </span>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fa fa-envelope text-info"></i></div>
+                                </div>
+                                <input type="text" class="form-control" id="EmailId" name="EmailId" asp-for="EmailId" placeholder="ईमेल" required="" maxlength="100" autocomplete="off">
+
+                            </div>
+
+
+                        </div>
+                        <div>
+                            <span asp-validation-for="MobileNo" class="text-white"> </span>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fa fa-phone text-info"></i></div>
+                                </div>
+                                <input type="text" class="form-control" id="MobileNo" name="MobileNo" asp-for="MobileNo" placeholder="मोबाइल न." required="" maxlength="10" onkeypress="return isNumberKey(event)" autocomplete="off">
+
+                            </div>
+
+
+                        </div>
+                        <div>
+                            <span asp-validation-for="Address" class="text-white"> </span>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fa fa-map-marker text-info"></i></div>
+                                </div>
+                                <textarea class="form-control" placeholder="पता" asp-for="Address" id="Address" name="Address" required="" maxlength="200" autocomplete="off"></textarea>
+
+                            </div>
+
+
+                        </div>
+                        <div>
+                            <span asp-validation-for="FeedbackQuery" class="text-white"> </span>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fa fa-comments text-info"></i></div>
+                                </div>
+                                <textarea class="form-control" placeholder="प्रतिक्रिया संबंधी टिप्पणी" asp-for="FeedbackQuery" id="FeedbackQuery" required="" maxlength="300" autocomplete="off"> </textarea>
+
+
+                            </div>
+
+
+                        </div>
+                        <div class="form-check">
+
+                            <div class="feature-btn" style="text-align: right;">
+                                <button type="submit" class="bizwheel-btn theme-2" id="btnsub">निवेदन करे</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetUpdatedRecords($("#CurrentName").html());
+        });
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+
+        var onSuccess = function (Response) {
+            debugger;
+            alert(Response.dynamicResult.innerresult[0].Message);
+            window.location.reload();
+        };
+        var onFailed = function () {
+            $('#loader').css("display", "none");
+        };
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+    </script>
+
+}
+

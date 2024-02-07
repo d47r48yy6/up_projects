@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "ProfileofCorporations";
+    Layout = "~/Views/Shared/_HindiLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>
+            कंपनी प्रोफाइल
+        </h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of
+निदेशकs Table -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <h2> परिचय</h2>
+
+                <p class="mt-20">
+                    यूपी प्रोजेक्ट्स कॉर्पोरेशन लिमिटेड एक यू.पी. सरकारी उपक्रम को बुनियादी ढांचा परियोजनाओं के निर्माण का काम सौंपा गया है। आवासीय, गैर-आवासीय भवन जिसमें अस्पताल, कॉलेज, कार्यालय, बांध, नहरें और विभिन्न प्रकार की हाइड्रोलिक संरचनाएं, सड़कें और ग्रामीण विकास से संबंधित कार्य शामिल हैं। निगम उत्तर प्रदेश राज्य के साथ-साथ देश के अन्य राज्यों में परियोजनाओं को क्रियान्वित कर रहा है।
+                </p>
+                <p class="mt-05">
+                    निगम की अधिकृत शेयर पूंजी रुपये है। 700 लाख और प्रदत्त पूंजी रुपये है। 640 लाख, यूपी सरकार द्वारा योगदान दिया गया। साथ ही केंद्र सरकार। शासनादेश संख्या 1434/99-27-एसआई-5 दिनांक 14.07.1999 द्वारा सिंचाई परियोजनाओं के लिए निगम को निष्पादन एजेंसी घोषित किया गया है और शासकीय आदेश संख्या 3126/14-27-एसआई-9-9/पीसीएल द्वारा भवन निर्माण कार्यों के लिए /08 दिनांक 27.05.2015।
+                </p>
+                <br>
+
+                <h2>मुख्य उद्देश्य</h2>
+
+                <p class="mt-05">निगम का उद्देश्य आवासीय और गैर-आवासीय भवनों, सड़कों, हाइड्रोलिक संरचनाओं, औद्योगिक भवन, संयंत्र और मशीनरी के निर्माण और निर्माण, गहरे सार्वजनिक और निजी नलकूपों की ड्रिलिंग, जल वितरण पाइप लाइन बिछाने, अन्य सिविल की परियोजनाओं की खरीद और निष्पादन करना है। , यांत्रिक और निकर्षण कार्य। निगम ने हाल के वर्ष में सोलर और इलेक्ट्रिकल के क्षेत्र में काम शुरू किया है।</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /End Board of
+निदेशकs Tabler -->
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}
+

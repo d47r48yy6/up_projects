@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "Vision2020";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Vision, Mission & Values </h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="abt_img">
+                    <img src="/assets1/images/vision_banner.jpg">
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <ul class="visison_list">
+                    <li>UP Projects Corporation Limited, shall be professionally managed and is committed to client satisfaction and enhancing Shareholders Value</li>
+                    <li>
+                        We are committed to deliver and
+                        demonstrate excellence in what ever we
+                        do.
+                    </li>
+
+                    <li>
+                        To continue to growth of nation by providing high quality, sustainable
+                        infrastructure development through
+                        innovative &amp; world class construction
+                        solutions
+                    </li>
+                    <li>
+                        We believe in respect for human dignity and we respect the need to preserve the
+                        environment around us.
+                    </li>
+                    <li>
+                        We constantly support development of newer
+                        technologies, products, improved processes, better services and management practices.
+                    </li>
+                    <li>
+                        We are committed to adopt best business practices and state of art technologies in
+                        construction business.
+                    </li>
+                    <li>We work together as a team to provide the best solutions &amp; services to our customers.</li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="">
+
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+              GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}

@@ -1,0 +1,343 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.Tender
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Tender";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<label id="UserRole" style="display:none;">@ViewBag.UserRole</label>
+<label id="ZoneIdCurrent" style="display:none;">@ViewBag.ZoneId1</label>
+<label id="UnitIdCurrent" style="display:none;">@ViewBag.UnitId1</label>
+<label id="z" style="display:none;">@Model.ZoneId</label>
+<label id="u" style="display:none;">@Model.UnitId</label>
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Tender</h4>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="Tender"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+              
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span class="text-danger">*</span>
+                            <label>Zone</label>
+                            <select class="form-control" id="ZoneId" name="ZoneId" asp-for="ZoneId">
+                            </select>
+                            <span asp-validation-for="ZoneId" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="text-danger">*</span>
+                            <label>Units</label>
+                            <select class="form-control" id="UnitId" name="UnitId" asp-for="UnitId">
+                                <option value="0">Select Unit</option>
+
+                            </select>
+                            <span asp-validation-for="UnitId" class="text-danger"></span>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TenderNumber">Tender Ref.No.</label>   <span class="text-danger">*</span>
+                    <input type="text" asp-for="TenderNumber" autocomplete="off" class="form-control" id="tenderNumber" placeholder="Tender Ref.No.">
+                    <span asp-validation-for="TenderNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class=row>
+                        <div class="col-sm-6">
+                            <label asp-for="TenderTitle">Tender Title (in English)</label>   <span class="text-danger">*</span>
+                            <textarea class="form-control" asp-for="TenderTitle" id="tenderTitle" rows="2"></textarea>
+                            <span asp-validation-for="TenderTitle" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="HNTenderTitle">Tender Title (in Hindi)</label>
+                            <textarea class="form-control" asp-for="HNTenderTitle" id="HNTenderTitle" rows="2"></textarea>
+                            <span asp-validation-for="HNTenderTitle" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateofTender">e-Published Date</label>   <span class="text-danger">*</span>
+                    <input type="text" class="form-control calender" readonly autocomplete="off" asp-for="DateofTender" id="txtDateofTender" placeholder="e-Published Date">
+                    <span asp-validation-for="DateofTender" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastDateofSale">Closing Date</label>   <span class="text-danger">*</span>
+                    <input type="text" class="form-control calender" readonly autocomplete="off" asp-for="LastDateofSale" id="txtLastDateofSale" placeholder="Closing Date">
+                    <span asp-validation-for="LastDateofSale" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OpeningDate">Opening Date</label>   <span class="text-danger">*</span>
+                    <input type="text" class="form-control calender" readonly autocomplete="off" asp-for="OpeningDate" id="txtOpeningDate" placeholder="Opening Date">
+                    <span asp-validation-for="OpeningDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="file">Tender Document    <span class="text-danger">*</span> <span style="color:red">&nbsp;(Tender Document must be in pdf and size of document is less than or equal to 5MB.) </span></label>
+                    <input type="file" id="filetender" asp-for="file" class="form-control">
+                    <span asp-validation-for="file" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success mr-2" id="btnsub">@ViewBag.ButtonText</button>
+                <a class="btn btn-light" href="/tender/tenderlist">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".calender").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy',
+                    //minDate: new Date()
+                });
+            BindZone();
+
+
+        });
+        function BindZone() {
+
+            var url = "/MPR/BindZone";
+            $("#ZoneId").empty();
+            $('#ZoneId').append('<option value="0">Select Zone</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#ZoneId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                }
+                var role = $("#UserRole").html();
+                if (role == "gm") {
+                   
+                    $("#ZoneId").val($("#ZoneIdCurrent").html());
+                    $('#ZoneId').attr("disabled", true);
+                    BindUnit($("#ZoneIdCurrent").html());
+                }
+                if (role == "unit") {
+                    $("#ZoneId").val($("#ZoneIdCurrent").html());
+                    $('#ZoneId').attr("disabled", true);
+                    BindUnit($("#ZoneIdCurrent").html());
+                }
+                if (role === "admin") {
+
+                    var z = $("#z").html();
+                    if (z == "" || z == null) {
+
+                    }
+                    else {
+                      
+                        $("#ZoneId").val(z.trim());
+                         BindUnit(z.trim());
+                    }
+                }
+
+            })
+        }
+
+        $("#ZoneId").change(function () {
+            var Zone = $("#ZoneId").val();
+            BindUnit(Zone)
+
+        })
+        function BindUnit(id) {
+            $('#loader').css("display", "block");
+            var url = "/MPR/BindUnits?ZoneId=" + id;
+            $("#UnitId").empty();
+            $('#UnitId').append('<option value="0">Select Unit</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#UnitId').append('<option value="' + data[i].id + '">' + data[i].unitName + '</option>');
+                }
+                var role = $("#UserRole").html();
+                if (role == "unit") {
+                    $("#btnSave").hide();
+                    $("#UnitId").val($("#UnitIdCurrent").html());
+                    $('#UnitId').attr("disabled", true);
+                    $.ajax({
+                        type: "POST",
+                        url: "/MPR/MPRReportByUnit",
+                        data: { UnitId: $("#UnitId").val() },
+                        success: function (data) {
+                            $("#LoadMPRData").html(data);
+                        }
+
+                    });
+                }
+                if (role === "admin") {
+
+                    var z = $("#u").html();
+                    if (z == "" || z == null) {
+
+                    }
+                    else {
+                      
+                        $("#UnitId").val(z.trim());
+                    }
+                }
+
+            })
+            $('#loader').css("display", "none");
+        }
+    </script>
+    <script type="text/javascript">
+        var onBegin = function () {
+
+            if ($("#ZoneId").val() == "" || $("#ZoneId").val() == "0" || $("#ZoneId").val() == null) {
+                 alert("Please select  Zone");
+                 $("#ZoneId").focus();
+                return false;
+            }
+            if ($("#UnitId").val() == "" || $("#UnitId").val() == "0" || $("#UnitId").val() == null) {
+                alert("Please select  Unit");
+                $("#UnitId").focus();
+
+                return false;
+            }
+            if ($('#filetender').val() !== '') {
+                var filetender = $('#filetender').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#filetender').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 25600) {
+                        alert("File Size must be less than or equal to 25600 KB (25 MB).");
+                        $(this).val("");
+                        $(this).focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Tender must be in pdf.");
+                    $('#filetender').focus();
+                    $('#filetender').val('');
+                    return false;
+                }
+            }
+            else {
+                var flag = "@ViewBag.ButtonText";
+                if (flag=== "Submit") {
+                    alert("Please upload Tender Document.");
+                    $('#filetender').focus();
+                    $('#filetender').val('');
+                    return false;
+                }
+            }
+
+
+            var isValDate = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
+            var txtDateofTender = $('#txtDateofTender').val();
+            var txtLastDateofSale = $('#txtLastDateofSale').val();
+            var txtOpeningDate = $('#txtOpeningDate').val();
+            if (txtDateofTender != "") {
+                if (!isValDate.test(txtDateofTender)) {
+                    alert("Please Enter Valid Date Format (dd/mm/yyyy).");
+                    $('#txtDateofTender').focus();
+                    return false;
+                }
+            }
+             if (txtLastDateofSale != "") {
+                if (!isValDate.test(txtLastDateofSale)) {
+                    alert("Please Enter Valid Date Format (dd/mm/yyyy).");
+                    $('#txtLastDateofSale').focus();
+                    return false;
+                }
+            }
+             if (txtOpeningDate != "") {
+                if (!isValDate.test(txtOpeningDate)) {
+                    alert("Please Enter Valid Date Format (dd/mm/yyyy).");
+                    $('#txtOpeningDate').focus();
+                    return false;
+                }
+            }
+             
+
+             $('#loader').css("display", "block");
+             return true;
+
+//
+//                var txtDateofTender = $('#txtDateofTender').val();
+//                var txtLastDateofSale = $('#txtLastDateofSale').val();
+//                var txtOpeningDate = $('#txtOpeningDate').val();
+//                var dateParts= txtDateofTender.split("/");
+//var day = dateParts[0];
+//var month = dateParts[1] - 1;
+//var year = dateParts[2];
+
+//                txtDateofTender = new Date(year, month, day);
+//                 var dateParts1= txtLastDateofSale.split("/");
+//var day1 = dateParts1[0];
+//var month1= dateParts1[1] - 1;
+//var year1 = dateParts1[2];
+
+//                txtLastDateofSale = new Date(year1, month1, day1);
+//                     var dateParts2= txtOpeningDate.split("/");
+//var day2 = dateParts2[0];
+//var month2= dateParts2[1] - 1;
+//var year2 = dateParts2[2];
+
+//                txtOpeningDate = new Date(year2, month2, day2);
+
+//                if (txtLastDateofSale <= txtDateofTender)
+//                    {
+//                        alert("Closing Date must be greater than e-Published Date.");
+//                        return false;
+//                    }
+//                    else  if (txtOpeningDate < txtDateofTender)
+//                    {
+//                        alert("Opening Date must be greater than e-Published Date.");
+//                        return false;
+//                }
+//                    else  if (txtOpeningDate >= txtLastDateofSale)
+//                    {
+//                        alert("Opening Date must be less than Closing Date.");
+//                        return false;
+//                    }
+//                    else
+//                    {
+//                        $('#loader').css("display", "block");
+//                        return true;
+//                    }
+
+        };
+        var onComplete = function (result) {
+
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+
+            alert(Response.dynamicResult.innerresult.Message);
+            if (parseInt(Response.dynamicResult.innerresult.Status) > 0) {
+                $('#txtDateofTender').val('');
+                $('#txtLastDateofSale').val('');
+                $('#txtOpeningDate').val('');
+                $('#filetender').val('');
+                $('#tenderTitle').val('');
+                $('#tenderNumber').val('');
+                $('#category').val(0);
+            }
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+
+    </script>
+
+}

@@ -1,0 +1,338 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.MinisterMaster
+@{
+    ViewData["Title"] = "MinisterMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Minister Details</h4>
+
+        </div>
+    </div>
+</div>
+
+<label id="type" style="display:none;">@Model.Category</label>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="MinisterMaster"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+
+                        <div class="col-sm-4">
+
+                            <label asp-for="Category"></label>
+                            <select id="Category" name="Category" class="form-control">
+                                <option value="0">Select Minister category</option>
+                                <option value="CM">Chief Minister</option>
+                                <option value="CB">Cabinet Minister</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+
+                            <label asp-for="MainTitle"></label><span class="text-danger"> *</span>
+                            <input type="text" asp-for="MainTitle" class="form-control" id="MainTitle" placeholder="Main Title" autocomplete="off" maxlength="100" />
+                        </div>
+                        <div class="col-sm-4">
+                            <label asp-for="SubTitle"></label><span class="text-danger"> *</span>
+                            <input type="text" asp-for="SubTitle" class="form-control" id="SubTitle" placeholder="SubTitle" autocomplete="off" maxlength="200" />
+
+                        </div>
+
+
+                    </div>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                            <label asp-for="HNMainTitle"></label>
+                            <input type="text" asp-for="HNMainTitle" class="form-control" id="HNMainTitle" placeholder="Main Title " autocomplete="off" maxlength="100" />
+                        </div>
+                        <div class="col-sm-4">
+                            <label asp-for="HNSubTitle"></label>
+                            <input type="text" asp-for="HNSubTitle" class="form-control" id="HNSubTitle" placeholder="Sub Title" autocomplete="off" maxlength="200" />
+
+                        </div>
+                        <div class="col-sm-4">
+                            <label asp-for="file"> Upload Photo </label><span class="text-danger"> *</span>
+                            <input type="file" id="file" asp-for="file" class="form-control">
+                            <span style="color:red; font-size:12px;"> &nbsp;(Photo must be in png,jpg or jpeg format and size should be less than or equal to 1MB.) </span>
+                            <span asp-validation-for="file" class="text-danger"> </span><br />
+                            @if (Model != null)
+                            {
+                                if (!string.IsNullOrEmpty(Model.FileName))
+                                {
+                                    <img id="imgFile" src="@Model.FileName" height="300px" width="300px" />
+
+                                }
+                            }
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success mr-2" id="btnsub">@ViewBag.ButtonText </button>
+                            <button type="button" class="btn btn-dark mr-2" id="reset">Reset</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Main Title(English)</th>
+                                <th>Sub Title(English)</th>
+                                <th>Main Title(Hindi)</th>
+                                <th>Sub Title(Hindi)</th>
+                                <th>Minister Type</th>
+                                <th>View</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+            var id = $("#type").html();
+                if (id == "" || id == "0" || id == null) {
+                    console.log(1);
+                }
+                else {
+                    $("#Category").val(id.trim());
+                }
+        });
+    </script>
+    <script type="text/javascript">
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#imgFile').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
+
+
+$("#file").change(function() {
+  readURL(this);
+});
+
+
+        var onBegin = function () {
+            debugger;
+             if ($("#Category").val() == "0" || $("#Category").val() == null) {
+                alert("Please select minister category.");
+                $("#Category").focus();
+                return false;
+            }
+            if ($("#MainTitle").val() == "" || $("#MainTitle").val() == null) {
+                alert("Please enter title.");
+                $("#MainTitle").focus();
+                return false;
+            }
+             if ($("#SubTitle").val() == "" || $("#SubTitle").val() == null) {
+                alert("Please enter SubTitle.");
+                $("#SubTitle").focus();
+                return false;
+            }
+            if ($('#file').val() !== '') {
+                var file = $('#file').get(0);
+                var FileSize = file.files[0].size;;
+                var path = $('#file').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "png" || ext == "jpg" || ext == "jpeg") {
+                    if (FileSizeKB > 1024) {
+                        alert("Photo Size must be less than or equal to 1024 KB (1 MB).");
+                        $(this).val("");
+                        $(this).focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Upload photo must be in png, jpg or jpeg format.");
+                    $('#file').focus();
+                    $('#file').val('');
+                    return false;
+                }
+            }
+            else {
+                var flag = "@ViewBag.ButtonText";
+                if (flag=== "Submit") {
+                    alert("Please upload Photo.");
+                    $('#file').focus();
+                    $('#file').val('');
+                    return false;
+                }
+            }
+
+
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            alert(Response.dynamicResult.innerresult.Message);
+            if (parseInt(Response.dynamicResult.innerresult.Status) > 0) {
+
+                if (Response.dynamicResult.innerresult.Action == "U") {
+
+                }
+                else {
+                    window.location.reload();
+                }
+               
+                $('#file').val('');
+            }
+             BindTable();
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+
+
+
+
+        function BindTable() {
+            var url = "/Master/GetMinisterMaster";
+              $.getJSON(url, function (data) {
+                BindDataTable(data);
+            })
+        }
+
+        function BindDataTable(data) {
+            debugger;
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "MainTitle" },
+
+                        { "data": "SubTitle" },
+                         { "data": "HNMainTitle" },
+                        { "data": "HNSubTitle" },
+                        { "data": "Category" },
+                          { "data": "FileNameButton" },
+
+                         {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="EditServices(' + row.Id + ')" class="text-primary" >Edit</a>';
+                                return a;
+                            }, className: "text-left"
+                        },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="DeleteServices(' + row.Id + ')" class="text-primary" >Delete</a>';
+                                return a;
+                            }, className: "text-left"
+                        }
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+                $("#tblList").show();
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+        }
+
+           function DeleteServices(Id) {
+                        if (confirm("Are you sure?")) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Master/DeleteMinisterMaster",
+                                data: { Id: Id },
+                                success: function (data) {
+                                    alert(data);
+                                    location.href = "/Master/MinisterMaster";
+                                    BindTable();
+
+                                }
+
+
+                            })
+                        }
+        }
+                      function EditServices(Id) {
+            location.href = "/Master/MinisterMaster/" + Id;
+        }
+         $("#reset").click(function () {
+
+            location.href = "/Master/MinisterMaster";
+        })
+    </script>
+
+}
+
+
+
+

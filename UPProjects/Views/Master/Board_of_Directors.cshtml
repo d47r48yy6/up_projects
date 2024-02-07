@@ -1,0 +1,255 @@
+﻿@using UPProjects.Models;
+@model BoardOfDirectors
+@{
+    ViewData["Title"] = "Board_of_Directors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Board of Directors</h4>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="Board_of_Directors"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <input  asp-for="ID" hidden />
+                        <div class="col-sm-4">
+
+                            <label>Director Name (in Eglish)</label>
+                            <input type="text" asp-for="DirectorName" class="form-control" required id="DirectorName" placeholder="Name " autocomplete="off" />
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label>Designation (in Eglish)</label>
+                            <input type="text" class="form-control" id="Designation" placeholder="Designation " required asp-for="Designation" autocomplete="off" />
+
+                        </div>
+                        <div class="col-sm-4">
+
+                            <label>Director Address (in Eglish)</label>
+                            <input type="text" required class="form-control" id="DirectorAddress" placeholder="Address " asp-for="DirectorAddress" autocomplete="off" />
+                        </div>
+
+                        <div class="col-sm-4">
+                            <br />
+                            <label>Director Name (in Hindi)</label>
+                            <input type="text" required class="form-control" id="HNDirectorName" placeholder="Director Name " asp-for="HNDirectorName" autocomplete="off" />
+                        </div>
+
+                        <div class="col-sm-4">
+                            <br />
+                            <label>Designation (in Hindi)</label>
+                            <input type="text" required class="form-control" id="HNDesignation" placeholder="Designation  " asp-for="HNDesignation" autocomplete="off" />
+                        </div>
+
+                        <div class="col-sm-4">
+                            <br />
+                            <label>Director Address (in Hindi)</label>
+                            <input type="text" required class="form-control" id="HNDirectorAddress" placeholder="Address" asp-for="HNDirectorAddress" autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success mr-2" id="btnsub">@ViewBag.ButtonText</button>
+                            <button type="button" class="btn btn-dark mr-2" id="reset">Reset</button>
+                            <button type="button" class="btn btn-dark mr-2" id="Priority">Set Priority</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Director Name (in Eglish)</th>
+                                <th>Designation (in Eglish)</th>
+                                <th>Address (in Eglish)</th>
+                                <th>Director Name (in Hindi)</th>
+                                <th>Designation (in Hindi)</th>
+                                <th>Address (in Hindi)</th>
+                                <th>Priority</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+        });
+    </script>
+    <script type="text/javascript">
+
+   
+        var onBegin = function () {
+            $('#loader').css("display", "block");
+
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            alert(Response.dynamicResult.innerresult.Message);
+            location.href = "/Master/Board_of_Directors";
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+
+
+
+
+        function BindTable() {
+            var url = "/Master/GetBoardOfDirectors";
+            $.getJSON(url, function (data) {
+                  console.log(data)
+                BindDataTable(data);
+            })
+        }
+
+        function BindDataTable(data) {
+            debugger;
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "DirectorName" },
+
+                        { "data": "Designation" },
+                        { "data": "DirectorAddress" },
+
+                        { "data": "HNDirectorName" },
+                        { "data": "HNDesignation" },
+                        { "data": "HNDirectorAddress" },
+                        { "data": "PriorityOrder" },
+                        
+
+                         {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="EditServices(' + row.ID + ')" class="text-primary" >Edit</a>';
+                                return a;
+                            }, className: "text-left"
+                        },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="DeleteServices(' + row.ID + ')" class="text-primary" >Delete</a>';
+                                return a;
+                            }, className: "text-left"
+                        }
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+                $("#tblList").show();
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+        }
+
+           function DeleteServices(Id) {
+                        if (confirm("Are you sure?")) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Master/DeleteBoardOfDirector",
+                                data: { Id: Id },
+                                success: function (data) {
+                                    console.log(data)
+                                    alert(data.dynamicResult.innerresult.Message);
+                                    location.href = "/Master/Board_of_Directors";
+                                    BindTable();
+
+                                }
+
+
+                            })
+                        }
+        }
+                      function EditServices(Id) {
+                          location.href = "/Master/Board_of_Directors/" + Id;
+        }
+        $("#reset").click(function () {
+
+            location.href = "/Master/Board_of_Directors";
+        });
+         $("#Priority").click(function () {
+
+             location.href = "/Master/SetDirectorsPriority";
+        })
+    </script>
+
+}
+
+
+
+

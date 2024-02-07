@@ -1,0 +1,305 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.ProjectMaster
+@{
+    ViewData["Title"] = "ProjectMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var count = 1;
+}
+<label id="Unit" style="display:none;">@Model.UnitId</label>
+<label id="dept" style="display:none;">@Model.DepartmentId</label>
+<label id="y" style="display:none;">@Model.StartYear</label>
+<label id="m" style="display:none;">@Model.StartMonth</label>
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title"> Project Master</h4>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form>
+                @Html.HiddenFor(x => x.Id)
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <span class="text-danger">*</span>
+                            <label asp-for="UnitId"> </label>
+                            <select asp-for="UnitId" class="form-control" id="UnitId">
+                            </select>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="text-danger">*</span>
+                            <label asp-for="DepartmentId"> </label>
+                            <select asp-for="DepartmentId" class="form-control" id="DepartmentId">
+                            </select>
+
+                        </div>
+                        <div class="col-sm-4">
+                           
+                            <label asp-for="StartYear"> </label>
+                            <select asp-for="StartYear" class="form-control" id="StartYear" onchange="BindMonth()">
+                            </select>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            
+                            <label asp-for="StartMonth"> </label>
+                            <select asp-for="StartMonth" class="form-control" id="StartMonth">
+                            </select>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <span class="text-danger">*</span>
+                            <label asp-for="ProjectTitle"> </label>
+                            <input type="text" asp-for="ProjectTitle" autocomplete="off" class="form-control" id="ProjectTitle" placeholder="Project Title" maxlength="200">
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="text-danger">*</span>
+                            <label asp-for="ProjectDescription"></label>
+                            <input type="text" asp-for="ProjectDescription" autocomplete="off" class="form-control" id="ProjectDescription" placeholder="Project Description" maxlength="300">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label asp-for="HNProjectTitle"> </label>
+                            <input type="text" asp-for="HNProjectTitle" autocomplete="off" class="form-control" id="HNProjectTitle" placeholder="Project Title" maxlength="200">
+                        </div>
+                        <div class="col-sm-4">
+                            <label asp-for="HNProjectDescription"> </label>
+                            <input type="text" asp-for="HNProjectDescription" autocomplete="off" class="form-control" id="HNProjectDescription" placeholder="Project Description" maxlength="200">
+                        </div>
+                        <div class="col-sm-4">
+                            @if (Model.Id == 0)
+                            {
+                                <input type="button" id="btnSave" value="Submit" class="btn btn-success mt-4" />
+                            }
+                            else
+                            {
+                                <input type="button" id="btnSave" value="Update" class="btn btn-success mt-4" />
+                            }
+                        </div>
+
+                    </div>
+                </div>
+               
+
+            </form>
+            <hr />
+            <br />
+            <table class="table table-bordered" id="tblData" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>SL.No</th>
+                        <th>Unit</th>
+                        <th>Department Name</th>
+                        <th>Title(English)</th>
+                        <th>Desciption(English)</th>
+                        <th>Title(Hindi)</th>
+                        <th>Desciption(Hindi)</th>
+                        <th class="not-export-column">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.List)
+                    {
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.UnitName</td>
+                        <td>@item.DepartmentName</td>
+                        <td>@item.ProjectTitle</td>
+                        <td>@item.ProjectDescription</td>
+                        <td>@item.HNProjectTitle</td>
+                        <td>@item.HNProjectDescription</td>
+                        <td class="not-export-column">
+                            <input type="button" value="Edit" class="btn btn-primary btn-sm" onclick="UpdateProject(@item.Id)" />
+                            <input type="button" value="Delete" class="btn btn-danger btn-sm" onclick="DeleteProject(@item.Id)" />
+                        </td>
+                    </tr>
+                        count++;
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            BindUnit();
+            BindDepartment();
+            BindYear();
+           // BindMonth();
+              $("#tblData").DataTable( {
+       // dom: 'Blfrtip',
+            dom:'Bfrtip',
+          buttons: [
+            {
+                extend: 'print',
+                  title: 'Projects',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Projects',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ]
+    } );
+        })
+       
+
+        function BindDepartment() {
+
+            var url = "/Master/BindDepartment";
+            $("#DepartmentId").empty();
+            $('#DepartmentId').append('<option value="0">Select Department</option>');
+            $.getJSON(url, function (data) {
+                debugger;
+
+                for (var i = 0; i < data.length; i++) {
+                    $('#DepartmentId').append('<option value="' + data[i].departmentId + '">' + data[i].departmentName + '</option>');
+                }
+                var dept = $("#dept").html();
+                if (dept != "" || dept != null || dept != "0") {
+                    $('#DepartmentId').val(dept.trim());
+                }
+            })
+        }
+        function BindUnit() {
+
+            var url = "/Master/BindUnits";
+            $("#UnitId").empty();
+            $('#UnitId').append('<option value="0">Select Unit</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#UnitId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                }
+                var unit = $("#Unit").html();
+                if (unit != "" || unit != null || unit != "0") {
+                    $('#UnitId').val(unit.trim());
+                }
+            })
+        }
+
+        function BindYear() {
+
+            var url = "/Master/BindYear";
+            $("#StartYear").empty();
+            $('#StartYear').append('<option value="0">Select Year</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#StartYear').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                }
+                var unit = $("#y").html();
+                if (unit == "") {
+
+                }
+                else {
+                    $('#StartYear').val(unit.trim());
+                }
+               
+            })
+        }
+        function BindMonth() {
+
+            var year = $('#StartYear').val();
+            var url = "/MPR/BindMonth?year=" + year;
+            $("#StartMonth").empty();
+            $('#StartMonth').append('<option value="0">Select Month</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#StartMonth').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                }
+                var unit = $("#m").html();
+                if (unit == "") {
+
+                }
+                else {
+                     $('#StartMonth').val(unit.trim());
+                }
+                
+            })
+        }
+
+        $("#btnSave").click(function () {
+
+            if ($("#UnitId").val() == "" || $("#UnitId").val() == "0" || $("#UnitId").val() == null) {
+                alert("Please select  Unit");
+                return false;
+            }
+            if ($("#DepartmentId").val() == "" || $("#DepartmentId").val() == "0" || $("#DepartmentId").val() == null) {
+                alert("Please select  Department");
+                return false;
+            }
+            var ProjectTitle = $("#ProjectTitle").val();
+            if (ProjectTitle == "" || ProjectTitle == "0" || ProjectTitle == null) {
+                alert("Please Enter Project Title in English");
+                $("#ProjectTitle").focus();
+                return false;
+            }
+           
+
+            var ProjectDescription = $("#ProjectDescription").val();
+            if (ProjectDescription == "" || ProjectDescription == "0" || ProjectDescription == null) {
+                alert("Please Enter Project Description in English");
+                $("#ProjectDescription").focus();
+                return false;
+            }
+
+            
+
+            $.ajax({
+                type: "POST",
+                url: "/Master/SaveProject",
+                data: $('form').serialize(),
+                success: function (data) {
+                    alert(data);
+                    window.location.reload();
+                }
+
+            });
+
+
+
+        });
+
+        function UpdateProject(Id) {
+            location.href = "/Master/ProjectMaster/" + Id;
+        }
+        function DeleteProject(Id) {
+            if (confirm("Do you want to delete this record?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Master/DeleteProject",
+                    data: { Id: Id },
+                    success: function (data) {
+                        alert(data);
+                        window.location.href = "/Master/ProjectMaster";
+                    }
+
+                });
+            }
+
+        }
+
+    </script>
+
+}
+

@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "ProfileofCorporations";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Profile of Corporations</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <h2> Introduction</h2>
+
+                <p class="mt-20">
+                    UP PROJECTS CORPORATION LIMITED is a U.P. Government undertaking entrusted with the construction of infrastructure Projects e.g. Residential, Non- residential building including Hospitals, Colleges, Offices, Dams, Canals and different type of Hydraulic Structures, Roads and works related to Rural Development. The Corporation is executing out projects in the State of Uttar Pradesh as well as in other states of the country.
+                </p>
+                <p class="mt-05">
+                    The Authorized Share Capital of Corporation is Rs. 700 lacs and Paid up capital is Rs. 640 lacs, contributed by U P Govt. as well as Central Government. The Corporation has been declared execution agency for Irrigation Projects vide Govt Order No. 1434/99-27-Si-5 Dated 14.07.1999 and for Building works vide Govt Order No. 3126/14-27-Si-9-9/PCL/08 Dated 27.05.2015.
+                </p>
+                <br>
+
+                <h2> Main Objective</h2>
+
+                <p class="mt-05">The Corporation aims at procuring and executing projects of residential and non-residential Buildings, Roads, Hydraulic Structures, Industrial Building, Fabrication & Erection of plant and machinery, drilling of deep public and private tube wells, laying of water distribution pipe lines, other Civil, Mechanical and dredging work. The Corporation in the recent year has started the work in the field of solar and electrical.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+              GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}

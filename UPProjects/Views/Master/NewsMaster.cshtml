@@ -1,0 +1,356 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.NewsMaster
+@{
+    ViewData["Title"] = "NewsMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">News Details</h4>
+           
+        </div>
+    </div>
+</div>
+<label id="type" style="display:none;">@Model.ContentType</label>
+<label id="Material" style="display:none;">@Model.NewsContent</label>
+<label id="Id" style="display:none;">@Model.Id</label>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="NewsMaster"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label asp-for="NewsTitle"></label> <span class="text-danger"> *</span>
+                            <input type="text" asp-for="NewsTitle" class="form-control" id="NewsTitle" placeholder="News" autocomplete="off" maxlength="100" />
+                            <span asp-validation-for="NewsTitle" class="text-danger"> </span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="HNNewsTitle"></label>
+                            <input type="text" asp-for="HNNewsTitle" class="form-control" id="HNNewsTitle" placeholder="News" autocomplete="off" maxlength="100" />
+                            <span asp-validation-for="HNNewsTitle" class="text-danger"> </span>
+                        </div>
+                       
+
+                    </div>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>News Content Type</label> <span class="text-danger"> *</span>
+                            <select id="ContentType" asp-for="ContentType" class="form-control">
+                                <option value="0">Select Type</option>
+                                <option value="P">PDF file</option>
+                                <option value="U">Page Name</option>
+                                <option value="T">Text Only</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label asp-for="NewsContent" id="ContentLabel" style="display:none;"></label>
+                            <textarea class="form-control" id="NewsContent" name="NewsContent" asp-for="NewsContent" rows="2" style="display:none;"> </textarea>
+                            <label id="showexample" style="display:none;" class="text-danger">(e.g. Index)</label>
+                            <input type="file" id="file" asp-for="file" class="form-control" style="display:none;">
+                            <span style="color:red; font-size:12px; display:none;" id="filevalidation"> &nbsp;(File must be in pdf format and size should be less than or equal to 1MB.) </span>
+                           
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success mr-2 mt-4" id="btnsub">@ViewBag.ButtonText </button>
+                            <button type="button" class="btn btn-dark mr-2 mt-4" id="reset">Reset</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+           
+        </div>
+         <br />
+            <div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="table-responsive ">
+                                <table class="table table-bordered " id="tblData" style="width:100%">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th> # </th>
+                                            <th>News (English) </th>
+                                            <th>News (Hindi)</th>
+                                            <th>Attachment</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var id = $("#Id").html();
+            if (id =="0"|| id==null) {
+
+            }
+            else {
+                $("#ContentType").val($("#type").html().trim());
+                if ($("#type").html().trim() == "P") {
+                    $("#ContentLabel").show();
+                    $("#file").show();
+                    $("#NewsContent").hide();
+                    $("#filevalidation").show();
+                }
+                else {
+
+                    if ($("#type").html().trim() == "T") {
+
+
+                        $("#ContentLabel").hide();
+                    $("#NewsContent").hide();
+                    $("#NewsContent").val($("#Material").html())
+                    $("#pdfView").hide();
+                    $("#filevalidation").hide();
+                    }
+                    else {
+                        $("#showexample").show();
+                     $("#ContentLabel").show();
+                    $("#NewsContent").show();
+                    $("#NewsContent").val($("#Material").html())
+                    $("#pdfView").hide();
+                    $("#filevalidation").hide();
+                    }
+
+                }
+            }
+                        BindTable();
+                    });
+        function EditNews(Id) {
+            location.href = "/Master/NewsMaster/" + Id;
+        }
+        function DeleteNews(Id) {
+            if (confirm("Do you want to delete this record?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Master/DeleteNews",
+                    data: { Id: Id },
+                    success: function (data) {
+                        alert(data);
+                        window.location.href = "/Master/NewsMaster";
+                    }
+
+                });
+            }
+
+        }
+
+        $("#ContentType").change(function () {
+            var type = $("#ContentType").val();
+            $("#file").hide();
+            $("#NewsContent").hide();
+            $("#showexample").hide();
+            if (type == "P") {
+                 $("#ContentLabel").show();
+                $("#file").show();
+                $("#pdfView").show();
+                $("#filevalidation").show();
+            }
+             if (type == "U") {
+                  $("#ContentLabel").show();
+                 $("#NewsContent").show();
+                 $("#pdfView").hide();
+                 $("#filevalidation").hide();
+                  $("#showexample").show();
+            }
+
+            if (type == "T") {
+                $("#ContentLabel").hide();
+                $("#NewsContent").hide();
+                 $("#pdfView").hide();
+                 $("#filevalidation").hide();
+            }
+
+        })
+
+          var onBegin = function () {
+
+              if ($("#NewsTitle").val() == "" || $("#NewsTitle").val() == null) {
+                  alert("Please enter english news.");
+                  $("#NewsTitle").focus();
+                  return false;
+              }
+            
+
+              if ($("#ContentType").val() == "0") {
+                  alert("Please select news content type.");
+                  $("#ContentType").focus();
+                    return false;
+              }
+
+            if ($('#file').val() !== '') {
+                var file = $('#file').get(0);
+                var FileSize = file.files[0].size;;
+                var path = $('#file').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Photo Size must be less than or equal to 1024 KB (1 MB).");
+                        $(this).val("");
+                        $(this).focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Upload file must be in pdf.");
+                    $('#file').focus();
+                    $('#file').val('');
+                    return false;
+                }
+            }
+            else {
+                var flag = "@ViewBag.ButtonText";
+                if (flag === "Submit") {
+                    if ($("#ContentType").val() == "P") {
+                        alert("Please upload Photo.");
+
+                        $('#file').focus();
+                        $('#file').val('');
+                        return false;
+                    }
+                    if ($("#ContentType").val() == "U") {
+                        if ($('#NewsContent').val() == "") {
+                             alert("Please enter url.");
+
+                        $('#NewsContent').focus();
+                        $('#NewsContent').val('');
+                        return false;
+                        }
+                       
+                    }
+                   
+                   
+                }
+            }
+
+
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            alert(Response.dynamicResult.innerresult.Message);
+            BindTable();
+             var id = $("#Id").html();
+            if (id == "0" || id == null) {
+                window.location.reload();
+            }
+            else {
+                EditNews(id);
+            }
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+
+
+         function BindTable() {
+            var url = "/Master/GetNewsMaster";
+              $.getJSON(url, function (data) {
+
+                BindDataTable(data);
+            })
+        }
+
+        function BindDataTable(data) {
+            debugger;
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "NewsTitle" },
+                         { "data": "HNNewsTitle" },
+
+                        { "data": "Attachment" },
+
+                         {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="EditNews(' + row.Id + ')" class="text-primary" >Edit</a>';                               
+                                return a;
+                            }, className: "text-left"
+                        },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="DeleteNews(' + row.Id + ')" class="text-primary" >Delete</a>';                               
+                                return a;
+                            }, className: "text-left"
+                        }
+                        
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+                  
+                });
+
+                $("#tblList").show();
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+        }
+
+         $("#reset").click(function () {
+
+            location.href = "/Master/NewsMaster";
+        })
+    </script>
+
+}
+

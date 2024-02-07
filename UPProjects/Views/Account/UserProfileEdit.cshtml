@@ -1,0 +1,85 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.UserProfileEdit
+
+@{
+    ViewData["Title"] = "UserProfileEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Update Profile Details</h4>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="UserProfileEdit" enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="UserId"></label>
+                    <input asp-for="UserId" id="UserId" autocomplete="off" disabled class="form-control" value="@Model.UserId" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" id="Name" class="form-control" />
+                    <span asp-validation-for="Name" autocomplete="off" class="text-danger" value="@Model.Name"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" id="Email" class="form-control" />
+                    <span asp-validation-for="Email" autocomplete="off" class="text-danger" value="@Model.Email"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mobile"></label>
+                    <input asp-for="Mobile" id="Mobile" class="form-control" />
+                    <span asp-validation-for="Mobile" autocomplete="off" class="text-danger" value="@Model.Mobile"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".calender").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy'
+                });
+
+
+        });
+    </script>
+    <script type="text/javascript">
+        var onBegin = function () {
+            if (!confirm("Are you sure to update profile details!")) {
+               return false;
+            }
+            $('#loader').css("display", "block");
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            alert(Response.dynamicResult.innerresult.ResultMessage);
+
+
+
+        };
+        var onFailed = function () {
+            $('#loader').css("display", "none");
+        };
+
+    </script>
+
+}

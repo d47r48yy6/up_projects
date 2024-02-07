@@ -1,0 +1,49 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.VideoMaster>
+@{
+    ViewData["Title"] = "VideoGallery";
+    Layout = "~/Views/Shared/_HNLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>वीडियो गैलरी</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section ISO_certifate">
+    <div class="container">
+
+        <div class="row">
+
+
+
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 certificate_box">
+                    <video width="100%"  controls="">
+                        <source id="@item.Id" src="@item.FileName" type="video/mp4">
+                    </video>
+                </div>
+            }
+
+        </div>
+
+
+    </div>
+</section>
+<!-- /End Board of Directors Tabler -->
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetUpdatedRecords($("#CurrentName").html());
+        });
+    </script>
+}
+
+

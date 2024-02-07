@@ -1,0 +1,754 @@
+﻿@model UPProjects.Models.Architecture
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "architectReg";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    //Layout = "~/Views/Shared/_OuterLayout-old.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Architecture Registration Form</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container">
+        <!-- <div class="title">
+               <h3>ठेकेदारों के रजिस्ट्रेशन हेतु आवेदन फार्म</h3>
+           </div>
+
+        -->
+        <form action="SubmitArc" method="post" enctype="multipart/form-data" data-ajax="true" data-ajax-method="ture" data-ajax-begin="OnBegin" data-ajax-complete="onComplete"
+              data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+            <fieldset>
+                <legend>Application form empanelment of Architectural and Design Consultants Against </legend>
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="NameofConsultant">Name of the Consultant/Firm<span style="color:red">*</span></label>
+                            <input type="text" asp-for="NameofConsultant" autocomplete="off" class="form-control" id="NameofConsultant">
+                            <span asp-validation-for="NameofConsultant" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label for="cont_name">Category for Empanlement applied</label>
+                            <input type="text" asp-for="Category" autocomplete="off" maxlength="1" readonly  value="@ViewBag.Category" class="form-control" id="Category">                   
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Address">Address (Full)<span style="color:red">*</span></label>
+                            <input type="text" asp-for="Address" autocomplete="off" class="form-control" id="Address">
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h5>
+                            Contact Person authorized to act for the
+                            organization
+                        </h5>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Name">Name<span style="color:red">*</span></label>
+                            <input type="text" asp-for="Name" autocomplete="off" class="form-control" id="Name">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Photo">Photo (Signature & Designation)<span style="color:red">*</span></label>
+                            <input type="file" id="Photo" asp-for="Photo" class="form-control">
+                            <span asp-validation-for="Photo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber">Phone No.<span style="color:red"></span></label>
+                            <input type="text" asp-for="PhoneNumber" autocomplete="off" class="form-control" id="PhoneNumber">
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Mobile">Mobile No.<span style="color:red">*</span></label>
+                            <input type="text" asp-for="Mobile" autocomplete="off" readonly value="@ViewBag.Mobile" class="form-control NumberOnly" id="Mobile">
+                            <span asp-validation-for="Mobile" class="text-danger"></span>                            
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Fax">Fax No.<span style="color:red"></span></label>
+                            <input type="text" asp-for="Fax" autocomplete="off" class="form-control" id="Fax">
+                            <span asp-validation-for="Fax" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="eMail">e-Mail ID<span style="color:red">*</span></label>
+                            <input type="text" asp-for="eMail" autocomplete="off" class="form-control" id="eMail">
+                            <span asp-validation-for="eMail" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Website">Website (ex: http://upprojects.in)<span style="color:red"></span></label>
+                            <input type="text" asp-for="Website" autocomplete="off" class="form-control" id="Website">
+                            <span asp-validation-for="Website" class="text-danger"></span>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h5>Data Processing Fee <i class="fa fa-inr"></i>2,000/-</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="DataProcessingDD">Demand Draft No.<span style="color:red">*</span></label>
+                            <input type="text" asp-for="DataProcessingDD" autocomplete="off" class="form-control" id="DataProcessingDD">
+                            <span asp-validation-for="DataProcessingDD" class="text-danger"></span>
+
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="DataProcessingDDDate">Date<span style="color:red">*</span></label>
+                            <input type="text" asp-for="DataProcessingDDDate" autocomplete="off" readonly class="form-control calender" id="DataProcessingDDDate">
+                            <span asp-validation-for="DataProcessingDDDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="DataProcessingDDBank">Name of Bank/ Branch<span style="color:red">*</span></label>
+                            <input type="text" asp-for="DataProcessingDDBank" autocomplete="off" class="form-control" id="DataProcessingDDBank">
+                            <span asp-validation-for="DataProcessingDDBank" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h5>Details of Security </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="SecurityDDNumber">Demand Draft No./ FDR/ TDR/ NSC No.<span style="color:red">*</span></label>
+                            <input type="text" asp-for="SecurityDDNumber" autocomplete="off" class="form-control" id="SecurityDDNumber">
+                            <span asp-validation-for="SecurityDDNumber" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="SecurityDDDate">Date<span style="color:red">*</span></label>
+                            <input type="text" asp-for="SecurityDDDate" autocomplete="off" class="form-control calender" readonly id="SecurityDDDate">
+                            <span asp-validation-for="SecurityDDDate" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="SecurityBank">Name of Bank/ Branch<span style="color:red">*</span></label>
+                            <input type="text" asp-for="SecurityBank" autocomplete="off" class="form-control" id="SecurityBank">
+                            <span asp-validation-for="SecurityBank" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="SecurityAmount">Amount<span style="color:red">*</span></label>
+                            <input type="text" asp-for="SecurityAmount" autocomplete="off" class="form-control NumberOnly" id="SecurityAmount">
+                            <span asp-validation-for="SecurityAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h5>Registration with Council of Architecture No. </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="CouncilRegistrationDate">Date<span style="color:red">*</span></label>
+                            <input type="text" asp-for="CouncilRegistrationDate" autocomplete="off" class="form-control calender" readonly id="CouncilRegistrationDate">
+                            <span asp-validation-for="CouncilRegistrationDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="CouncilDateofValidity">Date Validity<span style="color:red">*</span></label>
+                            <input type="text" asp-for="CouncilDateofValidity" autocomplete="off" class="form-control calender1" readonly id="CouncilDateofValidity">
+                            <span asp-validation-for="CouncilDateofValidity" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="CouncilPhotoCoopy">Photo Copy self attested to be enclosed<span style="color:red">*</span></label>
+                            <input type="file" id="CouncilPhotoCoopy" asp-for="CouncilPhotoCoopy" class="form-control">
+                            <span asp-validation-for="CouncilPhotoCoopy" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h5>Value of projects under Government sector/public sector undertaking/private sector for which consultancy done in last 3 years as per Annexure 'A' (in Cr. Rs.)</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureAFirstYear">Year @ViewBag.cyear<span style="color:red"></span></label>
+                            <input type="text" asp-for="AnnexureAFirstYear" autocomplete="off" class="form-control NumberOnly" id="AnnexureAFirstYear">
+                            <span asp-validation-for="AnnexureAFirstYear" class="text-danger"></span>
+
+                            <input type="file" id="AnnexureAFirstYearFile" asp-for="AnnexureAFirstYearFile" class="form-control">
+                            <span asp-validation-for="AnnexureAFirstYearFile" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureASecondYear">Year @ViewBag.year1<span style="color:red"></span></label>
+                            <input type="text" asp-for="AnnexureASecondYear" autocomplete="off" class="form-control NumberOnly" id="AnnexureASecondYear">
+                            <span asp-validation-for="AnnexureASecondYear" class="text-danger"></span>
+
+                            <input type="file" id="AnnexureASecondYearFile" asp-for="AnnexureASecondYearFile" class="form-control">
+                            <span asp-validation-for="AnnexureASecondYearFile" class="text-danger"></span>
+
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureAThirdYear">Year @ViewBag.year2<span style="color:red"></span></label>
+                            <input type="text" asp-for="AnnexureAThirdYear" autocomplete="off" class="form-control NumberOnly" id="AnnexureAThirdYear">
+                            <span asp-validation-for="AnnexureAThirdYear" class="text-danger"></span>
+
+                            <input type="file" id="AnnexureAThirdYearFile" asp-for="AnnexureAThirdYearFile" class="form-control">
+                            <span asp-validation-for="AnnexureAThirdYearFile" class="text-danger"></span>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h5>Maximum value of single project done under Government sector/ public sector undertaking/private sector in the year as per Annexure 'A' (in Cr. Rs.)   </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureAFirstYearSingle">Year @ViewBag.cyear<span style="color:red"></span></label>
+                            <input type="text" asp-for="AnnexureAFirstYearSingle" autocomplete="off" class="form-control NumberOnly" id="AnnexureAFirstYearSingle">
+                            <span asp-validation-for="AnnexureAFirstYearSingle" class="text-danger"></span>
+                            <input type="file" id="AnnexureAFirstYearFileSingle" asp-for="AnnexureAFirstYearFileSingle" class="form-control">
+                            <span asp-validation-for="AnnexureAFirstYearFileSingle" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureASecondYearSingle">Year @ViewBag.year1<span style="color:red"></span></label>
+                            <input type="text" asp-for="AnnexureASecondYearSingle" autocomplete="off" class="form-control NumberOnly" id="AnnexureASecondYearSingle">
+                            <span asp-validation-for="AnnexureASecondYearSingle" class="text-danger"></span>
+                            <input type="file" id="AnnexureASecondYearFileSingle" asp-for="AnnexureASecondYearFileSingle" class="form-control">
+                            <span asp-validation-for="AnnexureASecondYearFileSingle" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureAThirdYearSingle">Year @ViewBag.year2<span style="color:red"></span></label>
+                            <input type="text" asp-for="AnnexureAThirdYearSingle" autocomplete="off" class="form-control NumberOnly" id="AnnexureAThirdYearSingle">
+                            <span asp-validation-for="AnnexureAThirdYearSingle" class="text-danger"></span>
+                            <input type="file" id="AnnexureAThirdYearFileSingle" asp-for="AnnexureAThirdYearFileSingle" class="form-control">
+                            <span asp-validation-for="AnnexureAThirdYearFileSingle" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h5>Financial Information: Turn over of the last three years as per Annexure 'B' (in Cr. Rs.) </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureBFirstYear">Year @ViewBag.cyear<span style="color:red"></span></label>
+                            <input type="text" asp-for="AnnexureBFirstYear" autocomplete="off" class="form-control NumberOnly" id="AnnexureBFirstYear">
+                            <span asp-validation-for="AnnexureBFirstYear" class="text-danger"></span>
+                            <input type="file" id="AnnexureBFirstYearFile" asp-for="AnnexureBFirstYearFile" class="form-control">
+                            <span asp-validation-for="AnnexureBFirstYearFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureBSecondYear">Year @ViewBag.year1<span style="color:red"></span></label>
+                            <input type="text" asp-for="AnnexureBSecondYear" autocomplete="off" class="form-control NumberOnly" id="AnnexureBSecondYear">
+                            <span asp-validation-for="AnnexureBSecondYear" class="text-danger"></span>
+                            <input type="file" id="AnnexureBSecondYearFile" asp-for="AnnexureBSecondYearFile" class="form-control">
+                            <span asp-validation-for="AnnexureBSecondYearFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureBThirdYear">Year @ViewBag.year2<span style="color:red"></span></label>
+                            <input type="text" asp-for="AnnexureBThirdYear" autocomplete="off" class="form-control NumberOnly" id="AnnexureBThirdYear">
+                            <span asp-validation-for="AnnexureBThirdYear" class="text-danger"></span>
+                            <input type="file" id="AnnexureBThirdYearFile" asp-for="AnnexureBThirdYearFile" class="form-control">
+                            <span asp-validation-for="AnnexureBThirdYearFile" class="text-danger"></span>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Pan">Income Tax Permanent Account Number<span style="color:red">*</span></label>
+                            <input type="text" asp-for="Pan" autocomplete="off" class="form-control" id="Pan">
+                            <span asp-validation-for="Pan" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="PanFile">Photo Copy self attested to be enclosed<span style="color:red">*</span></label>
+                            <input type="file" id="PanFile" asp-for="PanFile" class="form-control">
+                            <span asp-validation-for="PanFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="ServiceTax">Service Tax Registration Number<span style="color:red"></span></label>
+                            <input type="text" asp-for="ServiceTax" autocomplete="off" class="form-control" id="ServiceTax">
+                            <span asp-validation-for="ServiceTax" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="ServiceTaxFile">Photo Copy self attested to be enclosed<span style="color:red"></span></label>
+                            <input type="file" id="ServiceTaxFile" asp-for="ServiceTaxFile" class="form-control">
+                            <span asp-validation-for="ServiceTaxFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="OtherempanelledFile">Whether empanelled with other Government Organisations & public sector undetaking, if yes then Certificate to be enclosed<span style="color:red"></span></label>
+                            <input type="file" id="OtherempanelledFile" asp-for="OtherempanelledFile" class="form-control">
+                            <span asp-validation-for="OtherempanelledFile" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="AnnexureCFile">Whether Particulars of technical Staff on the proforma as per Annexure 'C' enclosed<span style="color:red"></span></label>
+                            <input type="file" id="AnnexureCFile" asp-for="AnnexureCFile" class="form-control">
+                            <span asp-validation-for="AnnexureCFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+        </form>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/APPjs/Common.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".calender").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy',
+                    maxDate: new Date()
+                });
+            $(".calender1").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy'
+
+                });
+
+            GetUpdatedRecords($("#CurrentName").html());
+        });
+    </script>
+    <script type="text/javascript">
+        var OnBegin = function () {
+            if ($('#Photo').val() !== '') {
+                var filetender = $('#Photo').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#Photo').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of Photo (Signature & Designation) must be less than 1024KB (1MB).");
+                        $('#Photo').val("");
+                        $('#Photo').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Format of Photo (Signature & Designation) must be in jpg,jpeg or png format.");
+                    $('#Photo').val("");
+                    $('#Photo').focus();
+                    return false;
+                }
+            }
+            if ($('#CouncilPhotoCoopy').val() !== '') {
+                var filetender = $('#CouncilPhotoCoopy').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#CouncilPhotoCoopy').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of Photo Copy of Registration with Council must be less than 1024KB (1MB).");
+                        $('#CouncilPhotoCoopy').val("");
+                        $('#CouncilPhotoCoopy').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of Photo Copy of Registration with Council must be in jpg,jpeg,png or pdf.");
+                    $('#CouncilPhotoCoopy').val("");
+                    $('#CouncilPhotoCoopy').focus();
+                    return false;
+                }
+            }
+            if ($('#AnnexureAFirstYearFile').val() !== '') {
+                var filetender = $('#AnnexureAFirstYearFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureAFirstYearFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Project's Value must be less than 1024KB (1MB).");
+                        $('#AnnexureAFirstYearFile').val("");
+                        $('#AnnexureAFirstYearFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Project's Value must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureAFirstYearFile').val("");
+                    $('#AnnexureAFirstYearFile').focus();
+                    return false;
+                }
+            }
+            if ($('#AnnexureASecondYearFile').val() !== '') {
+                var filetender = $('#AnnexureASecondYearFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureASecondYearFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Project's Value must be less than 1024KB (1MB).");
+                        $('#AnnexureASecondYearFile').val("");
+                        $('#AnnexureASecondYearFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Project's Value must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureASecondYearFile').val("");
+                    $('#AnnexureASecondYearFile').focus();
+                    return false;
+                }
+            }
+            if ($('#AnnexureAThirdYearFile').val() !== '') {
+                var filetender = $('#AnnexureAThirdYearFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureAThirdYearFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Project's Value must be less than 1024KB (1MB).");
+                        $('#AnnexureAThirdYearFile').val("");
+                        $('#AnnexureAThirdYearFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Project's Value must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureAThirdYearFile').val("");
+                    $('#AnnexureAThirdYearFile').focus();
+                    return false;
+                }
+            }
+            if ($('#AnnexureAFirstYearFileSingle').val() !== '') {
+                var filetender = $('#AnnexureAFirstYearFileSingle').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureAFirstYearFileSingle').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Maximum value of single project must be less than 1024KB (1MB).");
+                        $('#AnnexureAFirstYearFileSingle').val("");
+                        $('#AnnexureAFirstYearFileSingle').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Maximum value of single project must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureAFirstYearFileSingle').val("");
+                    $('#AnnexureAFirstYearFileSingle').focus();
+                    return false;
+                }
+            }
+            if ($('#AnnexureASecondYearFileSingle').val() !== '') {
+                var filetender = $('#AnnexureASecondYearFileSingle').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureASecondYearFileSingle').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Maximum value of single project must be less than 1024KB (1MB).");
+                        $('#AnnexureASecondYearFileSingle').val("");
+                        $('#AnnexureASecondYearFileSingle').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Maximum value of single project must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureASecondYearFileSingle').val("");
+                    $('#AnnexureASecondYearFileSingle').focus();
+                    return false;
+                }
+            }
+            if ($('#AnnexureAThirdYearFileSingle').val() !== '') {
+                var filetender = $('#AnnexureAThirdYearFileSingle').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureAThirdYearFileSingle').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Maximum value of single project must be less than 1024KB (1MB).");
+                        $('#AnnexureAThirdYearFileSingle').val("");
+                        $('#AnnexureAThirdYearFileSingle').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Maximum value of single project must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureAThirdYearFileSingle').val("");
+                    $('#AnnexureAThirdYearFileSingle').focus();
+                    return false;
+                }
+            }
+
+
+            if ($('#AnnexureBFirstYearFile').val() !== '') {
+                var filetender = $('#AnnexureBFirstYearFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureBFirstYearFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Financial Information must be less than 1024KB (1MB).");
+                        $('#AnnexureBFirstYearFile').val("");
+                        $('#AnnexureBFirstYearFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Financial Information must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureBFirstYearFile').val("");
+                    $('#AnnexureBFirstYearFile').focus();
+                    return false;
+                }
+            }
+            if ($('#AnnexureBSecondYearFile').val() !== '') {
+                var filetender = $('#AnnexureBSecondYearFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureBSecondYearFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Financial Information must be less than 1024KB (1MB).");
+                        $('#AnnexureBSecondYearFile').val("");
+                        $('#AnnexureBSecondYearFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Financial Information must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureBSecondYearFile').val("");
+                    $('#AnnexureBSecondYearFile').focus();
+                    return false;
+                }
+            }
+            if ($('#AnnexureBThirdYearFile').val() !== '') {
+                var filetender = $('#AnnexureBThirdYearFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureBThirdYearFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Financial Information must be less than 1024KB (1MB).");
+                        $('#AnnexureBThirdYearFile').val("");
+                        $('#AnnexureBThirdYearFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Financial Information must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureBThirdYearFile').val("");
+                    $('#AnnexureBThirdYearFile').focus();
+                    return false;
+                }
+            }
+
+
+             if ($('#PanFile').val() !== '') {
+                var filetender = $('#PanFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#PanFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Income Tax Permanent Account Number must be less than 1024KB (1MB).");
+                        $('#PanFile').val("");
+                        $('#PanFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Income Tax Permanent Account Number must be in jpg,jpeg,png or pdf.");
+                    $('#PanFile').val("");
+                    $('#PanFile').focus();
+                    return false;
+                }
+            }
+
+               if ($('#ServiceTaxFile').val() !== '') {
+                var filetender = $('#ServiceTaxFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#ServiceTaxFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Service Tax Registration Number must be less than 1024KB (1MB).");
+                        $('#ServiceTaxFile').val("");
+                        $('#ServiceTaxFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Service Tax Registration Number must be in jpg,jpeg,png or pdf.");
+                    $('#ServiceTaxFile').val("");
+                    $('#ServiceTaxFile').focus();
+                    return false;
+                }
+            }
+
+
+             if ($('#OtherempanelledFile').val() !== '') {
+                var filetender = $('#OtherempanelledFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#OtherempanelledFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of empanelled with other Government Organisations & public sector undetaking must be less than 1024KB (1MB).");
+                        $('#OtherempanelledFile').val("");
+                        $('#OtherempanelledFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of empanelled with other Government Organisations & public sector undetaking must be in jpg,jpeg,png or pdf.");
+                    $('#OtherempanelledFile').val("");
+                    $('#OtherempanelledFile').focus();
+                    return false;
+                }
+            }
+              if ($('#AnnexureCFile').val() !== '') {
+                var filetender = $('#AnnexureCFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#AnnexureCFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Size of file of Annexure 'C' must be less than 1024KB (1MB).");
+                        $('#AnnexureCFile').val("");
+                        $('#AnnexureCFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                 alert("Format of file of Annexure 'C' must be in jpg,jpeg,png or pdf.");
+                    $('#AnnexureCFile').val("");
+                    $('#AnnexureCFile').focus();
+                    return false;
+                }
+            }
+
+             $('#loader').css("display", "block");
+             return true;
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {          
+            if (Response.StatusKey > 0) {
+                alert(Response.Msg);
+                location.href = '/Home/index';
+            }
+            else {
+                alert(Response.Msg);
+            }           
+        };
+        var onFailed = function () {
+            $('#loader').css("display", "none");
+        };
+    </script>
+}
+<!-- /End Board of Directors Tabler -->

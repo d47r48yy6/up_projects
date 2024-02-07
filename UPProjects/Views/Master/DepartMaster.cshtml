@@ -1,0 +1,206 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.DepartmentMaster
+@{
+    ViewData["Title"] = "Department";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Department Details</h4>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="DepartMaster"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input type="hidden" asp-for="ID" />
+                                   <label asp-for="DepartmentName">Department Name</label><span class="text-danger"> *</span>
+                            <input type="text" asp-for="DepartmentName" class="form-control" id="SubTitle" placeholder="Department name" autocomplete="off" maxlength="200" />
+                            <span asp-validation-for="DepartmentName" class="text-danger"> </span>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success mr-2 mt-4" id="btnsub">@ViewBag.ButtonText </button>
+                        </div>
+
+
+                    </div>
+                
+
+                    
+                   
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Department Name</th>                               
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+           
+        });
+    </script>
+    <script type="text/javascript">
+
+
+        var onBegin = function () {
+          
+
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            alert(Response.dynamicResult.innerresult.Message);
+            if (Response.dynamicResult.innerresult.Status == 1) {
+                window.location.reload();
+            }
+            else {
+                BindTable();
+            }
+            
+            
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+
+
+
+
+        function BindTable() {
+            var url = "/Master/GetDepartmentMaster";
+              $.getJSON(url, function (data) {
+                BindDataTable(data);
+            })
+        }
+
+        function BindDataTable(data) {
+            debugger;
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "DepartmentName" },
+                         {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="EditServices(' + row.ID + ')" class="text-primary" >Edit</a>';
+                                return a;
+                            }, className: "text-left"
+                        },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="DeleteServices(' + row.ID + ')" class="text-primary" >Delete</a>';
+                                return a;
+                            }, className: "text-left"
+                        }
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+                $("#tblList").show();
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+        }
+
+           function DeleteServices(Id) {
+                        if (confirm("Are you sure?")) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Master/DeleteDepartment",
+                                data: { Id: Id },
+                                success: function (data) {
+                                    alert(data);
+                                   
+                                    BindTable();
+
+                                }
+
+
+                            })
+                        }
+        }
+                      function EditServices(Id) {
+            location.href = "/Master/DepartMaster/" + Id;
+        }
+      
+    </script>
+
+}
+
+
+
+

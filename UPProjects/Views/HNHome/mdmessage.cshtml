@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "mdmessage";
+    Layout = "~/Views/Shared/_HNLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>प्रबंध निदेशक का संदेश</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of
+निदेशकs Table -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 md-pic"><img src="../../HNassets/images/navin_kapoor.png"></div>
+            <div class="col-md-8 chairman-massage ">
+
+                <h2>नवीन कपूर </h2>
+                <p class="subtitle">प्रबंध निदेशक <span> यू.पी. प्रोजेक्ट्स काॅरपोरेशन लि0 </span></p>
+                <p class="mt-20">
+                    हम समझते हैं कि उत्कृष्टता प्राप्त करने की क्षमता हमारे ग्राहक की जरूरतों को पूरा करने के लिए है। यह हमारे कर्मचारियों की अखंडता, ज्ञान, कौशल, विविधता और टीम वर्क पर निर्भर करता है, और हम इन गुणों को सबसे अधिक महत्व देते हैं।
+                </p>
+                <p class="mt-05">हमें अपनी गतिविधियों के सभी क्षेत्रों में अभिनव होना चाहिए और लागत को प्रबंधित करने के लिए नए तरीकों के बारे में सोचना होगा, गुणवत्ता में सुधार करना होगा और निर्माण में दक्षता को बढ़ाना होगा ताकि व्यावसायिक व्यवहार्यता प्राप्त हो।  </p>
+                <p class="mt-05">
+                    हमारा निगम अपनी कॉर्पोरेट सामाजिक जिम्मेदारी के लिए प्रतिबद्ध है। जैसा कि पिछले वर्षों में किया गया है, हम समाज के विभिन्न वर्गों के उत्थान के लिए सीएम राहत कोष में उदारतापूर्वक योगदान दे रहे हैं।
+                </p>
+                <p class="mt-05">हमारी सफलता हमें रूबरू न होने दें। हमारे पास जाने के लिए मीलों और उत्कृष्टता का मार्ग है। हमें स्वच्छ, हरित और स्वच्छ भारत विकसित करना होगा। मुझे विश्वास है कि हमारे बहुमुखी, अनुकूलनीय और प्रौद्योगिकी के प्रयासों के साथ, हम अपने ग्राहकों के सटीक मानकों को पूरा करेंगे। ”</p>
+                <p><em> आइए हम अपने निगम को हमारे राष्ट्र की वृद्धि में योगदान देने वाला एक महान निगम बनाएं और हमें एक उज्जवल भविष्य के लिए आमंत्रित करें, जो हमारे लिए महत्वपूर्ण है।</em></p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /End Board of
+निदेशकs Tabler -->
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}

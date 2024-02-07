@@ -1,0 +1,419 @@
+﻿@model UPProjects.Models.ContractorRenewal
+@{
+    ViewData["Title"] = "ContractorRenewal";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+}
+
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Contractor Renewal Form</h1>
+    </div>
+</section>
+
+<section class="bod_section">
+    <div class="container">
+
+        <form class="forms-sample" method="post" asp-action="ContractorRenewalSubmit"
+              enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+              data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+              data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <fieldset>
+                <legend>ठेकेदारों के नवीनीकरण हेतु आवेदन फार्म</legend>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="FirmName">ठेकेदार का नाम/फर्म का नाम<span style="color:red">*</span></label>
+                            <input type="text" asp-for="FirmName" autocomplete="off" class="form-control" id="FirmName">
+                            <span asp-validation-for="FirmName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="Mobile">मोबाइल<span style="color:red">*</span></label>
+                            <input type="text" asp-for="Mobile" value="@ViewBag.Mobile" readonly autocomplete="off" class="form-control" id="Mobile">
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Address">पता<span style="color:red">*</span></label>
+                            <input type="text" asp-for="Address" autocomplete="off" class="form-control" id="Address">
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="PAN">पैन नंबर<span style="color:red">*</span></label>
+                            <input type="text" asp-for="PAN" style="text-transform:uppercase" autocomplete="off" class="form-control" id="Mobile">
+                            <span asp-validation-for="PAN" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="GST">जी० एस० टी० नंबर<span style="color:red">*</span></label>
+                            <input type="text" asp-for="GST" style="text-transform:uppercase" autocomplete="off" class="form-control" id="Mobile">
+                            <span asp-validation-for="GST" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </fieldset><br />
+
+            <fieldset>
+                <legend>नवीनीकरण हेतु छायाप्रति  संलग्न करें</legend>
+
+                <div class="row">
+
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="RequestFile">नवीनीकरण हेतु प्रार्थना पत्र संलग्न करें <span style="color:red">*</span></label>
+                            <input type="file" id="RequestFile" asp-for="RequestFile" class="form-control">
+                            <span asp-validation-for="RequestFile" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="OldRegistration">पुराने पंजीकरण की छायाप्रति  संलग्न करें <span style="color:red">*</span></label>
+                            <input type="file" id="OldRegistration" asp-for="OldRegistration" class="form-control">
+                            <span asp-validation-for="OldRegistration" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="CharacterCertificate">जिलाधिकारी द्वार निर्गत वैध चरित्र प्रमाण पत्र संलग्न करें <span style="color:red">*</span></label>
+                            <input type="file" id="CharacterCertificate" asp-for="CharacterCertificate" class="form-control">
+                            <span asp-validation-for="CharacterCertificate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="HasiyatCertificate">हैसियत प्रमाण पत्र श्रेणी वार संलग्न करें <span style="color:red">*</span></label>
+                            <input type="file" id="HasiyatCertificate" asp-for="HasiyatCertificate" class="form-control">
+                            <span asp-validation-for="HasiyatCertificate" class="text-danger"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="WorkCertificate">सम्पादित किये गये कार्यो का अनुभव प्रमाण पत्र संलग्न करें <span style="color:red">*</span></label>
+                            <input type="file" id="WorkCertificate" asp-for="WorkCertificate" class="form-control">
+                            <span asp-validation-for="WorkCertificate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="StampCertificate">
+                                सम्बन्धित परियोजना प्रबन्धक से प्रारूप-1 अनुसार विवरण, संस्तुति पत्र  @*(नोट-ठेकेदार/फर्म द्वारा कारपोरेशन में पंजीकरण के उपरान्त कोई कार्य नही किये जाने की दशा में रू0 100.00 के स्टैम्प पेपर पर नोटेराइज्ड शपथ पत्र प्रारूप-2 अनुसार देना होगा)*@
+                            </label>
+                            <input type="file" id="StampCertificate" asp-for="StampCertificate" class="form-control">
+                            <span asp-validation-for="StampCertificate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="DemandDraft">डिमाण्ड ड्राफ्ट जो यू0पी0 प्रोजेक्ट्स कारपोरेशन लिमिटेड लखनऊ के पक्ष में संलग्न करें <span style="color:red">*</span></label>
+                            <input type="file" id="DemandDraft" asp-for="DemandDraft" class="form-control">
+                            <span asp-validation-for="DemandDraft" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="GSTR1">जी0एस0टी0आर0-1 (वर्तमान) पत्र संलग्न करें <span style="color:red">*</span></label>
+                            <input type="file" id="GSTR1" asp-for="GSTR1" class="form-control">
+                            <span asp-validation-for="GSTR1" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="GSTR2">जी0एस0टी0आर0-3B (वर्तमान) पत्र संलग्न करें <span style="color:red">*</span></label>
+                            <input type="file" id="GSTR2" asp-for="GSTR2" class="form-control">
+                            <span asp-validation-for="GSTR2" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group text-right">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  col-xs-12">
+                    <h6>
+                        <i>
+                            नोट: अपलोड की जाने वाली आवश्यक सभी दस्तावेज pdf फॉर्मेट में ही होनी चाहिए , दस्तावेज का आकार 5120 KB (5 MB) से अधिक नहीं होना चाहिए । <br />
+                            <span style="color:red">*</span> चिह्नित दस्तावेज अपलोड करना अनिवार्य है।
+
+                        </i>
+                    </h6>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".calender").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy',
+                    maxDate: new Date()
+                });
+            $(".calender1").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy'
+
+                });
+            GetUpdatedRecords($("#CurrentName").html());
+
+
+        });
+    </script>
+    <script type="text/javascript">
+        var onBegin = function () {
+
+
+
+            if ($('#RequestFile').val() !== '') {
+                var filetender = $('#RequestFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#RequestFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("नवीनीकरण हेतु प्रार्थना पत्र का आकर 5120KB (5 MB) से कम होना चाहिए|");
+                        $('#RequestFile').val("");
+                        $('#RequestFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("नवीनीकरण हेतु प्रार्थना पत्र का प्रकार pdf ही होना चाहिए|");
+                    $('#RequestFile').val("");
+                    $('#RequestFile').focus();
+                    return false;
+                }
+            }
+
+            if ($('#OldRegistration').val() !== '') {
+                var filetender = $('#OldRegistration').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#OldRegistration').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("पुराने पंजीकरण की छायाप्रति का आकर 5120KB (5 MB) से कम होना चाहिए|");
+                        $('#OldRegistration').val("");
+                        $('#OldRegistration').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("पुराने पंजीकरण की छायाप्रति का प्रकार pdf ही होना चाहिए|");
+                    $('#OldRegistration').val("");
+                    $('#OldRegistration').focus();
+                    return false;
+                }
+            }
+            if ($('#CharacterCertificate').val() !== '') {
+                var filetender = $('#CharacterCertificate').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#CharacterCertificate').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("जिलाधिकारी द्वार निर्गत वैध चरित्र प्रमाण पत्र का आकर 5120KB (5 MB) से कम होना चाहिए|");
+                        $('#CharacterCertificate').val("");
+                        $('#CharacterCertificate').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("जिलाधिकारी द्वार निर्गत वैध चरित्र प्रमाण पत्र का प्रकार pdf ही होना चाहिए|");
+                    $('#CharacterCertificate').val("");
+                    $('#CharacterCertificate').focus();
+                    return false;
+                }
+            }
+            if ($('#HasiyatCertificate').val() !== '') {
+                var filetender = $('#HasiyatCertificate').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#HasiyatCertificate').val();
+                var FileSizeKB = (FileSize / 5120).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("हैसियत प्रमाण पत्र का आकर 5120KB (5 MB) से कम होना चाहिए|");
+                        $('#HasiyatCertificate').val("");
+                        $('#HasiyatCertificate').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("हैसियत प्रमाण पत्र का प्रकार pdf ही होना चाहिए|");
+                    $('#HasiyatCertificate').val("");
+                    $('#HasiyatCertificate').focus();
+                    return false;
+                }
+            }
+            if ($('#WorkCertificate').val() !== '') {
+                var filetender = $('#WorkCertificate').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#WorkCertificate').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("सम्पादित किये गये कार्यो का अनुभव प्रमाण पत्र का आकर 5120KB (5 MB) से कम होना चाहिए|");
+                        $('#WorkCertificate').val("");
+                        $('#WorkCertificate').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("सम्पादित किये गये कार्यो का अनुभव प्रमाण पत्र का प्रकार pdf ही होना चाहिए|");
+                    $('#WorkCertificate').val("");
+                    $('#WorkCertificate').focus();
+                    return false;
+                }
+            }
+            if ($('#StampCertificate').val() !== '') {
+                var filetender = $('#StampCertificate').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#StampCertificate').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("संस्तुति पत्र का आकर 5120KB (5 MB) से कम होना चाहिए|");
+                        $('#StampCertificate').val("");
+                        $('#StampCertificate').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("संस्तुति पत्र का प्रकार pdf ही होना चाहिए|");
+                    $('#StampCertificate').val("");
+                    $('#StampCertificate').focus();
+                    return false;
+                }
+            }
+            if ($('#DemandDraft').val() !== '') {
+                var filetender = $('#DemandDraft').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#DemandDraft').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("डिमाण्ड ड्राफ्ट का आकर 5120KB (5 MB) से कम होना चाहिए|");
+                        $('#DemandDraft').val("");
+                        $('#DemandDraft').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("डिमाण्ड ड्राफ्ट का प्रकार pdf ही होना चाहिए|");
+                    $('#DemandDraft').val("");
+                    $('#DemandDraft').focus();
+                    return false;
+                }
+            }
+            if ($('#GSTR1').val() !== '') {
+                var filetender = $('#GSTR1').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#GSTR1').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("GSTR1 5120KB (5 MB) से कम होना चाहिए|");
+                        $('#GSTR1').val("");
+                        $('#GSTR1').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("GSTR1 pdf ही होना चाहिए|");
+                    $('#GSTR1').val("");
+                    $('#GSTR1').focus();
+                    return false;
+                }
+            }
+            if ($('#GSTR2').val() !== '') {
+                var filetender = $('#GSTR2').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#GSTR2').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("GSTR2 का आकर 5120KB (5 MB) से कम होना चाहिए|");
+                        $('#GSTR2').val("");
+                        $('#GSTR2').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("GSTR2 का प्रकार pdf ही होना चाहिए|");
+                    $('#GSTR2').val("");
+                    $('#GSTR2').focus();
+                    return false;
+                }
+            }
+
+
+            $('#loader').css("display", "block");
+            return true;
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+
+            if (Response.Statuskey > 0) {
+                // alert(Response.msg);
+                location.href = '/Home/RenewalSuccess?TxnId=' + Response.msg;
+            }
+            else {
+                alert(Response.msg);
+            }
+
+        };
+        var onFailed = function () {
+            $('#loader').css("display", "none");
+        };
+
+    </script>
+
+}

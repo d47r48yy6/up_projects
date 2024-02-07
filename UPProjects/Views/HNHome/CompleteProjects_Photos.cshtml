@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "CompleteProjects_Photos";
+    Layout = "~/Views/Shared/_HindiLayout.cshtml";
+}
+<style>
+    .services_box a:after {
+        content: "";
+        background: white;
+        height: 0px;
+        width: 0px;
+        position: absolute;
+        top: -115px;
+        right: 2px;
+        transition: all 0.5s ease-in-out;
+    }
+</style>
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1><span id="spnProjectname"></span></h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container ongoing-project">
+
+        <div id="photos"></div>
+
+        <div class="back"><a id="idback"><span class="arrow_link">  <img src="/assets1/images/left-arrow.svg"></span></a></div>
+
+    </div>
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/GetQuerryString.js"></script>
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var unit = getQuerryStringDataByName("unit", "");
+            var pid = getQuerryStringDataByName("pid", "");
+            $('#idback').attr("href", "/HNhome/CompleteProjects?units=" + unit);
+            BindImages(unit, pid);
+            GetUpdatedRecords("OnGoingProjects_uppcl");
+    });
+
+        function BindImages(unit,pid) {
+            $('#loader').css("display","block");
+            $.get('@Url.Action("GetCompleteProjectPhotos","HNHome")', {
+                unit:unit, ProjectId:pid
+    }, function (data) {
+                    try {
+                        var htmlCont = '<div class="services_box"><div class="jhansi row"> ';
+                        $('#photos').empty();
+
+                        var isfirst = 1;
+                        $('#spnProjectname').text(data[0].HNProjectTitle);
+                        $.each(data, function (key, value) {
+
+
+
+                            //htmlCont = htmlCont + ' <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12""><a data-fancybox="gallery" href="/upload/ProgressPhoto/' + (value.Id).toString() + '/' + (value.FileName).toString() + '">' +
+                            //    '<img src="/upload/ProgressPhoto/' + (value.Id).toString() + '/' + (value.FileName).toString() + '"><span class="our_services_text">'+value.Description+'</span></a></div>';
+                              htmlCont = htmlCont + ' <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12""><a data-fancybox="gallery" href="/upload/ProgressPhoto/' + (value.Id).toString() + '/' + (value.FileName).toString() + '">' +
+                                '<img src="/upload/ProgressPhoto/' + (value.Id).toString() + '/' + (value.FileName).toString() + '"></a></div>';
+
+
+
+
+
+                        });
+                        $('#photos').append(htmlCont+'</div></div>');
+                        $('#loader').css("display", "none");
+        }
+                    catch (err) {
+                        $('#loader').css("display","none");
+        }
+            }).done(function (data) {
+        $('#loader').css("display","none");
+        })
+                .fail(function (data) {
+            $('#loader').css("display","none");
+        });
+        }
+    </script>
+}
+
+
+

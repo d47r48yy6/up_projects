@@ -1,0 +1,190 @@
+
+/* Header Top
+----------------------------------*/
+
+.tophead {
+	height: 35px;
+	width: 100%;
+	position: relative;
+	background: none;
+	border-bottom: none;
+	    z-index: 9999;
+}
+.tophead:before, .tophead:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+.tophead:after {
+	clear: both;
+}
+.tophead .tophead-lt {
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 40%;
+}
+.tophead .tophead-rt {
+	float: right;
+	margin: 0;
+	padding: 0 0 0px;
+	width: auto;
+	background: rgba(6,127,208,1) url(../images/header-tp-bg.png) 0 100% no-repeat;
+}
+a.skip-cont {
+	float: left;
+	color: #000;
+	font-size: 82%;
+}
+a.skip-cont:focus, a.skip-cont:hover {
+	color: #0c99d5;
+	text-decoration: underline;
+	outline: none;
+	border: none;
+}
+.social-icons {
+	float: left;
+	margin: 0 10px 0 0;
+	font-size: 100%;
+	padding: 7px 15px 8px 0;
+	border-right: 1px solid #e5ecf2;
+}
+.social-icons a {
+	float: left;
+	margin-left: 7px;
+	height: 20px;
+	width: 20px;
+	display: block;
+	background-color: #878da4;
+	text-align: center;
+	color: #FFF;
+	padding: 0 3px;
+	line-height: 20px;
+}
+.social-icons a:focus, .social-icons a:hover {
+	background-color: #55acee;
+	outline: none;
+}
+.social-icons a i {
+	display: block;
+	padding: 3px 0;
+	font-weight: 700;
+	font-size: 100%;
+}
+.social-icons a:first-child {
+	margin-left: 0px;
+	padding-bottom: 0;
+}
+.social-icons a:first-child:focus, .social-icons a:first-child:hover {
+	background-color: #3b5998;
+}
+.social-icons a:first-child i {
+	display: block;
+	padding: 5px 0 0 2px;
+}
+.tophead .tophead-rt ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.tophead .tophead-rt ul li {
+	float: left;
+	border-right: 2px solid rgba(24,139,215,1);
+}
+.tophead .tophead-rt li li {
+	border: none;
+}
+/*.tophead .tophead-rt li.sizechanger {
+	border-right:none;
+}*/
+.tophead .tophead-rt li.colorchanger {
+	border-right: 1px solid rgba(6,104,200,1);
+	border-left: none;
+}
+.tophead .tophead-rt li.colorchanger li a {
+	text-indent: -999999em;
+	padding-left: 0;
+	padding-right: 0;
+	width: 50px;
+}
+.tophead .tophead-rt li.hindi {
+	border-right: none;
+}
+.tophead .tophead-rt li.hindi a {
+	background-color: rgba(255,222,0,1);
+	color: rgba(0,0,0,1);
+	padding-left: 10px;
+	padding-right: 10px;
+	font-weight: 700;
+	font-size: 90%;
+}
+.tophead .tophead-rt li.hindi a:focus, .tophead .tophead-rt li.hindi a:hover {
+	background-color: #000;
+	color: #FFF;
+}
+.tophead .tophead-rt ul li{
+	color: #FFF;
+   
+}
+#time {
+    font-size: 13px;
+    color: #253b50;
+    display: inline-block;
+    padding: 7px 10px;
+    font-weight: 600;
+}
+.tophead .tophead-rt ul .date_time  {
+
+	 padding: 10px 10px;
+
+}
+.tophead .tophead-rt ul li a {
+	color: #FFF;
+    display: inline-block;
+	 padding: 10px 10px;
+
+}
+.tophead .tophead-rt ul li {
+	font-size: 85%;
+}
+.tophead .tophead-rt ul li.account-links li:first-child a.loginlinks {
+	padding-right: 7px;
+}
+.tophead .tophead-rt ul li.account-links li:last-child a.loginlinks {
+	padding-left: 7px;
+}
+.tophead .tophead-rt ul li.sizechanger li:first-child a {
+	padding-right: 0;
+}
+.tophead .tophead-rt ul li.sizechanger li:last-child a {
+	padding-left: 0;
+}
+.tophead .tophead-rt ul li a:focus,
+.tophead .tophead-rt ul li a:hover,
+.tophead .tophead-rt ul li.active a {
+	outline: none;
+	color: rgba(124,199,252,1);
+	text-decoration: none;
+}
+.high-contrast{ color: transparent!important;}
+
+a:focus.high-contrast.dark, a:focus.high-contrast.light {
+	outline: none;
+}
+
+/*footer*/
+html,body{height:100%;}
+.page_wrapper{
+	position:relative;
+	min-height:100%;
+	    margin-bottom: -50px;
+}
+footer {
+	margin-top: 50px;
+	left:0;right:0;
+    background: #ccc;
+	position:absolute;
+	bottom:0px;
+	height:50px;
+}
+

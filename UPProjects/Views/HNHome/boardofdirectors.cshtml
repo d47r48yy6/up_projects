@@ -1,0 +1,173 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.BoardOfDirectors>
+@{
+    ViewData["Title"] = "boardofdirectors";
+    Layout = "~/Views/Shared/_HindiLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>निदेशक मंडल</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of
+निदेशकs Table -->
+<section class="bod_section">
+    <div class="container">
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered table-hover table-striped css-serial">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            क्रम.संख्या
+                        </th>
+                        <th>
+                            निदेशकों का नाम
+                        </th>
+                        <th>पद</th>
+                        <th>पता</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    @{
+                        int s = 1;
+                        if (Model.Count() > 0)
+                        {
+                            @foreach (var item in Model.OrderBy(a => a.PriorityOrder))
+                            {
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>@item.HNDirectorName</td>
+                                    <td>@item.HNDesignation</td>
+                                    <td>@item.HNDirectorAddress</td>
+
+                                </tr>
+                                s++;
+                            }
+                        }
+
+                    }
+
+                    @*<tr>
+                            <td></td>
+                            <td>श्री टी. वेंकटेश, आई.ए.एस.</td>
+                            <td>अध्यक्ष</td>
+                            <td>अपर मुख्य सचिव, सिंचाई और जल संसाधन, सरकार। उत्तर प्रदेश का</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                श्री नवीन कपूर
+                            </td>
+                            <td>
+                                प्रबंध संचालक
+                            </td>
+                            <td>
+                                यू.पी. प्रोजेक्ट्स कॉर्पोरेशन लिमिटेड, लखनऊ
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                श्रीमती अनीता वर्मा सिंह
+                            </td>
+                            <td>
+                                निदेशक
+                            </td>
+                            <td>विशेष सचिव, सिंचाई और जल संसाधन, उ.प्र. सरकार, लखनऊ</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>श्री वी. के. निरंजन</td>
+                            <td>
+                                निदेशक
+                            </td>
+                            <td>इंजीनियर-इन-चीफ और विभागाध्यक्ष, सिंचाई और जल संसाधन विभाग, लखनऊ</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>श्री अशोक कुमार सिंह</td>
+                            <td>
+                                निदेशक
+                            </td>
+                            <td>
+                                इंजीनियर-इन-चीफ (डी. एंड पी.), सिंचाई और जल संसाधन विभाग, लखनऊ
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>श्री देवेंद्र अग्रवाल</td>
+                            <td>
+                                निदेशक
+                            </td>
+                            <td>
+                                इंजीनियर-इन-चीफ (Mech.), सिंचाई और जल संसाधन विभाग, लखनऊ
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>श्री सत्येंद्र कुमार सिंह </td>
+                            <td>
+                                उप निदेशक
+                            </td>
+                            <td>लोक उद्यम कार्यालय</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>श्री सौरभ कुमार </td>
+                            <td>
+                                निदेशक
+                            </td>
+                            <td>
+
+                                निदेशक (CADWM), आरडी एंड जीआर, जल संसाधन मंत्रालय, भारत सरकार, नई दिल्ली
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>श्री पंकज सक्सेना</td>
+                            <td>
+
+                                विशेष सचिव
+                            </td>
+                            <td>वित्त, उत्तर प्रदेश सरकार, लखनऊ</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                श्री गोपाल मिश्रा
+                            </td>
+                            <td>
+                                निदेशक
+                            </td>
+                            <td>
+                                मुख्य महाप्रबंधक, यू.पी. प्रोजेक्ट्स काॅरपोरेशन लि0, लखनऊ
+                            </td>
+                        </tr>*@
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- /End Board of
+निदेशकs Tabler -->
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}
+

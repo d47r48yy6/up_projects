@@ -1,0 +1,57 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.FinancialMaster>
+@{
+    ViewData["Title"] = "Financial";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Financial Position of Corporation</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<section class="bod_section">
+    <div class="container">
+        <p style="text-align: right;">(Rs. in Crores)</p>
+        <div style="overflow-x:auto;"><table class="table table-bordered table-hover table-striped css-serial">
+    <thead class="thead-dark">
+        <tr>
+            <th>S.N.</th>
+            <th>Year</th>
+            <th>Work Done</th>
+            <th>Net Profit</th>
+            <th>Cummulative Reserves </th>
+        </tr>
+    </thead>
+    <tbody class="">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td></td>
+                <td>@item.FinancialYearText</td>
+                <td>@item.WorkDone</td>
+                <td>@item.NetProfit</td>
+                <td>@item.CumulativeReservers</td>
+            </tr>
+        }
+    </tbody>
+</table></div>
+        
+    </div>
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+              GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}

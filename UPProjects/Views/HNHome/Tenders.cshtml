@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewData["Title"] = "Tenders";
+    Layout = "~/Views/Shared/_HNLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>टेंडर और नोटिस</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container">
+        <div style="overflow-x:auto;">
+            <table class="filter-box">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <select asp-items="@ViewBag.Zone" onchange="BindUnit()" id="ddlZone">
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="ddlUnit">
+                                    </select>
+                                </div>
+                                <div class="col-sm-4" style="padding-top: 5px;">
+                                    <a style="background: #6378bf none repeat scroll 0 0;    color: white;    padding: 5px;    width: 100%;    height: 36px;    border: none;" data-ajax-begin="OnBegin" data-ajax="true" data-ajax-method="GET"
+                                       href="#" onclick="SearchTenders()">जाँच</a>&nbsp;
+                                    <a style="background: #6378bf none repeat scroll 0 0;    color: white;    padding: 5px;    width: 100%;    height: 36px;    border: none;"
+                                       href="#" onclick="Reset()">रीसेट करें</a>
+                                </div>
+
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered table-hover table-striped css-serial">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>क्रम.संख्या</th>
+                        <th>ज़ोन</th>
+                        <th>इकाई</th>
+                        <th>टेंडर तारीख</th>
+                        <th>टेंडर नाम</th>
+                        <th>टेंडर आईडी</th>
+                        <th>बोली की अंतिम तिथि</th>
+                        <th>बोली खोलने की तिथि</th>
+                        <th>देखें/ डाउनलोड</th>
+                    </tr>
+                </thead>
+                <tbody id="tbldata">
+                    @*@{ int i = 0; }
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        @{ i = i + 1;}
+                        <td>@Html.Display(i.ToString())</td>
+                        <td>@Html.DisplayFor(modelItem => item.TenderNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DateofTender)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TenderTitle)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LastDateofSale)</td>
+                        <td>@Html.DisplayFor(modelItem => item.OpeningDate)</td>
+                        <td>
+
+                            <a href="~/upload/tender/@item.Id/@item.FileName" target="_blank" class="download_link">View</a>
+
+                    </tr>
+                }*@
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</section>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            SearchTenders();
+             GetUpdatedRecords($("#CurrentName").html());
+        });
+        function BindUnit() {
+            var Zone = $('#ddlZone').val();
+            $.get('@Url.Action("BindUnitHN","HNHome")', {
+                ZoneId: Zone
+            }, function (data) {
+                 })
+                .done(function (result) {
+                    $("#ddlUnit").empty();
+                    if (result != null) {
+                        $.each(result, function (data, value) {
+                            $("#ddlUnit").append($("<option></option>").val(value.id).html(value.value));
+                        });
+                    }
+                 })
+                .fail(function (data) {
+                 });
+        }
+
+        function SearchTenders() {
+            debugger;
+            var Zone = $('#ddlZone').val();
+            var Unit = $('#ddlUnit').val();
+            $.get('@Url.Action("SearchTenders","HNHome")', {
+                ZoneId: Zone,
+                UnitId: Unit
+            }, function (data) {
+
+                 })
+                .done(function (result) {
+                    $('#tbldata').empty();
+                    var tbldata = "";
+                    var counter = 0;
+                    if (result != null) {
+                        $.each(result, function (data, value) {
+                            debugger;
+                            counter = counter + 1;
+                            tbldata = tbldata + '<tr><td></td><td>' + value.zoneIdHN + '</td><td>' + value.unitIdHN + '</td><td>' + value.dateofTender1 + '</td><td>' + value.hnTenderTitle+ '</td><td>' + value.tenderNumber + '</td><td>' + value.lastDateofSale + '</td><td>' + value.openingDate + '</td><td> <a href="/upload/tender/' + value.id + '/' + value.fileName + '" style="cursor:pointer;" target="_blank" class="download_link">देखें</a></td></tr>';
+                        });
+                    }
+                    $('#tbldata').append(tbldata);
+                 })
+                .fail(function (data) {
+
+                    var s = "";
+                 });
+        }
+
+        var OnBegin = function () {
+            return true;
+        };
+        function Reset() {
+            location.href = '/HNHome/Tenders';
+        }
+    </script>
+}
+@*@section Scripts{
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                BindTable();
+        });
+            function BindTable() {
+                $.get('@Url.Action("TendersList","Tender")', {
+        }, function (data) {
+                        try {
+                            BindDataTable(data);
+            }
+            catch (err) {
+            }
+        })
+            .done(function (data) {
+            })
+            .fail(function (data) {
+            });
+            }
+
+            function BindDataTable(data) {
+                if (data.length > 0) {
+                    $("#tblData").DataTable({
+                        data: data,
+                        "oLanguage": {
+                            "emptyTable": "No record exist."
+                        },
+                        "searching": true,
+                        "paging": true,
+                        "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                        columns: [
+                            {
+                                'data': null,
+                                'render': function (data, type, fill, meta) {
+                                    return meta.row + 1;
+                                }
+                            },
+                            {
+                                'data': 'Category',
+                            },
+                            { "data": "TenderNumber" },
+                            { "data": "TenderTitle" },
+                            { "data": "DateofTender" },
+                            { "data": "LastDateofSale" },
+                            { "data": "OpeningDate" },
+                            { "data": "FileName" },
+                            { "data": "EditButton" },
+                            { "data": "DeleteButton" },
+                        ],
+                        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                            $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                            return nRow;
+                        },
+                        responsive: true,
+                        "bDestroy": true
+                    });
+                }
+                else {
+                    $("#tblData").DataTable({
+                        data: null               ,
+                        "oLanguage": {
+                            "emptyTable": "No record exist."
+                        }
+                    });
+                }
+            }
+
+            var onBegin = function () {
+                if (confirm('Are you sure?')) {
+                    $('#loader').css("display", "block");
+                    return true;
+                }
+                else
+                    return false;
+            };
+            var onComplete = function (result) {
+                $('#loader').css("display", "none");
+            };
+            var onSuccess = function (Response) {
+                debugger;
+                BindDataTable(Response);
+            };
+            var onFailed = function () {
+                  $('#loader').css("display", "none");
+            };
+        </script>
+
+    }*@
+

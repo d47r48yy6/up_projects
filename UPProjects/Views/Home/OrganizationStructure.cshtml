@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "OrganizationStructure";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+        string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Organization Structure</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="">
+        @{
+
+            var orgImage = "";
+            var Image = ViewBag.Image;
+            if (Image != null)
+            {
+
+                orgImage = "/Upload/MasterDocuments/" + Image;
+            }
+            else
+            {
+                orgImage = "~/assets1/images/OrganizationStructure/up_projects_co_layoutMarch-01.svg";
+            }
+            <img src="@Url.Content(orgImage)" />
+        }
+
+
+
+
+    </div>
+</section>
+<!-- /End Board of Directors Tabler -->
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+              GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}
+

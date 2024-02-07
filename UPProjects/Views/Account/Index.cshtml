@@ -1,0 +1,114 @@
+﻿@model UPProjects.Models.AccountViewModel.LoginViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+@section CSS{
+    <style type="text/css">
+        .captcha {
+            font-size: 23px;
+            border: 1px solid grey;
+        }
+    </style>
+}
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth register-bg-1 theme-one">
+            <div class="row w-100" style="margin-top:80px;">
+                <div class="col-lg-4 mx-auto">
+                    <h2 class="text-center mb-4">Login</h2>
+                    <div class="auto-form-wrapper">
+                        <form asp-action="Index">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input asp-for="Email" type="text" class="form-control" placeholder="Username" autocomplete="off">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-check-circle-outline"></i>
+                                        </span>
+                                    </div>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input asp-for="Password" type="password" class="form-control" placeholder="Password" autocomplete="off">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-check-circle-outline"></i>
+                                        </span>
+                                    </div>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                               
+                                    <div style="margin-bottom:20px;" class="">
+                                        <dnt-captcha asp-captcha-generator-max="9999"
+                                                     asp-captcha-generator-min="1111"
+                                                     asp-captcha-generator-language="English"
+                                                     asp-captcha-generator-display-mode="ShowDigits"
+                                                     asp-use-relative-urls="true"
+                                                     asp-placeholder="Enter Captcha code"
+                                                     asp-validation-error-message="Please enter the Captcha code."
+                                                     asp-font-name="Tahoma"
+                                                     asp-font-size="23"
+                                                     asp-fore-color="red"
+                                                     asp-back-color="#ccc"
+                                                     asp-text-box-class="text-box form-control captcha"
+                                                     asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
+                                                     asp-validation-message-class="field-validation-error"
+                                                     asp-refresh-button-class="fas fa-redo btn-sm"
+                                                     asp-use-noise="false" />
+                                    </div>
+                                    
+                            </div>
+                            <div class="form-group" style="    margin-top: 60px; margin-bottom: 40px;">
+                                <input type="submit" value="Login" class="btn btn-primary submit-btn btn-block" />
+                            </div>
+                            <div class="form-group d-flex justify-content-between">
+
+                                @*<a href="#" class="text-small forgot-password text-black">Forgot Password</a>&nbsp;|&nbsp;*@
+                                <a href="/home/index" class="text-small forgot-password text-black">Home Page </a>
+                            </div>
+                        </form>
+                    </div>
+                    <p class="footer-text text-center">copyright © 2020. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        var onBegin = function () {
+            $('#loader').css("display", "block");
+        };
+        var onComplete = function (data) {
+
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (data) {
+            if (data.succeeded === true) {
+                if (data.role == "user") {
+                    location.href = "/NewsPaperUser/Dashboard";
+                }
+                else if (data.role == "new_user") {
+                    location.href = "/NewsPaperProfile/UpdateProfile";
+                }
+                else {
+                    location.href = "/user/Dashboard";
+                }
+            }
+            else {
+                alert(data.message);
+                location.href = "/account/index";
+            }
+        };
+    </script>
+
+}

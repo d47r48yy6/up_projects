@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewData["Title"] = "Photo Gallery";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+
+}
+<style>
+    .services_box a:after {
+        content: "";
+        background: white;
+        height: 0px;
+        width: 0px;
+        position: absolute;
+        top: -115px;
+        right: 2px;
+        transition: all 0.5s ease-in-out;
+    }
+</style>
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>
+            @*फ़ोटो
+            गैलरी*@
+
+          Photo Gallery
+        </h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container ongoing-project">
+
+        <div class="services_box">
+            <div class="row">
+
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <a data-fancybox="gallery" href="~/CentralLabImg/UPPCL CHEMICAL LAB 2.jpg"><img src="~/CentralLabImg/UPPCL CHEMICAL LAB 2.jpg"></a>
+
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <a data-fancybox="gallery" href="~/CentralLabImg/UPPCL CHEMICAL LAB1.jpg"><img src="~/CentralLabImg/UPPCL CHEMICAL LAB1.jpg"></a>
+
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <a data-fancybox="gallery" href="~/CentralLabImg/UPPCL LAB 4.jpg"><img src="~/CentralLabImg/UPPCL LAB 4.jpg"></a>
+
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <a data-fancybox="gallery" href="~/CentralLabImg/UPPCL LAB2.jpg"><img src="~/CentralLabImg/UPPCL LAB2.jpg"></a>
+
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <a data-fancybox="gallery" href="~/CentralLabImg/UPPCL LAB3.jpg"><img src="~/CentralLabImg/UPPCL LAB3.jpg"></a>
+
+                </div>
+               
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <a data-fancybox="gallery" href="~/CentralLabImg/UPPCL LAB5.jpg"><img src="~/CentralLabImg/UPPCL LAB5.jpg"></a>
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+        <div class="back"><a href="/Home/Index"><span class="arrow_link">  <img src="/assets1/images/left-arrow.svg"></span></a></div>
+
+    </div>
+</section>
+<!-- /End Board of Directors Tabler -->
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetUpdatedRecords("LabPhotogallery");
+        });
+    </script>
+}

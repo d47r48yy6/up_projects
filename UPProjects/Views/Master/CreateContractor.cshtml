@@ -1,0 +1,461 @@
+﻿@model UPProjects.Models.CreateContractor
+
+@{
+    ViewData["Title"] = "CreateContractor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/lib/select2/select2.min.css" rel="stylesheet" />
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Add/Update Contractor</h4>
+            <div style="float:right;">
+                <a href="/Master/ContractorList" class="btn btn-outline-primary btn-rounded btn-fw">Contractor List</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form id="myForm" class="forms-sample" method="post" asp-action="SubmitContractor"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <div class="row">
+
+                    <label style="display:none;font-weight:bold;font-size:15px;" id="logindetails" class="text-primary"><b><span ></span></b></label>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Zone</label>  <span class="text-danger">*</span>
+                                <select class="form-control custom-select" id="ZoneId" asp-items="@Model.ZoneList" name="ZoneId" asp-for="ZoneId">
+                                </select>
+                                <span asp-validation-for="ZoneId" id="zonespan" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Unit Name</label>  <span class="text-danger">*</span>
+                                <select class="form-control custom-select" id="UnitId" name="UnitId">
+                                    <option value="0">Select</option>
+                                </select>
+                                <span asp-validation-for="UnitId" id="unitspan" class="text-danger"></span>
+                                <span id="UnitIdCurrent" style="display:none;">@Model.UnitId</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <input type="hidden" asp-for="Id" id="Id" name="Id" />
+                        <div class="col-sm-6">
+
+                            <label asp-for="ApplicantName"></label>
+                            <span class="text-danger">*</span>
+                            <input type="text" asp-for="ApplicantName" id="ApplicantName" autocomplete="off" placeholder="Name of Contractor" class="form-control" maxlength="100" />
+                            <span asp-validation-for="ApplicantName" class="text-danger"></span>
+
+                        </div>
+                        <div class="col-sm-6">
+
+                            <label asp-for="Mobile"></label>
+                            <span class="text-danger">*</span>
+
+                            <input type="text" asp-for="Mobile" maxlength="10" id="Mobile" autocomplete="off" placeholder="Mobile" class="form-control" />
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+
+                        </div>
+                        @*<div class="col-sm-6">
+            <label>Upload Photo</label>
+            <span class="text-danger">*</span>
+            <input type="file" asp-for="ApplicantPhoto" id="ApplicantPhoto" autocomplete="off" class="form-control" />
+            <span asp-validation-for="ApplicantPhoto" class="text-danger"></span>
+
+        </div>*@
+                    </div>
+                    <br />
+                    <div class="row">
+
+
+                        <div class="col-sm-6">
+
+                            <label>Email</label>
+                            <span class="text-danger">*</span>
+                            <input type="text" asp-for="Email" id="Email" autocomplete="off" placeholder="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="PAN"></label>
+                            <span class="text-danger">*</span>
+                            <input type="text" asp-for="PAN" id="PAN" autocomplete="off" placeholder="PAN" class="form-control" />
+                            <span asp-validation-for="PAN" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+
+
+                        <div class="col-sm-6">
+                            <label>Upload PAN</label>
+                            <span class="text-danger">*</span>
+                            <input type="file" asp-for="PANFile" id="PANFile" autocomplete="off" class="form-control" />
+                            <span asp-validation-for="PANFile" class="text-danger"></span>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="GST"></label>
+                            <span class="text-danger">*</span>
+                            <input type="text" asp-for="GST" id="GST" autocomplete="off" placeholder="GST" class="form-control" maxlength="16" />
+                            <span asp-validation-for="GST" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+
+
+                        <div class="col-sm-6">
+                            <label>Upload GST</label>
+                            <span class="text-danger">*</span>
+                            <input type="file" asp-for="GSTFile" id="GSTFile" autocomplete="off" class="form-control" />
+                            <span asp-validation-for="GSTFile" class="text-danger"></span>
+
+                        </div>
+                        <div class="col-sm-6">
+
+                            <label asp-for="FirmName"></label>
+                            <span class="text-danger">*</span>
+                            <input asp-for="FirmName" id="FirmName" autocomplete="off" placeholder="Firm Name" class="form-control" maxlength="100" />
+                            <span asp-validation-for="FirmName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      
+                        <div class="col-sm-6">
+                            <label>Firm Address</label>
+                            <span class="text-danger">*</span>
+                            <textarea asp-for="OfficeAddress" id="OfficeAddress"  autocomplete="off" placeholder="Firm Address" class="form-control" maxlength="150" ></textarea>
+                            <span asp-validation-for="OfficeAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Select District(s) <span class="text-danger">*</span></label>
+                            <span id="districtspan" class="text-danger"></span>
+
+
+                            <div class="row" id="divlist">
+
+                              
+                            </div>
+
+                           
+                          
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success mr-2" id="btnsub">Submit</button>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/select2/select2.min.js"></script>
+
+    <script>
+        //(function ($) {
+
+
+        //    $('.js-example-basic-multiple').select2();
+        //})(jQuery);
+        $(document).ready(function () {
+
+            BindDistrict();
+            var id = $("#Id").val();
+            if (parseInt(id) > 0) {
+
+                BindDistrictByContractor(parseInt(id));
+           var Zone = $("#ZoneId").val();
+            BindUnit(Zone)
+
+            }
+
+        })
+
+    </script>
+
+  
+    <script type="text/javascript">
+       
+             //data Ajax functions for Submit/Update Start
+        var onBegin = function () {
+
+            //if ($("#ZoneId").val() === "0") {
+
+            //    $("#zonespan").text("Please select Zone.");
+            //    $("#ZoneId").focus();
+            //    return false;
+
+            //}
+
+            //  if ($("#UnitId").val() === "0") {
+
+            //    $("#unitspan").text("Please select Unit.");
+            //    $("#UnitId").focus();
+            //    return false;
+
+            //}
+            
+
+
+             var id = $("#Id").val();
+            if (parseInt(id) > 0) {
+
+                console.log(1);
+
+            }
+            else {
+                //if ($('#ApplicantPhoto').val() === '') {
+                //    alert("Please Upload Photo");
+                //    $('#ApplicantPhoto').focus();
+                //    return false;
+                //}
+
+
+
+                if ($('#PANFile').val() === '') {
+
+
+                    alert("Please Upload PAN");
+                    $('#PANFile').focus();
+                    return false;
+
+
+                }
+                if ($('#GSTFile').val() === '') {
+                    alert("Please Upload GST File");
+                    $('#GSTFile').focus();
+                    return false;
+
+
+                }
+
+
+
+
+
+
+
+                //if ($('#ApplicantPhoto').val() !== '') {
+                //    var file = $('#ApplicantPhoto').get(0);
+                //    var FileSize = file.files[0].size;;
+                //    var path = $('#ApplicantPhoto').val();
+                //    var FileSizeKB = (FileSize / 1024).toFixed(2);
+                //    var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                //    if (ext == "png" || ext == "jpg" || ext == "jpeg") {
+                //        if (FileSizeKB > 1024) {
+                //            alert("Photo must be less than or equal to 1024 KB (1 MB).");
+                //            $(this).val("");
+                //            $(this).focus();
+                //            return false;
+                //        }
+                //    }
+                //    else {
+                //        alert("Phto  must be in  png, jpg or jpeg format.");
+                //        $('#ApplicantPhoto').focus();
+                //        $('#ApplicantPhoto').val('');
+                //        return false;
+                //    }
+                //}
+
+                if ($('#PANFile').val() !== '') {
+                    var file = $('#PANFile').get(0);
+                    var FileSize = file.files[0].size;;
+                    var path = $('#PANFile').val();
+                    var FileSizeKB = (FileSize / 1024).toFixed(2);
+                    var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                    if (ext == "png" || ext == "jpg" || ext == "jpeg" || ext == "pdf") {
+                        if (FileSizeKB > 1024) {
+                            alert("PAN must be less than or equal to 1024 KB (1 MB).");
+                            $(this).val("");
+                            $(this).focus();
+                            return false;
+                        }
+                    }
+                    else {
+                        alert("Upload PAN must be in pdf, png, jpg or jpeg format.");
+                        $('#PANFile').focus();
+                        $('#PANFile').val('');
+                        return false;
+                    }
+                }
+
+                if ($('#GSTFile').val() !== '') {
+                    var file = $('#GSTFile').get(0);
+                    var FileSize = file.files[0].size;;
+                    var path = $('#GSTFile').val();
+                    var FileSizeKB = (FileSize / 1024).toFixed(2);
+                    var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                    if (ext == "png" || ext == "jpg" || ext == "jpeg" || ext == "pdf") {
+                        if (FileSizeKB > 1024) {
+                            alert("GST File must be less than or equal to 1024 KB (1 MB).");
+                            $(this).val("");
+                            $(this).focus();
+                            return false;
+                        }
+                    }
+                    else {
+                        alert("Upload GST file must be in pdf, png, jpg or jpeg format.");
+                        $('#GSTFile').focus();
+                        $('#GSTFile').val('');
+                        return false;
+                    }
+                }
+
+            }
+            
+
+            var ck_box = $('input[type="checkbox"]:checked').length;
+            if (parseInt(ck_box) === 0) {
+
+                alert("Please select atleast one District.");
+                return false;
+            }
+            
+
+      
+        
+        };
+        var onComplete = function (result) {
+
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            if (Response.dynamicResult.status == false)
+            {
+                alert(Response.dynamicResult.innerresult);
+            }
+            else
+            {
+                alert(Response.dynamicResult.innerresult[0].Message);
+                $("#logindetails").text(Response.dynamicResult.innerresult[0].Message);
+                $("#logindetails").show();
+
+                if (Response.dynamicResult.innerresult[0].Status == 1) {
+                    document.getElementById("myForm").reset();
+                }
+               
+            }
+            	$(window).on('scroll', function() {
+		       var scrolled = $(window).scrollTop();
+                });
+            $("html, body").animate({ scrollTop: "0" }, 500);
+ 
+
+
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+       //data Ajax functions for Submit/Update End
+
+
+
+ function BindDistrict() {
+     $.ajax({
+         url: '/Master/GetDistrictListCheckBox',
+         type: 'Get',
+         data: {},
+         dataType: "json",
+         contentType: "application/json; charset=utf-8",
+         async: false,
+         success: function (data) {
+             var html = "";
+             for (var i = 0; i < data.length; i++) {
+                 html += '<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12"><input type = "checkbox" name = "Districts" class="Districts" value=' + data[i].Id + '>&nbsp; <h7>' + data[i].Value + '</h7></div>'
+             }
+             $("#divlist").append(html);
+
+         }
+
+     });
+        };
+
+
+   function BindDistrictByContractor(Id) {
+           
+             $.ajax({
+         url: '/Master/GetDistrictListByContractor',
+         type: 'Get',
+         data: {"Id":Id},
+         dataType: "json",
+         contentType: "application/json; charset=utf-8",
+         async: false,
+         success: function (data) {
+             for (var i = 0; i < data.length; i++) {
+                
+                $('input[name="Districts"][value="'+data[i].Value+'"]').prop("checked", true);
+            
+           
+      
+             }
+            
+
+         }
+
+     });
+
+
+           
+ }
+
+       
+
+
+         function BindUnit(id) {
+            $('#loader').css("display", "block");
+            var url = "/MPR/BindUnits?ZoneId=" + id;
+            $("#UnitId").empty();
+            $('#UnitId').append('<option value="0">Select Unit</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#UnitId').append('<option value="' + data[i].id + '">' + data[i].unitName + '</option>');
+                }
+                if (parseInt($("#UnitIdCurrent").html()) > 0) {
+                    $("#UnitId").val($("#UnitIdCurrent").html());
+                   
+                }
+
+
+
+            })
+            $('#loader').css("display", "none");
+        }
+
+         $("#ZoneId").change(function () {
+            var Zone = $("#ZoneId").val();
+            BindUnit(Zone)
+
+        })
+    </script>
+
+}

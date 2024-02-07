@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewData["Title"] = "SiteList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">List Of Sites</h4>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <input type="hidden" value="@ViewBag.ContractorId" id="ContractorId" />
+    <input type="hidden" value="@ViewBag.DistrictId" id="DistrictId" />
+    <input type="hidden" value="@ViewBag.TehsilId" id="TehsilId" />
+    <input type="hidden" value="@ViewBag.BlockId" id="BlockId" />
+    <input type="hidden" value="@ViewBag.GramsabhaId" id="GramsabhaId" />
+    <input type="hidden" value="@ViewBag.WorkStatus" id="WorkStatus" />
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="tblData">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Site Type</th>
+                                <th>District</th>
+                                <th>Tehsil</th>
+                                <th>Block</th>
+                                <th>Gram Sabha</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Supervisor</th>
+                                <th>Contractor</th>
+                                <th>Full Address</th>
+                                <th>Current Work Status</th>
+                                <th>View Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+              $('#loader').css("display", "block");
+            BindTable();
+        });
+        function BindTable() {
+
+           
+           var url = "/Master/GetSitesFromWorkStatus?DistrictId="+$("#DistrictId").val()+"&ContratorId="+$("#ContractorId").val()+"&TehsilId="+$('#TehsilId').val()+"&BlockId="+$('#BlockId').val()+"&GramSabhaId="+$("#GramsabhaId").val()+"&WorkStatus="+$("#WorkStatus").val()
+
+             
+              $.getJSON(url, function (data) {
+                BindDataTable(data);
+
+              })
+        }
+
+        function BindDataTable(data) {
+            if (data.length > 0) {
+              
+                $("#tblData").DataTable({
+                    data: data,
+                      dom:'Bfrtip',
+                    buttons: [
+            {
+                     extend: 'print',
+                     title: 'Site List',
+                     exportOptions: {
+                     columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Site List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                  "searching": true,
+                    "paging": false,
+                    "scrollY": '50vh',
+                    "scrollX": '50vh',
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                      columns: [
+                {
+                    'data': null,
+                    'render': function (data, type, fill, meta) {
+                        return meta.row + 1;
+                    }
+                },
+                { "data": "SiteType" },
+                { "data": "DistrictName" },
+                { "data": "TehsilName" },
+                { "data": "BlockName" },
+                { "data": "GramSabhaName" },
+                { "data": "Latitude" },
+                { "data": "Longitude" },
+                { "data": "SupervisorName" },
+                { "data": "ApplicantName" },
+                { "data": "FullAddress" },
+                { "data": "CurrentWorkStatus" },
+                {
+                      "data": "CompleteDetailsId",
+                      render: function (data, type, row, meta) {
+                          var act = "";
+                          var lnk = "";
+                          if (row.CurrentWorkPhoto != "") {
+                              lnk += '<a href="' + row.CurrentWorkPhoto + '" target="_blank"  data-placement="top"  data-toggle="tooltip" title="Edit" ><i class="icon-pencil7" ></i>View Uploaded Photo</a><br/><br/>';
+
+                          }
+                        
+                         
+                           return lnk;
+                      },
+                }
+            ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true
+                });
+            }
+            else {
+                $("#tblData").DataTable({
+                    data: null               ,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    }
+                });
+            }
+            $('#loader').css("display", "none");
+        }
+
+       
+    </script>
+
+}
+
+
+
+

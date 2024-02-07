@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewData["Title"] = "ChiefGenManagers";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Chief General Managers</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<section class="bod_section">
+    <div class="container">
+        <div style="overflow-x:auto;"><table class="table table-bordered table-hover table-striped css-serial">
+    <thead class="thead-dark">
+        <tr>
+            <th>S.N.</th>
+            <th>Chief General Managers</th>
+            <th>From</th>
+            <th>To</th>
+        </tr>
+    </thead>
+    <tbody class="">
+
+        <tr>
+            <td></td>
+            <td>Shri Shyam Bihari Pandey </td>
+            <td>28.06.2007</td>
+            <td>31.03.2009</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Shri Shyam Bihari Pandey </td>
+            <td>15.05.2013</td>
+            <td>15.05.2013</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Shri Kaushal Goyal</td>
+            <td>01.02.2014</td>
+            <td>30.04.2015</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Shri Anil Kumar Jain</td>
+            <td>02.05.2015 </td>
+            <td>31.10.2015</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Shri Gyanendra Singh </td>
+            <td>02.11.2015</td>
+            <td>31.05.2017</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Shri Satyendra Naath Singh</td>
+            <td>01.06.2017</td>
+            <td>31.07.2018</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Shri Ramesh Chandra </td>
+            <td>01.08.2018</td>
+            <td>31.10.2018</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Shri Gopal Mishra</td>
+            <td>01.11.2018</td>
+            <td>Till Date</td>
+        </tr>
+
+
+    </tbody>
+</table></div>
+        
+    </div>
+</section>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+              GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}

@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "PhotoGallery";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+}
+
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Photo Gallery</h1>
+    </div>
+</section>
+
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+
+
+            @*<div align="center" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <div id="divCategory"></div>
+            
+            </div>
+            <br />*@
+            <div id="divGallery">
+
+            </div>
+           
+                </div>
+            </div>
+</section>
+
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+        BindGallery('');
+    });
+    
+    function BindGallery(category) {
+        $('#loader').css("display", "block");
+        $.get('@Url.Action("BindGallery","Home")', {
+            category: category
+        }, function (data) {
+            try {
+                $('#divGallery').empty();
+                var htmlContent = '<div class="services_box PhotoGallery"><div class="row">';
+                $.each(data, function (key, val) {
+                        htmlContent = htmlContent + ' <div  class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom: 30px;"><a data-fancybox="gallery" data-caption="' + val.Title + '<br>' + val.Description + '" style="pointer:cursor;" href="' + val.FileName + '"><img src="' + val.FileName + '"> <span class="our_services_text">' + val.Title + '<span class="add_full">' + val.Description + '</span><span class="progress_year"></span></span></a></div>';
+                   
+                });
+                htmlContent = htmlContent + '</div></div>';
+                $('#divGallery').append(htmlContent);
+                $('#loader').css("display", "none");
+            }
+            catch (err) {
+                $('#loader').css("display", "none");
+            }
+        })
+            .done(function (data) {
+                $('#loader').css("display", "none");
+            })
+            .fail(function (data) {
+            $('#loader').css("display", "none");
+        });
+    }
+     @*function BindCategory() {
+        $.get('@Url.Action("BindCategory","Home")', {
+           
+        }, function (data) {                
+                $('#divCategory').empty();
+                var htmlContent = '';
+                $.each(data, function (key, val) {                 
+                        htmlContent = htmlContent+'&nbsp;' + val.Category;                   
+                });              
+                $('#divCategory').append(htmlContent);
+        });
+    }*@
+</script>
+
+}
+

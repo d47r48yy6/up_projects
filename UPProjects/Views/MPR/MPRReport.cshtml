@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewData["Title"] = "MPRReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var a = ViewBag.UserRole;
+}
+<label id="UserRole" style="display:none;">@ViewBag.UserRole</label>
+<label id="ZoneIdCurrent" style="display:none;">@ViewBag.ZoneId</label>
+<label id="UnitIdCurrent" style="display:none;">@ViewBag.UnitId</label>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span class="text-danger">*</span>
+                        <label>Zone</label>
+                        <select class="form-control" id="ZoneId">
+                        </select>
+                   </div>
+                    <div class="col-sm-4">
+                        <span class="text-danger">*</span>
+                        <label>Units</label>
+                        <select class="form-control" id="UnitId">
+                            <option value="0">Select Unit</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="button" id="btnSave" value="Show" class="btn btn-success mt-4" />
+
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div id="LoadMPRData">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+            BindZone();
+        })
+
+        function BindZone() {
+
+            var url = "/MPR/BindZone";
+            $("#ZoneId").empty();
+            $('#ZoneId').append('<option value="0">Select Zone</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#ZoneId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                }
+                var role = $("#UserRole").html();
+                if (role == "gm") {
+                    $("#ZoneId").val($("#ZoneIdCurrent").html());
+                    $('#ZoneId').attr("disabled", true); 
+                    BindUnit($("#ZoneIdCurrent").html());
+                }
+                if (role == "unit") {
+                    $("#ZoneId").val($("#ZoneIdCurrent").html());
+                     $('#ZoneId').attr("disabled", true);                   
+                    BindUnit($("#ZoneIdCurrent").html());
+                }
+                 
+            })
+        }
+
+        $("#ZoneId").change(function () {
+            var Zone = $("#ZoneId").val();
+            BindUnit(Zone)
+
+        })
+        function BindUnit(id) {
+
+            var url = "/MPR/BindUnits?ZoneId=" + id;
+            $("#UnitId").empty();
+            $('#UnitId').append('<option value="0">Select Unit</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#UnitId').append('<option value="' + data[i].id + '">' + data[i].unitName + '</option>');
+                }
+                var role = $("#UserRole").html();
+                if (role == "unit") {
+                    $("#btnSave").hide();
+                    $("#UnitId").val($("#UnitIdCurrent").html());
+                    $('#UnitId').attr("disabled", true); 
+                     $.ajax({
+                type: "POST",
+                url: "/MPR/MPRReportByUnit",
+                data: { UnitId: $("#UnitId").val() },
+                success: function (data) {
+                    $("#LoadMPRData").html(data);
+                }
+
+            });
+                }
+               
+            })
+        }
+
+        $("#btnSave").click(function () {
+
+            if ($("#ZoneId").val() == "" || $("#ZoneId").val() == "0" || $("#ZoneId").val() == null) {
+                alert("Please select  Zone");
+                return false;
+            }
+            if ($("#UnitId").val() == "" || $("#UnitId").val() == "0" || $("#UnitId").val() == null) {
+                alert("Please select  Unit");
+                return false;
+            }
+
+
+            $.ajax({
+                type: "POST",
+                url: "/MPR/MPRReportByUnit",
+                data: { UnitId: $("#UnitId").val() },
+                success: function (data) {
+                    $("#LoadMPRData").html(data);
+                }
+
+            });
+
+
+
+        });
+
+
+
+    </script>
+
+}
+

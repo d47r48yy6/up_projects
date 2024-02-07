@@ -1,0 +1,618 @@
+﻿@model UPProjects.Models.PMList
+@using UPProjects.Models
+
+@{
+    ViewData["Title"] = "WorkProgressDashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    a.survey-card {
+        cursor: pointer;
+    }
+
+    #progressBackgroundFilter {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        background-color: #000;
+        filter: alpha(opacity=50);
+        opacity: 0.5;
+        z-index: 1000;
+    }
+
+    #processMessage {
+        position: fixed;
+        top: 30%;
+        left: 43%;
+        padding: 10px;
+        width: 14%;
+        z-index: 1001;
+        background-color: #fff;
+        border: solid 1px #000;
+        text-align: center;
+    }
+
+
+    .modalBackground {
+        background-color: Gray;
+        filter: alpha(opacity=80);
+        opacity: 0.8;
+        z-index: 10000;
+    }
+
+    .w-states .stretch-card:nth-child(n+1) .survey-card h2 {
+        color: #007bff;
+    }
+
+    .w-states .stretch-card:nth-child(2n) .survey-card h2 {
+        color: #28a745;
+    }
+
+    .w-states .stretch-card:nth-child(3n) .survey-card h2 {
+        color: #dc3545;
+    }
+
+    .w-states .stretch-card:nth-child(4n) .survey-card h2 {
+        color: #ffc107;
+    }
+
+
+    /*.w-states .stretch-card:nth-child(n+1) .survey-card {
+            border: 1px solid #007bff;
+        }
+
+        .w-states .stretch-card:nth-child(2n) .survey-card {
+            border: 1px solid #28a745;
+        }
+
+        .w-states .stretch-card:nth-child(3n) .survey-card {
+            border: 1px solid #dc3545;
+        }
+
+        .w-states .stretch-card:nth-child(4n) .survey-card  {
+            border: 1px solid #ffc107;
+        }*/
+    .stretch-card {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        -webkit-box-pack: stretch;
+        -ms-flex-pack: stretch;
+        justify-content: stretch;
+    }
+
+    .survey-card {
+        margin-bottom: 20px;
+        width: 100%;
+        border-radius: 5px;
+        padding: 20px 10px;
+        position: relative;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        transition: all 0.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+        text-decoration: none;
+        overflow: hidden;
+        -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+        box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+    }
+
+        .survey-card:focus {
+            border-color: #e6e6e6;
+            -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+            box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+        }
+
+        .survey-card:hover {
+            text-decoration: none;
+            background: rgb(239, 239, 239, 0.3);
+            -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+            box-shadow: 0px 0px 6px rgba(0,0,0,.08);
+        }
+
+    .card-img-absolute1 {
+        position: absolute;
+        top: 0;
+        right: -54px;
+        opacity: 0.5;
+        width: 65%;
+        transition: all 0.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    }
+
+    .survey-card:hover .card-img-absolute1 {
+        transform: scale(1.08);
+        text-decoration: none;
+        transition: all 0.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    }
+
+    .survey-card h4 {
+        margin-top: 0px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        text-transform: uppercase;
+    }
+
+    .filter-fields {
+        display: none;
+    }
+</style>
+<div class="row page-title-header mb-2">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Dashboard</h4>
+
+        </div>
+    </div>
+
+</div>
+<label id="UserRole" style="display:none;">@ViewBag.UserRole</label>
+<label id="ZoneIdCurrent" style="display:none;">@ViewBag.ZoneId1</label>
+<label id="UnitIdCurrent" style="display:none;">@ViewBag.UnitId1</label>
+<div class="filter-box mb-3">
+    <button class="btn btn-primary filter-btn" type="button">Filter</button>
+    <div class="filter-fields mt-2" id="Filters">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Contractor</label>
+                            <select class="form-control custom-select" id="ContractorId" name="ContractorId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>District</label>
+                            <select class="form-control custom-select" id="DistrictId" name="DistrictId">
+                                <option value="0">Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="Type" class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control custom-select" id="TypeId" name="TypeId">
+                                <option value="0">Select</option>
+                                <option value="1">Rural</option>
+                                <option value="2">Urban</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="row" id="Rural">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Tehsil</label>
+                            <select class="form-control custom-select" id="TehsilId" name="TehsilId">
+                                <option value="0">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Block</label>
+                            <select class="form-control custom-select" id="BlockId" name="BlockId">
+                                <option value="0">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Gram panchayat</label>
+                            <select class="form-control custom-select" id="GramsabhaId" name="GramsabhaId">
+                                <option value="0">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="Urban">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Nagar Panchayat</label>
+                            <select class="form-control custom-select" id="NagarId">
+                                <option value="0">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-12">
+                    <button class="btn btn-primary" type="button" id="btnSearch">Apply</button>
+                    <button type="button" class="btn btn-dark" id="reset">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header p-3">
+        <h2 class="card-title text-uppercase" style="font-size:20px;">Work Progress</h2>
+    </div>
+    <div class="card-body px-3 pt-3 pb-0">
+        <div class="row w-states">
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a href="/Master/ContractorList" target="_blank" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="TotalContractors"></h2>
+                    <h4 class="info">Total Number of Contractors</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a href="/Master/SupervisorList" target="_blank" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="TotalSupervisors"></h2>
+                    <h4 class="info">Total Number of Supervisors</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a onclick="CommonFunction('')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="TotalSites"></h2>
+                    <h4 class="info">Total Number of Sites</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a  onclick="CommonFunction('1')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WorkStartedSites"></h2>
+                    <h4 class="info">Pump Lowering</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a  onclick="CommonFunction('2')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WorkInProgessSites"></h2>
+                    <h4 class="info">Pump Installation</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a  onclick="CommonFunction('3')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WorkCompletedSites"></h2>
+                    <h4 class="info">Water Flowing</h4>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a  onclick="CommonFunction('4')" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="WorkHandoverSites"></h2>
+                    <h4 class="info">Work Handover</h4>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a href="/Master/AprroveIssueSiteList?type=A" target="_blank" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="AprrovedSites">0</h2>
+                    <h4 class="info">Aprroved Sites</h4>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-4 col-xs-6 stretch-card">
+                <a href="/Master/AprroveIssueSiteList?type=I" target="_blank" class="survey-card">
+                    <img src="~/assets/images/document.png" class="card-img-absolute1" alt="circle-image">
+                    <h2 class="value" id="IssueSites">0</h2>
+                    <h4 class="info">Issue Raised Sites</h4>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            $(".filter-btn").click(function () {
+                $(".filter-fields").slideToggle();
+            });
+
+
+
+        });
+    </script>
+
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $(document).ready(function () {
+            // BindDistrict()
+
+            setTimeout(function () { BindTotal(); }, 1500);
+            setTimeout(function () { BindAprrovedIssueSites();}, 1500);
+            BindContractor();
+
+            $('#Rural').hide();
+            $('#Urban').hide();
+            $('#Type').hide();
+
+        })
+
+
+        function BindContractor() {
+            $('#loader').css("display", "block");
+            var url = "/Master/GetContractorList";
+            $("#ContractorId").empty();
+            $('#ContractorId').append('<option value="0">Select Contractor</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#ContractorId').append('<option value="' + data[i].id + '">' + data[i].ApplicantName + '</option>');
+                }
+
+            })
+            $('#loader').css("display", "none");
+        }
+        $("#ContractorId").change(function () {
+            var a = $("#ContractorId").val();
+         
+            if ($("#ContractorId").val() != "0") {
+                $('#loader').css("display", "block");
+                var url = "/Master/App_GetDistrictListByContractorId?ContractorId=" + $("#ContractorId").val();
+                $("#DistrictId").empty();
+                $('#DistrictId').append('<option value="0">Select District</option>');
+                $.get(url, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        debugger
+                        $('#DistrictId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                    }
+
+                });
+                $('#loader').css("display", "none");
+
+            }
+        });
+        $("#DistrictId").change(function () {
+            $("#TehsilId").empty();
+            $("#BlockId").empty();
+            $("#GramsabhaId").empty();
+            $("#NagarId").empty();
+            $("#TypeId").val("0").trigger('change');
+            if ($("#DistrictId").val() != "0") {
+                $('#Type').show();
+            } else {
+                $('#Rural').hide();
+                $('#Urban').hide();
+                $('#Type').hide();
+
+            }
+        });
+        $('#TypeId').change(function () {
+            if ($('#TypeId').val() == 1) {
+                $('#Rural').show();
+                $('#Urban').hide();
+                $('#loader').css("display", "block");
+                var url = "/Master/App_GetTehsilList?DistrictId=" + $("#DistrictId").val();
+                $("#TehsilId").empty();
+                $('#TehsilId').append('<option value="0">Select Tehsil</option>');
+                $.get(url, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        debugger
+                        $('#TehsilId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                    }
+
+                });
+                $('#loader').css("display", "none");
+
+
+            }
+            else if ($('#TypeId').val() == 2) {
+                $('#Rural').hide();
+                $('#Urban').show();
+                $('#loader').css("display", "block");
+                var url = "/Master/App_GetUrbanListByDistrictId?DistrictId=" + $("#DistrictId").val();
+                $("#NagarId").empty();
+                $('#NagarId').append('<option value="0">Select</option>');
+                $.get(url, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        debugger
+                        $('#NagarId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                    }
+
+                });
+                $('#loader').css("display", "none");
+            }
+            else {
+                $('#Rural').hide();
+                $('#Urban').hide();
+            }
+        });
+        $("#TehsilId").change(function () {
+            if ($("#TehsilId").val() != "0") {
+                $('#loader').css("display", "block");
+                var url = "/Master/App_GetBlockList?DistrictId=" + $("#DistrictId").val() + "&TehsilId=" + $("#TehsilId").val();
+                $("#BlockId").empty();
+                $('#BlockId').append('<option value="0">Select Block</option>');
+                $.get(url, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        debugger
+                        $('#BlockId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                    }
+
+                });
+                $('#loader').css("display", "none");
+
+            }
+            else {
+                $("#GramsabhaId").empty();
+                $("#BlockId").empty();
+            }
+        });
+        $("#BlockId").change(function () {
+            if ($("#BlockId").val() != "0") {
+                $('#loader').css("display", "block");
+                var url = "/Master/App_GetGramSabhaList?BlockId=" + $("#BlockId").val() + "&TehsilId=" + $("#TehsilId").val();
+                $("#GramsabhaId").empty();
+                $('#GramsabhaId').append('<option value="0">Select Gram Sabha</option>');
+                $.get(url, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        debugger
+                        $('#GramsabhaId').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                    }
+
+                });
+                $('#loader').css("display", "none");
+
+            }
+        });
+        ////////////////////////////////////////////////Bind Total ///////////////////////////////////////////////
+
+        function BindTotal() {
+
+            $("#loader").css("display", "block");
+            var GramSabhaId = "";
+            if ($('#TypeId').val() == "1") {
+                GramSabhaId = $('#GramSabhaId').val();
+            } else{
+                GramSabhaId = $('#NagarId').val();
+            }
+
+            var data1 = {
+                DistrictId: $("#DistrictId").val(),
+                ContratorId: $("#ContractorId").val(),
+                Type: "",
+                TehsilId: $('#TehsilId').val(),
+                BlockId: $('#BlockId').val(),
+                GramSabhaId: GramSabhaId
+
+            };
+            $.post("/Master/GetWorkProgressDashboardCount", data1, function (data) {
+                debugger
+                if (data != null) {
+
+                    $("#TotalContractors").html(data[0].TotalContractors);
+                    $("#TotalSupervisors").html(data[0].TotalSupervisors);
+                    $("#TotalSites").html(data[0].TotalSites);
+                    $("#WorkStartedSites").html(data[0].WorkStartedSites);
+                    $("#WorkInProgessSites").html(data[0].WorkInProgessSites);
+                    $("#WorkCompletedSites").html(data[0].WorkCompletedSites);
+                    $("#WorkHandoverSites").html(data[0].WorkHandoverSites);
+
+                }
+                $("#loader").css("display", "none");
+            });
+        }
+
+
+
+
+         ////////////////////////////////////////////////Bind Approved/IssueRaised Site ///////////////////////////////////////////////
+
+        function BindAprrovedIssueSites() {
+
+            $("#loader").css("display", "block");
+            var GramSabhaId = "";
+            if ($('#TypeId').val() == "1") {
+                GramSabhaId = $('#GramSabhaId').val();
+            } else if ($('#TypeId').val() == "1") {
+                GramSabhaId = $('#NagarId').val();
+            }
+
+            var data1 = {
+                DistrictId: $("#DistrictId").val(),
+                ContratorId: $("#ContractorId").val(),
+                Type: "",
+                TehsilId: $('#TehsilId').val(),
+                BlockId: $('#BlockId').val()
+
+            };
+            $.post("/Master/GetAprrovedIssueDashboardCount", data1, function (data) {
+                debugger
+                if (data != null) {
+
+                    $("#AprrovedSites").html(data[0].TotalAprrove);
+                    $("#IssueSites").html(data[0].TotalIssue);
+                  
+
+                }
+                $("#loader").css("display", "none");
+            });
+        }
+
+
+
+
+        function BindUnit(id) {
+            $('#loader').css("display", "block");
+            var url = "/MPR/BindUnits?ZoneId=" + id;
+            $("#UnitId").empty();
+            $('#UnitId').append('<option value="0">Select Unit</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#UnitId').append('<option value="' + data[i].id + '">' + data[i].unitName + '</option>');
+                }
+                if (parseInt($("#UnitIdCurrent").html()) > 0) {
+                    $("#UnitId").val($("#UnitIdCurrent").html());
+                    $('#UnitId').attr("disabled", true);
+                }
+
+
+
+            })
+            $('#loader').css("display", "none");
+        }
+
+        $("#ZoneId").change(function () {
+            var Zone = $("#ZoneId").val();
+            BindUnit(Zone)
+
+        })
+
+        $("#btnSearch").click(function () {
+
+            setTimeout(function () { BindTotal(); }, 1500);
+             setTimeout(function () { BindAprrovedIssueSites(); }, 1500);
+
+
+        });
+
+        ////////////////////////////////////Common Function////////////////////////////////////////////
+        function CommonFunction(st) {
+            var GramSabhaId = "";
+            if ($('#TypeId').val() == "0") {
+                GramSabhaId = '0';
+            }
+            if ($('#TypeId').val() == "1") {
+                GramSabhaId = $('#GramSabhaId').val();
+            } else{
+                GramSabhaId = $('#NagarId').val();
+            }
+
+            var url = "/Master/SiteList?ContractorId=" + $("#ContractorId").val() + "&DistrictId=" + $("#DistrictId").val() + "&TehsilId=" + $("#TehsilId").val() + "&BlockId=" + $("#BlockId").val()+"&GramsabhaId="+GramSabhaId+"&WorkStatus="+st
+            window.open(url);
+        }
+
+
+        ///////////////////////////////////////////////////////Reset Filters//////////////////////////////
+
+        $("#reset").click(function () {
+
+            location.reload();
+
+
+
+        });
+
+
+
+
+    </script>
+}

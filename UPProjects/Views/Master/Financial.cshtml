@@ -1,0 +1,258 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.FinancialMaster
+@{
+    ViewData["Title"] = "Financial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Financial Position of Corporation</h4>
+           
+        </div>
+    </div>
+</div>
+<label id="fy" style="display:none;">@Model.Year</label>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="Financial"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <label asp-for="Year"></label> <span class="text-danger"> *</span>
+                            <select id="Year" asp-for="Year" class="form-control"></select>
+                            <span asp-validation-for="Year" class="text-danger"> </span>
+                        </div>
+                        <div class="col-sm-6">
+
+                            <label asp-for="WorkDone"></label> <span class="text-danger"> *</span>
+                            <input type="text" asp-for="WorkDone" class="form-control" id="WorkDone" placeholder="Name" autocomplete="off" maxlength="10" />
+                            <span asp-validation-for="WorkDone" class="text-danger"> </span>
+
+                        </div>
+                        
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <label asp-for="NetProfit"></label><span class="text-danger"> *</span>
+                            <input type="text" asp-for="NetProfit" class="form-control" id="NeProfit" placeholder="Address" autocomplete="off" maxlength="10" />
+                            <span asp-validation-for="NetProfit" class="text-danger"> </span>
+                        </div>
+                        <div class="col-sm-6">
+
+                            <label asp-for="CumulativeReservers"></label><span class="text-danger"> *</span>
+                            <input type="text" asp-for="CumulativeReservers" class="form-control" id="TelephoneNo" placeholder="Telephone No" autocomplete="off" maxlength="10" />
+                            <span asp-validation-for="CumulativeReservers" class="text-danger"> </span>
+                        </div>
+                      
+                    </div>
+                    <br />
+                    
+                    <br />
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success mr-2" id="btnsub">@ViewBag.ButtonText </button>
+                            <button type="button" class="btn btn-dark mr-2" id="resetf">Reset</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Year</th>
+                                <th>Work Done</th>
+                                <th>Net Profit</th>
+                                <th>Cummulative Reserves</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+            BindYear();
+          //  BindZone();
+        });
+    </script>
+    <script type="text/javascript">
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            alert(Response.dynamicResult.innerresult.Message);
+            if (parseInt(Response.dynamicResult.innerresult.Status) > 0) {
+
+                window.location.reload();
+                BindTable();
+
+            }
+        };
+        var onFailed = function () {
+            $('#loader').css("display", "none");
+        };
+
+        function BindTable() {
+            var url = "/Master/GetFinancialDetails";
+            $.getJSON(url, function (data) {
+                BindDataTable(data);
+            })
+        }
+
+        function BindDataTable(data) {
+            debugger;
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                  
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                    "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "FinancialYearText" },
+                        { "data": "WorkDone" },
+                        { "data": "NetProfit" },
+                        { "data": "CumulativeReservers" },
+
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                var a = '<a data-ajax="true"  onclick="EditServices(' + row.Id + ')" class="text-primary" >Edit</a>';
+                                return a;
+                            }, className: "text-left not-export-column"
+                        },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                var a = '<a data-ajax="true"  onclick="DeleteServices(' + row.Id + ')" class="text-primary" >Delete</a>';
+                                return a;
+                            }, className: "text-left not-export-column"
+                        }
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+                $("#tblList").show();
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+        }
+
+        function DeleteServices(Id) {
+            if (confirm("Are you sure?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Master/DeleteFinancial",
+                    data: { Id: Id },
+                    success: function (data) {
+                        alert(data);
+                        location.href = "/Master/Financial";
+                        BindTable();
+
+                    }
+
+
+                })
+            }
+        }
+        function EditServices(Id) {
+            location.href = "/Master/Financial/" + Id;
+        }
+
+      
+        function BindYear() {
+
+            var url = "/Master/GetFinancialYear";
+            $("#Year").empty();
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#Year').append('<option value="' + data[i].id + '">' + data[i].value + '</option>');
+                }
+                 var id = $("#fy").html();
+                if (id == "" || id == "0" || id == null) {
+                    console.log(1);
+                }
+                else {
+                    $("#Year").val(id.trim());
+                   
+                }
+
+            });
+
+        }
+
+        $("#resetf").click(function () {
+
+            location.href = "/Master/Financial";
+        })
+
+    </script>
+
+}
+
+
+
+

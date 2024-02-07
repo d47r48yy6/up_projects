@@ -1,0 +1,727 @@
+
+@{
+    ViewData["Title"] = "ListOfArchitectures";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS{
+    <style type="text/css">
+
+        .modal-dialog {
+            max-width: 85%;
+            margin: 30px auto;
+        }
+
+        .lblpopup {
+            font-weight: bold;
+            font-size: 14px;
+            color: #2e2751;
+        }
+
+        p, a:not([href]):not([tabindex]) {
+            color: #a50026;
+        }
+    </style>
+
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">List Of Architectures</h4>
+            <div style="float: right;">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="tblData">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+
+                                <th>Name of the Consultant/Firm</th>
+                                <th>Category</th>
+                                <th>Contact Person</th>
+                                <th>Mobile</th>
+                                <th>e-Mail ID</th>
+                                @*<th>Address</th>*@
+                                <th>Date of Registration</th>
+                                <th class="not-export-column">#</th>
+                                <th class="not-export-column">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <button id="btnpopup" type="button" class="hidden" data-toggle="modal" data-target="#exampleModal"></button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Details of Architecture</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body">
+
+                <section class="bod_section prev_formdetails">
+                    <div class="container">
+                        <fieldset>
+                            <legend id="exampleModalLabel">Details of Architecture</legend>
+                            <div class="row">
+                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Name of the Consultant/Firm</label>
+                                        <p id="NameofConsultant"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Category</label>
+                                        <p id="Category"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                              
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Address</label>
+                                        <p id="Address"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Contact Person Details</legend>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Name of Contact Person</label>
+                                        <p id="Name"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Phone No of Contact Person</label>
+                                        <p id="PhoneNumber"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Photo (Signature & Designation)</label>
+                                        <br />
+                                        <img src="/assets/images/user-image.png" width="110px" height="90px;" id="Photo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Mobile No</label>
+                                        <p id="Mobile"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Fax No</label>
+                                        <p id="Fax"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">e-Mail ID</label>
+                                        <p id="eMail"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Website</label>
+                                        <p id="Website"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Data Processing Fee Rs. 2,000/-</legend>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Demand Draft No.</label>
+                                        <p id="DataProcessingDD"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Date</label>
+                                        <p id="DataProcessingDDDate"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Name of Bank/ Branch</label>
+                                        <p id="DataProcessingDDBank"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Details of Security</legend>
+
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Demand Draft No./ FDR/ TDR/ NSC No.</label>
+                                        <p id="SecurityDDNumber"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Date</label>
+                                        <p id="SecurityDDDate"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Name of Bank/ Branch</label>
+                                        <p id="SecurityBank"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Amount</label>
+                                        <p id="SecurityAmount"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Registration with Council of Architecture</legend>
+
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Date</label>
+                                        <p id="CouncilRegistrationDate"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Date Validity</label>
+                                        <p id="CouncilDateofValidity"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Photo Copy self attested</label>
+                                        
+                                        <span id="spnCouncilPhotoCoopy">NA</span>
+                                        <a href="" target="_blank" id="CouncilPhotoCoopy"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Value of projects under Government sector/public sector undertaking/private sector for which consultancy done in last 3 years as per Annexure 'A' (in Cr. Rs.)</legend>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup" id="year1"></label>
+                                        <p id="AnnexureAFirstYear"></p>                                        
+                                        <span id="spnAnnexureAFirstYearFile">NA</span>
+                                        <a href="" target="_blank" id="AnnexureAFirstYearFile"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup" id="year2"></label>
+                                        <p id="AnnexureASecondYear"></p>
+                                        
+                                        <span id="spnAnnexureASecondYearFile">NA</span>
+                                        <a href="" target="_blank" id="AnnexureASecondYearFile"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup" id="year3"></label>
+                                        <p id="AnnexureAThirdYear"></p>
+                                        
+                                        <span id="spnAnnexureAThirdYearFile">NA</span>
+                                        <a href="" target="_blank" id="AnnexureAThirdYearFile"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+
+                        <fieldset>
+                            <legend>Maximum value of single project done under Government sector/ public sector undertaking/private sector in the year as per Annexure 'A' (in Cr. Rs.)</legend>
+
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup" id="year11"></label>
+                                        <p id="AnnexureAFirstYearSingle"></p>
+                                                                                <span id="spnAnnexureAFirstYearFileSingle">NA</span>
+                                        <a href="" target="_blank" id="AnnexureAFirstYearFileSingle"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup" id="year22"></label>
+                                        <p id="AnnexureASecondYearSingle"></p>
+                                        
+                                        <span id="spnAnnexureASecondYearFileSingle">NA</span>
+                                        <a href="" target="_blank" id="AnnexureASecondYearFileSingle"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup" id="year33"></label>
+                                        <p id="AnnexureAThirdYearSingle"></p>
+                                        
+                                        <span id="spnAnnexureAThirdYearFileSingle">NA</span>
+                                        <a href="" target="_blank" id="AnnexureAThirdYearFileSingle"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Financial Information: Turn over of the last three years as per Annexure 'B' (in Cr. Rs.)</legend>
+
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup" id="year111"></label>
+                                        <p id="AnnexureBFirstYear"></p>
+                                        
+                                        <span id="spnAnnexureBFirstYearFile">NA</span>
+                                        <a href="" target="_blank" id="AnnexureBFirstYearFile"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup" id="year222"></label>
+                                        <p id="AnnexureBSecondYear"></p>
+                                        
+                                        <span id="spnAnnexureBSecondYearFile">NA</span>
+                                        <a href="" target="_blank" id="AnnexureBSecondYearFile"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup" id="year333"></label>
+                                        <p id="AnnexureBThirdYear"></p>
+                                        
+                                        <span id="spnAnnexureBThirdYearFile">NA</span>
+                                        <a href="" target="_blank" id="AnnexureBThirdYearFile"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <fieldset>
+                            <legend>&nbsp;</legend>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Income Tax Permanent Account Number</label>
+                                        <p id="Pan"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Photo Copy self attested</label>
+                                        
+                                        <span id="spnPanFile">NA</span>
+                                        <a href="" target="_blank" id="PanFile"><img   src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Service Tax Registration Number</label>
+                                        <p id="ServiceTax"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Photo Copy self attested</label>
+                                        
+                                        <span id="spnServiceTaxFile">NA</span>
+                                        <a href="" target="_blank" id="ServiceTaxFile"><img   src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Empanelled with other Government Organisations & public sector undetaking</label>
+                                        
+                                        <span id="spnOtherempanelledFile">NA</span>
+                                        <a href="" target="_blank" id="OtherempanelledFile"><img   src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Particulars of technical Staff on the proforma as per Annexure 'C'</label>
+                                        
+                                        <span id="spnAnnexureCFile">NA</span>
+                                        <a href="" target="_blank" id="AnnexureCFile"><img   src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </section>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+    });
+        function BindTable() {
+            $.get('@Url.Action("GetListOfArchitectures","Architecture")', {
+    }, function (data) {
+                try {
+                  
+                        BindDataTable(data);
+        }
+        catch (err) {
+        }
+    })
+        .done(function (data) {
+        })
+        .fail(function (data) {
+        });
+        }
+
+        function BindDataTable(data) {
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                     dom:'Bfrtip',
+          buttons: [
+            {
+                extend: 'print',
+                  title: 'Architectures List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Architectures List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "NameofConsultant" },
+                        { "data": "Category" },
+                        { "data": "Name" },
+                        { "data": "Mobile" },
+                        { "data": "eMail" },
+                        //{ "data": "Address" },
+                        { "data": "CreatedOn" },
+                        { "data": "ViewButton" },
+                        { "data": "RemoveArc" },
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true
+                });
+            }
+            else {
+                $("#tblData").DataTable({
+                    data: null               ,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    }
+                });
+            }
+        }
+
+        function ViewDetails(Id) {
+            debugger;
+                   $.get('@Url.Action("GetDetailsOfArchitecture","Architecture")', {ID:Id
+    }, function (data) {
+                           try {
+                               debugger;
+                               $('#Category').text(data[0].Category);
+                               $('#NameofConsultant').text(data[0].NameofConsultant);
+                               $('#Address').text(data[0].Address);
+                               $('#Name').text(data[0].Name);
+                               if (data[0].Photo !== "")
+                                   $('#Photo').attr("src", "/upload/arc/" + Id + "/" + data[0].Photo)
+                               else
+                                   $('#Photo').html('');
+                               $('#PhoneNumber').text(data[0].PhoneNumber);
+                               $('#Mobile').text(data[0].Mobile);
+                               $('#Fax').text(data[0].Fax);
+                               $('#eMail').text(data[0].eMail);
+                               $('#Website').text(data[0].Website);
+                               $('#DataProcessingDD').text(data[0].DataProcessingDD);
+                               $('#DataProcessingDDDate').text(data[0].DataProcessingDDDate);
+                               $('#DataProcessingDDBank').text(data[0].DataProcessingDDBank);
+                               $('#SecurityDDNumber').text(data[0].SecurityDDNumber);
+                               $('#SecurityDDDate').text(data[0].SecurityDDDate);
+
+                               $('#SecurityBank').text(data[0].SecurityBank);
+                               $('#SecurityAmount').text(data[0].SecurityAmount);
+
+                               $('#CouncilRegistrationDate').text(data[0].CouncilRegistrationDate);
+                               $('#CouncilDateofValidity').text(data[0].CouncilDateofValidity);
+                               if (data[0].CouncilPhotoCoopy !== "") {
+                                   $('#CouncilPhotoCoopy').attr("href", "/upload/arc/" + Id + "/" + data[0].CouncilPhotoCoopy)
+                                   $('#CouncilPhotoCoopy').css("display", "block");
+                                   $('#spnCouncilPhotoCoopy').css("display", "none");
+                               }
+                               else {$('#CouncilPhotoCoopy').css("display", "none");
+                                   $('#spnCouncilPhotoCoopy').css("display", "block"); }
+
+                               $('#AnnexureAThirdYear').text(data[0].AnnexureAThirdYear);
+                                   if (data[0].AnnexureAThirdYearFile !== "") {
+                                   $('#AnnexureAThirdYearFile').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureAThirdYearFile)
+                                   $('#AnnexureAThirdYearFile').css("display", "block");
+                                   $('#spnAnnexureAThirdYearFile').css("display", "none");
+                               }
+                               else {$('#AnnexureAThirdYearFile').css("display", "none");
+                                   $('#spnAnnexureAThirdYearFile').css("display", "block");
+                               }
+
+
+
+                               $('#AnnexureASecondYear').text(data[0].AnnexureASecondYear);
+                               if (data[0].AnnexureASecondYearFile !== "") {
+                                   $('#AnnexureASecondYearFile').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureASecondYearFile)
+                                   $('#AnnexureASecondYearFile').css("display", "block");
+                                   $('#spnAnnexureASecondYearFile').css("display", "none");
+                               }
+                               else {$('#AnnexureASecondYearFile').css("display", "none");
+                                   $('#spnAnnexureASecondYearFile').css("display", "block");
+                               }
+
+                               $('#AnnexureAFirstYear').text(data[0].AnnexureAFirstYear);
+                               if (data[0].AnnexureAFirstYearFile !== "") {
+                                   $('#AnnexureAFirstYearFile').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureAFirstYearFile)
+                                   $('#AnnexureAFirstYearFile').css("display", "block");
+                                   $('#spnAnnexureAFirstYearFile').css("display", "none");
+                               }
+                               else {$('#AnnexureAFirstYearFile').css("display", "none");
+                                   $('#spnAnnexureAFirstYearFile').css("display", "block");
+                               }
+
+                               $('#AnnexureAThirdYearSingle').text(data[0].AnnexureAThirdYearSingle);
+                               if (data[0].AnnexureAThirdYearFileSingle !== "") {
+                                   $('#AnnexureAThirdYearFileSingle').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureAThirdYearFileSingle)
+                                   $('#AnnexureAThirdYearFileSingle').css("display", "block");
+                                   $('#spnAnnexureAThirdYearFileSingle').css("display", "none");
+                               }
+                               else {$('#AnnexureAThirdYearFileSingle').css("display", "none");
+                                   $('#spnAnnexureAThirdYearFileSingle').css("display", "block");
+                               }
+
+                                $('#AnnexureASecondYearSingle').text(data[0].AnnexureASecondYearSingle);
+                               if (data[0].AnnexureASecondYearFileSingle !== "") {
+                                   $('#AnnexureASecondYearFileSingle').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureASecondYearFileSingle)
+                                   $('#AnnexureASecondYearFileSingle').css("display", "block");
+                                   $('#spnAnnexureASecondYearFileSingle').css("display", "none");
+                               }
+                               else {$('#AnnexureASecondYearFileSingle').css("display", "none");
+                                   $('#spnAnnexureASecondYearFileSingle').css("display", "block");
+                               }
+
+
+                               $('#AnnexureAFirstYearSingle').text(data[0].AnnexureAFirstYearSingle);
+                               if (data[0].AnnexureAFirstYearFileSingle !== "") {
+                                   $('#AnnexureAFirstYearFileSingle').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureAFirstYearFileSingle)
+                                   $('#AnnexureAFirstYearFileSingle').css("display", "block");
+                                   $('#spnAnnexureAFirstYearFileSingle').css("display", "none");
+                               }
+                               else {$('#AnnexureAFirstYearFileSingle').css("display", "none");
+                                   $('#spnAnnexureAFirstYearFileSingle').css("display", "block");
+                               }
+
+                               $('#AnnexureBThirdYear').text(data[0].AnnexureBThirdYear);
+                               if (data[0].AnnexureBThirdYearFile !== "") {
+                                   $('#AnnexureBThirdYearFile').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureBThirdYearFile)
+                                   $('#AnnexureBThirdYearFile').css("display", "block");
+                                   $('#spnAnnexureBThirdYearFile').css("display", "none");
+                               }
+                               else {$('#AnnexureBThirdYearFile').css("display", "none");
+                                   $('#spnAnnexureBThirdYearFile').css("display", "block");
+                               }
+
+                               $('#AnnexureBSecondYear').text(data[0].AnnexureBSecondYear);
+                               if (data[0].AnnexureBSecondYearFile !== "") {
+                                   $('#AnnexureBSecondYearFile').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureBSecondYearFile)
+                                   $('#AnnexureBSecondYearFile').css("display", "block");
+                                   $('#spnAnnexureBSecondYearFile').css("display", "none");
+                               }
+                               else {$('#AnnexureBSecondYearFile').css("display", "none");
+                                   $('#spnAnnexureBSecondYearFile').css("display", "block");
+                               }
+
+                               $('#AnnexureBFirstYear').text(data[0].AnnexureBFirstYear);
+                               if (data[0].AnnexureBFirstYearFile !== "") {
+                                   $('#AnnexureBFirstYearFile').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureBFirstYearFile)
+                                   $('#AnnexureBFirstYearFile').css("display", "block");
+                                   $('#spnAnnexureBFirstYearFile').css("display", "none");
+                               }
+                               else {$('#AnnexureBFirstYearFile').css("display", "none");
+                                   $('#spnAnnexureBFirstYearFile').css("display", "block");
+                               }
+
+                               $('#Pan').text(data[0].Pan);
+                               if (data[0].PanFile !== "") {
+                                   $('#PanFile').attr("href", "/upload/arc/" + Id + "/" + data[0].PanFile)
+                                   $('#PanFile').css("display", "block");
+                                   $('#spnPanFile').css("display", "none");
+                               }
+                               else {$('#PanFile').css("display", "none");
+                                   $('#spnPanFile').css("display", "block");
+                               }
+
+                               $('#ServiceTax').text(data[0].ServiceTax);
+                               if (data[0].ServiceTaxFile !== "") {
+                                   $('#ServiceTaxFile').attr("href", "/upload/arc/" + Id + "/" + data[0].ServiceTaxFile)
+                                   $('#ServiceTaxFile').css("display", "block");
+                                   $('#spnServiceTaxFile').css("display", "none");
+                               }
+                               else {$('#ServiceTaxFile').css("display", "none");
+                                   $('#spnServiceTaxFile').css("display", "block");
+                               }
+
+
+                               if (data[0].OtherempanelledFile !== "") {
+                                   $('#OtherempanelledFile').attr("href", "/upload/arc/" + Id + "/" + data[0].OtherempanelledFile)
+                                   $('#OtherempanelledFile').css("display", "block");
+                                   $('#spnOtherempanelledFile').css("display", "none");
+                               }
+                               else {$('#OtherempanelledFile').css("display", "none");
+                                   $('#spnOtherempanelledFile').css("display", "block");
+                               }
+                               if (data[0].AnnexureCFile !== "") {
+                                   $('#AnnexureCFile').attr("href", "/upload/arc/" + Id + "/" + data[0].AnnexureCFile)
+                                   $('#AnnexureCFile').css("display", "block");
+                                   $('#spnAnnexureCFile').css("display", "none");
+                               }
+                               else {$('#AnnexureCFile').css("display", "none");
+                                   $('#spnAnnexureCFile').css("display", "block");
+                               }
+
+
+                               $('#year1').text('Year '+data[0].Year1);
+                               $('#year11').text('Year '+data[0].Year1);
+                               $('#year111').text('Year '+data[0].Year1);
+
+                               $('#year2').text('Year '+data[0].Year2);
+                               $('#year22').text('Year '+data[0].Year2);
+                               $('#year222').text('Year '+data[0].Year2);
+
+                               $('#year3').text('Year '+data[0].Year3);
+                               $('#year33').text('Year '+data[0].Year3);
+                               $('#year333').text('Year '+data[0].Year3);
+
+                         $('#btnpopup').click();
+        }
+        catch (err) {
+        }
+    })
+        .done(function (data) {
+        })
+        .fail(function (data) {
+        });
+
+        }
+
+    function Remove(Id) {
+            var status = confirm("Are you sure you want to remove?");
+            if (status == true) {
+                $.get('@Url.Action("RemoveArchitecture", "Architecture")', {
+                    ID: Id
+                }, function (data) {
+                    alert(data);
+                    window.location.href = "/Architecture/ListOfArchitectures";
+       
+    })
+        .done(function (data) {
+        })
+        .fail(function (data) {
+        });
+            }
+        }
+</script>
+
+}

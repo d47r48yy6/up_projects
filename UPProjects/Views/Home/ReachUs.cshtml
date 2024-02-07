@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "ReachUs";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Reach Us</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<section class="bod_section ISO_certifate">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14236.590573601017!2d80.97942432281494!3d26.86704987641232!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x975aa1a956b547d2!2sU%20P%20Projects%20Corporation%20Ltd!5e0!3m2!1sen!2sin!4v1596102306260!5m2!1sen!2sin"
+                        width="900" height="350" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+            <div class="col-lg-4 col-md-4 address-1">
+
+                <h3>Contact Details</h3>
+                <ul class="address-widget-list">
+                    <li class="footer-address-number"><a href="#"><i class="fa fa-map-marker"></i><span>Left Bank, Gomti Barrage, Eldeco Greens, Gomti Nagar, Lucknow, Uttar Pradesh 226010</span></a></li>
+                    <li class="footer-mobile-number">
+                        <a href="tel:915222684332"><i class="fa fa-phone"></i>+91-522-2684332</a>
+                    </li>
+                    <li class="footer-mobile-number">
+                        <a href="mailto:info@upprojects.org"><i class="fa fa-envelope"></i>info@upprojects.org</a>
+                    </li>
+                    <li class="footer-mobile-number">
+                        <a href="#"><i class="fa fa-globe"></i>www.upprojects.org</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetUpdatedRecords($("#CurrentName").html());
+        });
+    </script>
+}

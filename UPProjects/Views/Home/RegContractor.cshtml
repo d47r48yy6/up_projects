@@ -1,0 +1,2420 @@
+﻿
+@{
+    ViewData["Title"] = "RegContractor";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+}
+<style>
+    .table thead th {
+        border-bottom: 2px solid #000000;
+    }
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #000000;
+    }
+</style>
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Registration of Contractors</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container">
+        <div class="text-right">
+            @*<a class="btn btn-primary text-white">Hindi</a>
+                <a class="btn btn-success text-white">English</a>*@
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <div class="title">
+            <h3>
+                Terms and Conditions for Registration / Renewal of
+                Contractors in U.P. Projects Corporation Limited
+            </h3>
+        </div>
+        <div class="term_box">
+            @*<ul class="list-unstyled terms_list">
+                <li>
+                    The contractors will have to sign the registration form, and all the terms and
+                    conditions etc.
+                </li>
+                <li>The contractors have to apply for renewal before the expiry of the registration period. </li>
+                <li>
+                    Registration form/contractor in various categories for civil construction works is
+                    authorized to take work up to the face value as follows-
+                </li>
+            </ul>*@
+            <div class="table-responsive">
+                @*<table class="table table-bordered table-hover table-striped css-serial">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Category</th>
+                            <th>Fee</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Category-A</td>
+                            <td>No Limits</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Category-B</td>
+                            <td><i class="fa fa-inr"></i> Upto 500.00 Lakh  </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Category-C</td>
+                            <td><i class="fa fa-inr"></i>  Upto 200.00 Lakh </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Category-D</td>
+                            <td><i class="fa fa-inr"></i> Upto 50.00 lakhs </td>
+                        </tr>
+                    </tbody>
+                </table>*@
+
+
+                @*start table new*@
+                @*New table with othf*@
+                <table class="table table-bordered" id="newtbl" border="1">
+                    <thead>
+                        <tr>
+                            <th style="font-weight:800">S.No</th>
+                            <th style="font-weight:800">Category</th>
+                            <th style="font-weight:800;" colspan="2">Civil Work</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: bolder; width: 5%; font-size: large;">1</td>
+                            <td style="width:55%;">
+                                <table>
+                                    <tr>
+                                        <th colspan="2">
+                                            <h4 class="text-center">Category-Civil Work  </h4><br />
+                                            Category for which the application is being made, Write ---------Yes<br />
+                                            Sub Category- means any one or more of the following works:
+                                        </th>
+                                    </tr>
+                                    <tr><td>(i) Construction of basement,            [       ] </td> </tr>
+                                    <tr><td>(ii) Multilevel vehicular parking,      [       ]</td> </tr>
+                                    <tr><td>(iii) Sports facilities,                         [       ]</td> </tr>
+                                    <tr><td>(iv) Railway or metro station,           [       ]	</td> </tr>
+                                    <tr>
+                                        <td>
+                                            (v) Runway, Airport terminal
+                                            building,                                     [       ]
+                                        </td>
+                                    </tr>
+                                    <tr><td>(vi) Repair and maintenance,           [       ]</td> </tr>
+                                    <tr><td>(vii) Additions,                                  [       ]</td> </tr>
+                                    <tr><td>(viii) Alterations,                               [       ]</td> </tr>
+                                    <tr><td>(ix) Renovations,                               [       ]</td> </tr>
+                                    <tr><td>(x) Up- gradations etc.                      [       ]</td> </tr>
+                                    <tr><td>(xi) Road, rail corridor, Bridge ETC. [       ]</td> </tr>
+                                    <tr>
+                                        <td>
+                                            (xii)River training word, Ghat, Flood
+                                            Protection,                                        [       ]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            (xiii)R.C.C. Dam, Barrage, Canal
+                                            Bridges, Head works,                        [       ]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            (xiv) Power-hose, cross drainage,
+                                            sewer S.T.P.                                       [       ]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            (xv) Pumps, O.H.T. and Drainage
+                                            water supply etc.                                [       ]
+                                    <tr>
+                                        <td>
+                                            (xvi) Interior decoration& furnishing  [       ]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            (xvii) Internal & external clarification, Modular O.T., Oxygen Supply fire fighting work.                                                [       ]
+                                        </td>
+                                    </tr>
+                            </td>
+                        </tr>
+                        <tr><td>(xi)Above all      </td> </tr>
+                </table>
+
+                </td>
+                <td style="width:40%;">
+                    <table>
+                        <tr>
+                            <th style="font-weight:800">Tendering Limit in Cr.</th>
+                            <th colspan="2" style="font-weight:800;">Class (06)</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                Upto 20.00 Cr.-50.00 Cr.
+                            </td>
+                            <td>
+                                A+
+                            </td>
+                            <td>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                Upto 5.00 Cr.-20.00 Cr.
+                            </td>
+                            <td>
+                                A
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Upto 2.00 Cr.-5.00 Cr.
+                            </td>
+                            <td>
+                                B
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Upto 0.5 Cr-2.00 Cr.
+                            </td>
+                            <td>
+                                C
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Up to 0.10 Cr.-0.5 Cr.
+                            </td>
+                            <td>
+                                D
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Up to 0.00 Cr.-0.10 Cr.
+                            </td>
+                            <td>
+                                E
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        
+
+                    </table>
+                </td>
+                </tr>
+                @*<tr>
+                    <td style="font-weight: bolder; width: 5%; font-size: large;">2</td>
+                    <td style="width:55%;">
+                        <table>
+                            <tr>
+                                <th colspan="1">
+                                    <h4 class="text-center">Category- Infrastructure Work (I)</h4><br />
+                                    Sub Category-means any one or more of the following:<br />
+
+                                </th>
+                            </tr>
+                            <tr><td>(i)Construction of road (including re-carpeting & road maintenance),</td></tr>
+                            <tr><td>(ii)Flyover, elevated road</td> </tr>
+                            <tr><td>(iii) Rail corridor, </td> </tr>
+                            <tr>
+                                <td>
+                                    (iv)Bridge including road over bridge or foot over bridge, approaches of             bridge, or flyover,
+                                </td>
+
+                            </tr>
+                            <tr><td>(v)Box or pipe culvert, </td> </tr>
+                            <tr><td>(vi) Subway, underpass, tunnel, runway,sky-walk,</td> </tr>
+                            <tr><td>(vii) River training work, </td></tr>
+                            <tr><td>(viii) Spillways,</td></tr>
+                            <tr><td>(ix) R.C.C Dams,Barrages,River Bridges,Canal Bridges,Tunnels, Canal head work.</td> </tr>
+                            <tr><td>(x)Regulators,Canal falls made of R.C.C. or any R.C.C Structure involving Heavy reinforcement i.e </td> </tr>
+                            <tr><td>(xi)Powerhouse, Pump house,</td> </tr>
+                            <tr><td>(xii)Cross Drainage work, Sewer, S.T.P, Drainage, Dredging work, OHT,</td> </tr>
+                            <tr><td>(xiii)Pumps and drinking water supply etc.</td> </tr>
+                            <tr><td>(xiv)Above All</td> </tr>
+
+                        </table>
+                    </td>
+                    <td style="width:40%;">
+                        <table>
+                            <tr>
+                                <th style="font-weight:800">Tendering Limit in Cr.</th>
+                                <th colspan="2" style="font-weight:800;">Class (05)</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 20.00 Cr. - 50.00 Cr
+                                </td>
+                                <td>
+                                    I-1
+                                </td>
+                                <td>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 5.00 Cr. - 20.00 Cr
+                                </td>
+                                <td>
+                                    I-2
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 2.00 Cr. - 5.00 Cr
+                                </td>
+                                <td>
+                                    I-3
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.5.00 Cr. - 2.00 Cr
+                                </td>
+                                <td>
+                                    I-4
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.00 Cr. - 0.5.00 Cr
+                                </td>
+                                <td>
+                                    I-5
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bolder; width: 5%; font-size: large;">3</td>
+                    <td style="width:55%;">
+                        <table>
+                            <tr>
+                                <th colspan="1">
+                                    <h4 class="text-center">Category- Horticulture(H) </h4><br />
+                                    Sub Category- means any one or more of the following:
+
+                                </th>
+                            </tr>
+                            <tr><td>(i) Landscaping,</td> </tr>
+                            <tr><td>(ii) Plantation or transplantation of trees,</td> </tr>
+                            <tr><td>(iii) Grassing, nursery work,</td> </tr>
+                            <tr><td>(iv) Maintenance of trees,</td> </tr>
+                            <tr><td>(v) Lawns and theme park with Ornamental plants/structures base.</td> </tr>
+
+                            <tr><td>(vi)Above all      </td> </tr>
+                        </table>
+
+                    </td>
+                    <td style="width:40%;">
+                        <table>
+                            <tr>
+                                <th style="font-weight:800">Tendering Limit in Cr.</th>
+                                <th colspan="2" style="font-weight:800;">Class (05)</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 20.00 Cr. - 50.00 Cr
+                                </td>
+                                <td>
+                                    H-1
+                                </td>
+                                <td>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 5.00 Cr. - 20.00 Cr
+                                </td>
+                                <td>
+                                    H-2
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 2.00 Cr. - 5.00 Cr
+                                </td>
+                                <td>
+                                    H-3
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.5.00 Cr. - 2.00 Cr
+                                </td>
+                                <td>
+                                    H-4
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.00 Cr. - 0.5.00 Cr
+                                </td>
+                                <td>
+                                    H-5
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bolder; width: 5%; font-size: large;">4</td>
+                    <td style="width:55%;">
+
+                        <table>
+                            <tr>
+                                <th colspan="1">
+                                    <h4 class="text-center">Category-Interior Decoration & Furnishing(IDF) </h4><br />
+                                    Sub Category- means any one or more of the following works:
+                                </th>
+                            </tr>
+                            <tr><td>(i) P.O.P  </td> </tr>
+                            <tr><td>(ii) False Ceiling  </td> </tr>
+                            <tr><td>(iii) Furniture  </td> </tr>
+                            <tr><td>(iv) Curtain, Rods, Holder                </td> </tr>
+                            <tr><td>(v) Space, Line, forms, Light  </td> </tr>
+                            <tr><td>(vi) Colour and texture pattern etc  </td> </tr>
+                            <tr><td>(vii) Above All   </td> </tr>
+
+                        </table>
+
+                    </td>
+                    <td style="width:40%;">
+                        <table>
+                            <tr>
+                                <th style="font-weight:800">Tendering Limit in Cr.</th>
+                                <th colspan="2" style="font-weight:800;">Class (04)</th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Upto 20.00 Cr. - 50.00 Cr
+                                </td>
+                                <td>
+                                    IDF-1
+                                </td>
+                                <td>
+                                    -
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 5.00 Cr. - 20.00 Cr
+                                </td>
+                                <td>
+                                    IDF-2
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 2.00 Cr. - 5.00 Cr
+                                </td>
+                                <td>
+                                    IDF-3
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.5.00 Cr. - 2.00 Cr
+                                </td>
+                                <td>
+                                    IDF-4
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.00 Cr. - 0.5.00 Cr
+                                </td>
+                                <td>
+                                    IDF-5
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bolder; width: 5%; font-size: large;">5</td>
+                    <td style="width:55%;">
+                        <table>
+                            <tr>
+                                <th colspan="1">
+                                    <h4 class="text-center">Category- Electrical Work (E)</h4><br />
+                                    Sub Category- means any one or more of the following works :
+                                </th>
+                            </tr>
+                            <tr><td>(i)	Internal & external electrification (including, sub stations),</td></tr>
+                            <tr><td>(ii) DG Sets, Transformers, Cabling, Road & Path Lights like as (architectural & ornamental Lights),  </td> </tr>
+                            <tr><td>(iii) Earthing </td> </tr>
+                            <tr><td>(iv) HT& LT Panels</td> </tr>
+                            <tr><td>(v)	UPS, Solar Panels </td> </tr>
+                            <tr><td>(vi) Split & Window AC and Lifts </td> </tr>
+                            <tr><td>(vii) Above All   </td> </tr>
+
+                        </table>
+                    </td>
+                    <td style="width:40%;">
+                        <table>
+                            <tr>
+                                <th style="font-weight:800">Tendering Limit in Cr.</th>
+                                <th colspan="2" style="font-weight:800;">Class (04)</th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Upto 20.00 Cr. - 50.00 Cr
+                                </td>
+                                <td>
+                                    E-1
+                                </td>
+                                <td>
+                                    -
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 5.00 Cr. - 20.00 Cr
+                                </td>
+                                <td>
+                                    E-2
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 2.00 Cr. - 5.00 Cr
+                                </td>
+                                <td>
+                                    E-3
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.5.00 Cr. - 2.00 Cr
+                                </td>
+                                <td>
+                                    E-4
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.00 Cr. - 0.5.00 Cr
+                                </td>
+                                <td>
+                                    E-5
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bolder; width: 5%; font-size: large;">6</td>
+                    <td style="width:55%;">
+                        <table>
+                            <tr>
+                                <th colspan="1">
+                                    <h4 class="text-center">Category- LVN Work</h4><br />
+                                    Sub Category- means any one or more of the following works:
+                                </th>
+                            </tr>
+                            <tr><td>(i)	Data Networking,</td> </tr>
+                            <tr><td>(ii) CCTV  </td> </tr>
+                            <tr><td>(iii) Stage Light,</td> </tr>
+                            <tr><td>(iv) Audio-Video Conferencing,</td> </tr>
+                            <tr><td>(v) EPBX Systems </td> </tr>
+
+                            <tr><td>(vi)Above all      </td> </tr>
+                        </table>
+                    </td>
+                    <td style="width:40%;">
+                        <table>
+                            <tr>
+                                <th style="font-weight:800">Tendering Limit in Cr.</th>
+                                <th colspan="2" style="font-weight:800;">Class (04)</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 20.00 Cr. - 50.00 Cr
+                                </td>
+                                <td>
+                                    LVN-1
+                                </td>
+                                <td>
+                                    -
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 5.00 Cr. - 20.00 Cr
+                                </td>
+                                <td>
+                                    LVN-2
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 2.00 Cr. - 5.00 Cr
+                                </td>
+                                <td>
+                                    LVN-3
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.5.00 Cr. - 2.00 Cr
+                                </td>
+                                <td>
+                                    LVN-4
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.00 Cr. - 0.5.00 Cr
+                                </td>
+                                <td>
+                                    LVN-5
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bolder; width: 5%; font-size: large;">7</td>
+                    <td style="width:55%;">
+
+                        <table>
+                            <tr>
+                                <th colspan="1">
+                                    <h4 class="text-center">Category- Air Conditioning Work (AC) </h4><br />
+                                    Sub Category- means anyone or more of the following works:
+
+                                </th>
+                            </tr>
+                            <tr><td>(i) HVAC Works &,</td></tr>
+                            <tr><td>(ii) VRF Works.  </td></tr>
+
+                            <tr><td>(iii)Above all      </td></tr>
+                        </table>
+                    </td>
+                    <td style="width:40%;">
+                        <table>
+                            <tr>
+                                <th style="font-weight:800">Tendering Limit in Cr.</th>
+                                <th colspan="2" style="font-weight:800;">Class (04)</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 20.00 Cr. - 50.00 Cr
+                                </td>
+                                <td>
+                                    AC-1
+                                </td>
+                                <td>
+                                    -
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 5.00 Cr. - 20.00 Cr
+                                </td>
+                                <td>
+                                    AC-2
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 2.00 Cr. - 5.00 Cr
+                                </td>
+                                <td>
+                                    AC-3
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.5.00 Cr. - 2.00 Cr
+                                </td>
+                                <td>
+                                    AC-4
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.00 Cr. - 0.5.00 Cr
+                                </td>
+                                <td>
+                                    AC-5
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="font-weight: bolder; width: 5%; font-size: large;">8</td>
+                    <td style="width:55%;">
+                        <table>
+                            <tr>
+                                <th colspan="1">
+                                    <h4 class="text-center">Category- Medical Work (MS) </h4><br />
+                                    Sub Category- means any one or more of the following works:
+
+                                </th>
+                            </tr>
+                            <tr><td>(i) Modular OT</td> </tr>
+                            <tr><td>(ii) Modern Kitchens </td> </tr>
+                            <tr><td>(iii) Laundry </td> </tr>
+                            <tr><td>(iv) CSSD and Medical Gases</td> </tr>
+                            <tr><td>(v) Required medical furniture. </td> </tr>
+
+                            <tr><td>(vi)Above all      </td> </tr>
+                        </table>
+                    </td>
+                    <td style="width:40%;">
+                        <table>
+                            <tr>
+                                <th style="font-weight:800">Tendering Limit in Cr.</th>
+                                <th colspan="2" style="font-weight:800;">Class (04)</th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Upto 20.00 Cr. - 50.00 Cr
+                                </td>
+                                <td>
+                                    M-1
+                                </td>
+                                <td>
+                                    -
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 5.00 Cr. - 20.00 Cr
+                                </td>
+                                <td>
+                                    M-2
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 2.00 Cr. - 5.00 Cr
+                                </td>
+                                <td>
+                                    M-3
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.5.00 Cr. - 2.00 Cr
+                                </td>
+                                <td>
+                                    M-4
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.00 Cr. - 0.5.00 Cr
+                                </td>
+                                <td>
+                                    M-5
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bolder; width: 5%; font-size: large;">9</td>
+                    <td style="width:55%;">
+                        <table>
+                            <tr>
+                                <th colspan="1">
+                                    <h4 class="text-center">Category- Fire Fighting Work (FFW).</h4><br />
+                                    Sub Category- means any one or more of the following works:
+
+                                </th>
+                            </tr>
+                            <tr><td>(i)	Fire Fighting Equipment,</td> </tr>
+                            <tr><td>(ii) Fire Alarm &   </td> </tr>
+                            <tr><td>(iii) Gas Suppression system </td> </tr>
+
+                            <tr><td>(iv)Above all      </td> </tr>
+                        </table>
+                    </td>
+                    <td style="width:40%;">
+                        <table>
+                            <tr>
+                                <th style="font-weight:800">Tendering Limit in Cr.</th>
+                                <th colspan="2" style="font-weight:800;">Class (04)</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 20.00 Cr. - 50.00 Cr
+                                </td>
+                                <td>
+                                    FFW-1
+                                </td>
+                                <td>
+                                    -
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 5.00 Cr. - 20.00 Cr
+                                </td>
+                                <td>
+                                    FFW-2
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 2.00 Cr. - 5.00 Cr
+                                </td>
+                                <td>
+                                    FFW-3
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.5.00 Cr. - 2.00 Cr
+                                </td>
+                                <td>
+                                    FFW-4
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upto 0.00 Cr. - 0.5.00 Cr
+                                </td>
+                                <td>
+                                    FFW-5
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </td>
+                </tr>*@
+                </tbody>
+                </table>
+
+                @* End New table with othf*@
+                @*end table new*@
+            </div>
+
+
+            <ul class="list-unstyled terms_list" style="display:none">
+                <li>Registration fee, renewal fee, general security and status details </li>
+            </ul>
+            <div class="table-responsive" style="display:none">
+                <table class="table table-bordered table-hover table-striped css-serial">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th style="width:100px">Category</th>
+
+
+                            <th>
+                                Registration
+                                Fee/Renewal Fee (in
+                                the form of Demand
+                                Draft)
+
+                            </th>
+                            <th>
+                                General Security
+                                Status
+                            </th>
+                            <th>Solvency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Category A </td>
+                            <td>
+                                Rs.10000.00+GST(18
+                                percent or as
+                                applicable)
+                            </td>
+                            <td>
+                                Rs.5.00 lakh FDR
+                                issued by
+                                Nationalized Bank
+                            </td>
+                            <td>
+                                Rs. 125.00 Lakh issued
+                                by District
+                                Magistrate/Nationalized
+                                Bank
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Category B </td>
+                            <td>
+                                Rs.8000.00+GST(18
+                                percent or as
+                                applicable)
+                            </td>
+                            <td>
+                                Rs.2.00 lakh FDR
+                                issued by
+                                Nationalized Bank
+                            </td>
+                            <td>
+                                Rs. 50.00 Lakh issued
+                                by District
+                                Magistrate/Nationalized
+                                Bank
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Category C</td>
+                            <td>
+                                Rs.7000.00+GST(18
+                                percent or as
+                                applicable)
+                            </td>
+                            <td>
+                                Rs.1.00 lakh FDR
+                                issued by
+                                Nationalized Bank
+                            </td>
+                            <td>
+                                Rs. 12.50 Lakh issued
+                                by District
+                                Magistrate/Nationalized
+                                Bank
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Category D </td>
+                            <td>
+                                Rs.5000.00+GST(18
+                                percent or as
+                                applicable)
+                            </td>
+                            <td>
+                                Rs.0.50 lakh FDR
+                                issued by
+                                Nationalized Bank
+                            </td>
+                            <td>
+                                Rs. 6.50 Lakh issued by
+                                District
+                                Magistrate/Nationalized
+                                Bank
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ul class="list-unstyled terms_list">
+                @*<li>
+                    The prescribed registration fee will be payable as per the category applied for. The
+                    amount of registration fee will be valid in the form of Demand Draft drawn in favor of
+                    UP Projects Corporation Ltd. payable at Lucknow.
+                </li>
+                <li>
+                    General Security, maturity of FDR of nationalized bank which is pledged in the name
+                    of U.P. Projects Corporation Ltd. to be attached. The maturity of FDR should be 3
+                    years.
+
+                </li>*@
+                @*<li>
+                    There should be technical staff for each category of contractors as follows.
+                </li>*@
+            </ul>
+            <div class="table-responsive" style="display:none">
+                <table class="table table-bordered table-hover table-striped css-serial">
+                    <thead>
+                        <tr>
+                            <th>Sr.No. </th>
+                            <th>Category-A</th>
+                            <th>
+                                Category-B
+                            </th>
+                            <th>Category-C</th>
+                            <th>Category-D</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>
+                                A graduate civil
+                                engineer
+
+                            </td>
+                            <td>
+                                A graduate civil
+                                engineer
+                            </td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                Two Diploma
+                                Holder Civil
+                            </td>
+                            <td>
+                                One Diploma
+                                Holder Civil
+                            </td>
+                            <td>
+                                One Diploma
+                                Holder Civil
+                            </td>
+                            <td>-</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <ul class="list-unstyled terms_list">
+                @*<li>The details of technical staff should be indicated as per Appendix-F. </li>*@
+                @*<li>
+                    Registering contractors to blacklist the firm for conduct contrary to the rules laid
+                    down by U.P. Projects Corporation Ltd., such as deteriorating the quality of work, not
+                    correcting the finishing, misbehaving with departmental employees/officers, etc.,
+                    imposing reasonable penalties. And the officers of UP Projects Corporation Ltd. will
+                    have the right to prohibit them from participating in the tenders.
+
+                </li>
+                <li>
+                    The applicant will have to give an affidavit to the effect that the close relative (blood
+                    relation) of any partner of the firm is not working in UP Projects Corporation Ltd.
+                    Blood relation means father, mother, brother-sister, uncle-tau, daughter and wife etc.
+                    If the contrary is found after registration, then the name of the contractor will be
+                    blacklisted.
+                </li>
+                <li>
+                    The applicant has to attach the character certificate (as per Appendix-C) issued by the
+                    District Magistrate.
+                </li>
+                <li>
+                    The applicant has to attach the status certificate (as per Appendix-D) issued by the
+                    District Magistrate / Nationalized Bank.
+                </li>
+                <li>
+                    The photograph to be affixed with the certificates should be attested by a Gazetted
+                    Officer/Notary.
+                </li>
+                <li>
+                    All the proceedings related to UP Projects Corporation Ltd. such as tender, purchase,
+                    contract and bill etc. will have to be signed by the concerned contractor and only one
+                    person authorized by him will have to give an affidavit.
+                </li>
+                <li>
+                    The officials of UP Projects Corporation Ltd. will have the right to cancel the
+                    application if the desired record is not submitted along with the application form or
+                    due to any reason.
+                </li>
+                <li>
+                    UP PROJECTS CORPORATION LIMITED reserves the right to cancel the
+                    application for registration/renewal without assigning any reason.
+                </li>
+                <li>
+                    The registered contractor will have to follow the orders issued by UP Projects
+                    Corporation Ltd. from time to time in future also.
+                </li>
+                <li>
+                    A copy of the Income Tax Return for the last three years should be attached by the
+                    contractors to the Income Tax Department.
+                </li>
+                <li>
+                    A certified copy of the Balance Sheet for the last three years from a Chartered
+                    Accountant will have to be submitted.
+                </li>*@
+
+
+
+                @*aks category changes*@
+                @*<li>
+                    (1) Category-A contractors will have to give a certificate of experience of doing
+                    civil work continuously for at least four years and for the satisfactory completion of
+                    works of at least Rs. 500.00 lakh in the last four years for civil construction /
+                    development work, government departments / Certificates of government
+                    institutions/public undertakings will have to be given.
+                </li>
+                <li>
+                    (2) For category-B contractors, at least 4 years of continuous experience of doing civil
+                    work will have to be given certificate and for civil construction / development work in the
+                    last four years, the government departments will have to give satisfactory completion of
+                    works of at least Rs 200.00 lakh. Certificates of State Institutions/Public Undertakings will
+                    have to be given.
+
+                </li>
+                <li>
+                    (3) For category-C contractors, at least 4 years continuous experience of doing civil work
+                    will have to be given certificate and for civil construction / development work, in the last four
+                    years, at least Rs. 50.00 lakhs will have to be completed by the state government. Certificates
+                    of Departments/Government Institutions/Public Undertakings will have to be given.
+
+                </li>
+                <li>
+                    (4)For Category-D contractors, at least 4 years continuous experience of doing civil
+                    work will have to be given certificate and for civil construction / development work in the
+                    last four years, at least Rs. 25.00 lakhs for satisfactory completion of the work. Certificates of
+                    Departments/Government Institutions/Public Undertakings will have to be given.
+                </li>*@
+                @*<li>
+                    (5) In order to renew the firms registered with UP Projects Corporation Ltd. or to extend
+                    the validity for a further period, the firm will have to give a certificate of civil construction
+                    works / public undertakings done in the previous year.
+                </li>
+                <li>
+                    (6) All the formalities will be completed along with the application form. Incomplete
+                    application form will be treated as cancelled.
+                </li>*@
+
+            </ul><br />
+            <div style="text-align:center">
+                <h6><b>Rules for Enlistment of Contractors in U.P PROJECTS CORPORATION LTD. 2022</b></h6>
+            </div>
+            <ol style="padding:0px;margin-left:10px;font-weight:500">
+
+                <li>Title, extent and commencement</li>
+                <li>These rules may be called the Rules for Enlistment of Contractors in U.P PROJECTS CORPORATION LTD. 2022.</li>
+                <li>They shall here in after be referred to as Enlistment Rules, 2022 for the sake of brevity. </li>
+                <li>They extend to the whole of India. </li>
+                <li>They shall come into force with effect from 16th December 2022. </li>
+                <li>In these rules, unless the context otherwise requires</li>
+
+                <ol type="i" style="padding:0px;margin-left:10px;font-weight:500">
+
+                    <li>
+                        <b>
+                            "Civil"
+                        </b> means construction of a residential or non-residential structure consisting of foundation,
+                        walls, floors, roofs, finishing, civil and electrical services, plumbing, water supply, sewer, necessary infrastructure like internal roads, boundary wall, external electrical services and horticulture work etc; related to campus of the building awarded under a single contract. Building work includes any one or more of the following works: construction of basement, multilevel vehicular parking, sports facilities, railway or metro station, airport terminal building, repair and maintenance, additions, alterations, renovations, up- gradations, electrical installations, electrical and mechanical services of buildings.
+                        Exclusions: Building work does not include works of supply of materials, housekeeping, sweeping, care taking, watch & ward and other similar works involving labour component only. Building work also does not include operation and maintenance of electrical and mechanical services through original equipment manufacturers.
+
+                    </li>
+
+                    <li>
+                        <b>"Category"</b> means category of enlistment under these rules
+                    </li>
+                    <li> <b>"Class"</b>means class of enlistment, in category, under these rules.</li>
+                    <li> <b>"Contractor"</b> means an individual, partnership firm, limited liability partnership or company executing or intending to execute the work under a contract </li>
+                    <li><b>"Enlistment" </b>means enlistment of contractors in accordance with these rules.</li>
+                    <li><b>"Tendering limit"</b> means the upper limit determined by the estimated cost put to tender of a work of specified category, up to which an enlisted contractor can tender, subject to the eligibility conditions specified in the notice inviting tenders.</li>
+                    <li><b>"Work"</b> means the work contracted to be executed under a single contract/agreement.</li>
+                    @*<li><b>"Electrical work" </b>means any one or more of the following works : Internal & external electrification (including, sub stations , DG Sets, Trans formers , Cabling, Road & Path Lights like as (architectural and ornamental Lights) Earthing, HT & LT Panels, UPS, Solar Pane ls , Split & Window AC and Lifts)</li>
+                    <li> <b>"LVN Work"</b> means any one or more of the following works: Data Networking, CCTV, StageLight, Audio-Video Conferencing and EPBX Systems.</li>
+                    <li><b>"Air Conditioning Work"</b> means any one or more of the following works: HVAC Works and VRF Works.</li>
+                    <li><b>"Medical Work"</b> means any one or more of the following works: Modular OT,  Modem Kitchens , Laundry, CSSD and Medical Gases and Required medical furniture .</li>
+                    <li>
+                        <b>"Fire Fighting Work"</b> means any one or more of the following  works:  Fire Fighting,  Fire Alarm and Gas Suppression system)
+                    </li>
+                    <li>
+                        <b>"Interior Decoration & Furnishing(IDF)"</b> means any one or more of the following works: P.O.P, False Ceiling , Furniture, Curtain, Rods, Holder, Space, Line, forms, Light, Colour, and texture pattern etc.
+                    </li>
+
+                    <li>
+                        <b>"Tendering limit"</b> means the upper limit determined by the estimated cost put to tender of a work of specified category, up to which an enlisted contractor can tender , subject to the eligibility conditions specified in the notice inviting tenders .
+                    </li>
+                    <li>
+                        <b> "Work"</b> means the work contracted to be executed under a single contract/agreement.
+                    </li>*@
+
+                </ol>
+
+
+
+
+                <h6><i>General</i></h6>
+                <ol type="i" style="padding:5px;margin-left:10px;font-weight:500">
+                    <li>
+                        The object of enlistment of contractors is to have a ready list of suitable and competent contractors for U.P PROJECTS CORPORATION LTD. works so as to minimize the requirement of verification of their credentials at the time of individual tenders. At the same time, only those contractors are allowed to continue in the list that remain active in U.P PROJECTS CORPORATION LTD. and perform satisfactorily.
+                    </li>
+                    <li>These rules may be revised or repealed by new rules. The enlistment of a contractor shall be governed by the revised or new rules existing at the relevant time, if any, and not by the rules prevailing at the time of enlistment.</li>
+                    <li>The term U.P PROJECTS CORPORATION LTD. shall include U.P Projects Corporation Limited . </li>
+                    <li>  (<b>A GOVERNMENT OF UTTAR PRADESH ENTERPRISE</b>). </li>
+                    <li>  <b>Timely work completion, quality and behaviour of the bidder shall be considered at the time of Enlistment of Contractor.*</b></li>
+
+
+                </ol>
+
+
+
+                <br />
+                <div style="text-align:center;padding:80px;margin-top:-100px;margin-bottom:-50px">
+                    <h5>
+                        Terms and Conditions for Enlistment / Renewal of Contractors in U.P. Projects Corporation Limited
+                    </h5>
+                </div>
+                <div>
+                    <h6>
+                
+                    The Enlistment of the contractor is being done assuming that all the information given by applicant contractor are true. After enlistment, If the information submitted by the contractor comes to the notice of being false at any stage, his Enlistment will be cancelled with immediate effect.
+               
+                </h6>
+        </div>
+
+        <li>The contractors will have to sign the registration form, and all the terms and conditions etc.</li>
+        <li>The contractors have to apply for renewal before the expiry of the registration period.</li>
+        <li>Registration form/contractor in various categories for civil construction works is authorized to take work up to the face value as follows-</li>
+        <li>Registration fee, renewal fee, general security and Solvency details</li>
+        @*<li>Registration fee, renewal fee, general security and Solvency details</li>*@
+
+        <br />
+        <table class="table table-bordered table-hover table-striped" style="text-align:center">
+            <tr><td colspan="4" style=" text-align: center; font-weight: 800"><i>Enlistment fee in Rs.</i></td></tr>
+            <tr>
+                <td style="font-weight:800">S No</td>
+                <td style="font-weight:800">Category and Class</td>
+                <td style="font-weight:800">Fresh Enlistment Fee</td>
+                <td style="font-weight:800">Enlistment Renewal Fee</td>
+            </tr>
+
+            <tr>
+                <td> 1</td>
+                <td> A+</td>
+                <td> 75,000</td>
+                <td> 37500</td>
+            </tr>
+            <tr>
+                <td> 2</td>
+                <td>
+                    A
+                </td>
+                <td>40,000</td>
+                <td> 20000</td>
+            </tr>
+            <tr>
+                <td> 3</td>
+                <td>
+                    B
+                </td>
+                <td> 25,000 </td>
+                <td> 12500 </td>
+            </tr>
+            <tr>
+                <td> 4</td>
+                <td>
+                    C
+                </td>
+                <td> 15,000 </td>
+                <td> 7500 </td>
+            </tr>
+            <tr>
+                <td> 5</td>
+                <td>
+                    D
+                </td>
+                <td> 10,000</td>
+                <td> 5000 </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>
+                    E
+                </td>
+                <td> 5000</td>
+                <td> ----- </td>
+            </tr>
+        </table>
+
+
+
+        <table class="table table-bordered table-hover table-striped" style="text-align:center">
+            <tr><td colspan="4" style=" text-align: center; font-weight: 800"><i>General Security</i></td></tr>
+            <tr>
+                <td style="font-weight:800">S No</td>
+                <td style="font-weight:800">Category and Class</td>
+                <td style="font-weight:800">Required General Security Amount in Form of FDR/NSC & Pledged to</td>
+
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    A+
+                </td>
+                <td>
+                    Rs. 25.00 Lacs Pledged to “U. P Projects Corporation  Limited” Lucknow
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>2</td>
+                <td>
+                    A
+
+                </td>
+                <td>
+                    Rs. 10.00 Lacs Pledged to “U. P Projects Corporation Limited” Lucknow.
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>3</td>
+                <td>
+                    B
+                </td>
+                <td>
+                    Rs. 5.00 Lacs Pledged to “U. P Projects Corporation Limited” Lucknow.
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>4</td>
+                <td>
+                    C
+                </td>
+                <td>
+                    Rs. 2.00 Lacs Pledged to “U. P Projects Corporation Limited” Lucknow.
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>5</td>
+                <td>
+                    D
+                </td>
+                <td>
+                    Rs. 1.00 Lacs Pledged to “U. P Projects Corporation Limited” Lucknow.
+                </td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+                <td>
+                    E
+                </td>
+                <td>
+                    Rs. 0.50 Lacs Pledged to “U. P Projects Corporation Limited” Lucknow.
+                </td>
+            </tr>
+
+
+        </table>
+
+        <table class="table table-bordered table-hover table-striped" style="text-align:center">
+            <tr><td colspan="9"><b><i>Requirement of Net Worth/ Solvency Certificate, amount in  Rs. Crore</i></b></td></tr>
+
+            <tr>
+                <td> <b>Category</b></td>
+                <td colspan="3"><b>Civil</b> </td>
+                @*<td colspan="2"> <b>Infrastructure (I)</b></td>
+                <td colspan="2"><b>Horticulture (H) </b></td>
+                <td colspan="2"><b>Interior & (/DF)</b> </td>*@
+            </tr>
+
+            <tr>
+                <td> <b>SNo</b>	</td>
+                <td><b> Class </b></td>
+                <td><b>Net Worth/ Solvency </b></td>
+                @*<td><b> Class </b></td>
+                <td><b>Net Worth/ Solvency</b> </td>
+                <td><b>Class </b></td>
+                <td><b>Net Worth/ Solvency </b></td>
+                <td><b>Class </b></td>
+                <td><b> Net Worth/Solvency </b></td>*@
+            </tr>
+
+            <tr>
+                <td> 1	</td>
+                <td> A+</td>
+                <td>8.00 </td>
+
+            </tr>
+
+            <tr>
+                <td> 2	</td>
+                <td> A</td>
+                <td>2.00</td>
+
+            </tr>
+
+            <tr>
+                <td> 3	</td>
+                <td> B</td>
+                <td>0.80</td>
+
+            </tr>
+
+            <tr>
+                <td> 4	</td>
+                <td>C</td>
+                <td>0.20</td>
+
+            </tr>
+            <tr>
+                <td> 5	</td>
+                <td> D</td>
+                <td>0.04</td>
+
+            </tr>
+            <tr>
+                <td> 6	</td>
+                <td> E</td>
+                <td>0.02</td>
+
+            </tr>
+        </table>
+        <li>
+            The prescribed registration fee will be payable as per the category applied for. The amount of registration fee will be valid in the form of Demand Draft drawn in favour of UP Projects Corporation Ltd. payable at Lucknow.
+        </li>
+        <li>
+            General Security, maturity of FDR of nationalized bank which is pledged in the name of U.P. Projects Corporation Ltd. to be attached. The maturity of FDR should be 3 years.
+        </li>
+        <li>
+            There should be technical staff for each category of contractors as follows.
+        </li>
+        <table class="table table-bordered table-hover table-striped" style="text-align:center">
+            <tr><td colspan="15"><b><i>Requirements technical staff required for enlistment in Category-Civil</i></b></td></tr>
+
+            <tr>
+                <td> <b>Sl. No.</b></td>
+                <td colspan="2"><b>Requirement of Technical Qualification</b> </td>
+                <td colspan="2"> <b>Class- A+</b></td>
+                <td colspan="2"><b>Class A</b></td>
+                <td colspan="2"><b>Class B</b> </td>
+                <td colspan="2"><b>Class C</b> </td>
+                <td colspan="2"><b>Class D</b> </td>
+                <td colspan="2"><b>Class E</b> </td>
+            </tr>
+
+            <tr>
+                <td> <b>1</b>	</td>
+                <td colspan="2"><b> Graduate Engineer(20 Year experiene) </b></td>
+                <td colspan="2"><b>1</b></td>
+                <td colspan="2"><b>- </b></td>
+                <td colspan="2"> <b>-</b> </td>
+                <td colspan="2"><b>- </b></td>
+                <td colspan="2"><b>--</b></td>
+                <td colspan="2"><b>-</b></td>
+
+            </tr>
+            <tr>
+                <td> <b>2</b>	</td>
+                <td colspan="2"><b> Graduate Engineer(10 Year  experiene)</b></td>
+                <td colspan="2"><b>1</b></td>
+                <td colspan="2"><b>1 </b></td>
+                <td colspan="2"><b>-</b> </td>
+                <td colspan="2"><b>- </b></td>
+                <td colspan="2"><b>--</b></td>
+                <td colspan="2"><b>-</b></td>
+
+            </tr>
+            <tr>
+                <td> <b>3</b>	</td>
+                <td colspan="2">
+                    <b>
+                        Graduate Engineer  (5	Year experience)/Diploma Engineer (10 Year experience)
+                    </b>
+                </td>
+                <td colspan="2"><b>2</b></td>
+                <td colspan="2"><b>1 </b></td>
+                <td colspan="2"><b>1</b> </td>
+                <td colspan="2"><b>- </b></td>
+                <td colspan="2"><b>--</b></td>
+                <td colspan="2"><b>-</b></td>
+
+            </tr>
+            <tr>
+                <td> <b>3</b>	</td>
+                <td colspan="2">
+                    <b>
+                        Graduate Engineer (2 Year experience)/Diploma Engineer (5 Year experience)
+                    </b>
+                </td>
+                <td colspan="2"><b>2</b></td>
+                <td colspan="2"><b>2 </b></td>
+                <td colspan="2"><b>2</b> </td>
+                <td colspan="2"><b>2</b></td>
+                <td colspan="2"><b>--</b></td>
+                <td colspan="2"><b>-</b></td>
+
+            </tr>
+
+        </table>
+
+
+
+        <br />
+        <li>The details of technical staff should be indicated as per Category (Appendix-F). If the information submitted by the contractor or information comes to the notice of being false at any stage, his Enlistment will be cancelled with immediate effect. </li>
+
+
+        <br />
+
+        Minimum Machinery-tools and plants required for enlistment in flowing Category in each class –
+        <table class="table table-bordered table-hover table-striped" style="text-align:center">
+            <tr>
+                <td colspan="9">
+                    <b>
+                        <i>
+                            Table 6:<br />
+                            Requirements Machinery-tools and plants required for enlistment in Civil Category
+
+                        </i>
+                    </b>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td> SI. No.</td>
+                <td> Name of Equipment</td>
+                <td> Class A+</td>
+                <td>
+                    Class A
+                </td>
+                <td>ClassB</td>
+                <td>
+                    ClassC
+                </td>
+                <td> ClassD</td>
+                <td> ClassE</td>
+            </tr>
+            <tr>
+                <td> 1</td>
+                <td> Concrete Mixer</td>
+                <td>9</td>
+                <td>4 </td>
+                <td> 3</td>
+                <td> 2</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+            <tr>
+                <td> 2</td>
+                <td>Vibrators</td>
+                <td>12</td>
+                <td>8</td>
+                <td>6</td>
+                <td> 4</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+            <tr>
+                <td> 3</td>
+                <td>Concrete Pump</td>
+                <td>2</td>
+                <td>1</td>
+                <td>-</td>
+                <td>-</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+            <tr>
+                <td> 4</td>
+                <td>Cube Testing Machine</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+            <tr>
+                <td> 5</td>
+                <td>Bar Cutting Machine</td>
+                <td>4</td>
+                <td>2</td>
+                <td>1</td>
+                <td>1</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+            <tr>
+                <td> 6</td>
+                <td>Bar bending Machine</td>
+                <td>2</td>
+                <td>1</td>
+                <td>-</td>
+                <td>-</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+            <tr>
+                <td> 7</td>
+                <td>Steel Shuttering Plate</td>
+                <td>9000 sqm</td>
+                <td>5000 sqm</td>
+                <td>-</td>
+                <td>-</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+            <tr>
+                <td> 8A</td>
+                <td>Steel scaffolding Adjustable telescopic props. Adjustable spans</td>
+                <td>16000 Nos</td>
+                <td>8000 Nos</td>
+                <td>5000 Nos</td>
+                <td>-</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+            <tr>
+                <td> 8B</td>
+                <td>Adjustable spans</td>
+                <td>4500 Nos</td>
+                <td>3000 Nos</td>
+                <td>2000 Nos</td>
+                <td>-</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+
+            <tr>
+                <td> 9</td>
+                <td>Electronic Total Station instrument</td>
+                <td>1</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+
+            <tr>
+                <td>10</td>
+                <td>Ultra-Pulse Velocity Meter</td>
+                <td>1</td>
+                <td>1</td>
+                <td>-</td>
+                <td>-</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Rebound Hammer Test Machine</td>
+                <td>1</td>
+                <td>1</td>
+                <td>-</td>
+                <td>-</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+        </table>
+
+        The application shall submit an undertaking in the application form (Annexure-1) to hire or otherwise procure the required engineering establishment, tools, plants, and machinery, if not already available with him. In case the contractor fails to deploy the requisite engineering establishment, tools, plants, and machinery, either owned or hired as per requirement of work, then the contractor shall be liable for disciplinary action under these Enlistment Rules.
+        <li>
+            The details of Machinery/Equipment’s & Plants should be as per Category (Appendix-G)
+        </li>
+        <li>
+            To blacklist the registered contractors for conduct contrary to the rules laid down by U. P. Projects Corporation Ltd., such as deteriorating the quality of work, not doing fine finishing, misbehaving with departmental employees/officers, etc., imposing reasonable penalties. And the officers of UP Projects Corporation Ltd. will have the right to prohibit them from participating in the tenders.
+        </li>
+        <li>
+            The applicant will have to give an affidavit to the effect that the close relative (blood relation) of any partner of the firm is not working in UP Projects Corporation Ltd. Blood relation means father, mother, brother-sister, uncle-tau, daughter, son and wife etc. If the contrary is found after registration, then the name of the contractor will be blacklisted. (as per Appendix-H)
+        </li>
+        <li>
+            The applicant has to attach the Character Certificate (as per Appendix-C) issued by the District Magistrate.
+        </li>
+        <li>
+            The applicant has to attach the solvency/net worth certificate (as per Appendix-D & D (i) issued by the District Magistrate / Nationalized Bank (The Bank must mention the validity period).
+        </li>
+        <li>
+            The photograph to be affixed with the certificates should be attested by a Gazetted Officer/Notary.
+        </li>
+        <li>
+            The officials of U.P Projects Corporation Ltd. will have the right to cancel the application if the desired record is not submitted along with the application form or due to any reason.
+        </li>
+        <li>
+            All the proceedings related to U.P Projects Corporation Ltd. such as tender, purchase, contract and bill etc. will have to be signed by the concerned contractor and only one person authorized by him will have to give an affidavit.
+        </li>
+        <li>
+            U.P Projects Corporation Ltd. reserves the right to cancel the application for registration/renewal without assigning any reason.
+        </li>
+        <li>
+            The registered contractor will have to follow the orders issued by U.P Projects Corporation Ltd. from time to time in future also.
+        </li>
+        <li>
+            A copy of the Income Tax Return for the last three years should be attached by the contractors to the Income Tax Department.
+        </li>
+        <li>
+            A certified copy of the Balance Sheet for the last three years from a Chartered Accountant will have to be submitted.
+        </li>
+
+
+        <table class="table table-bordered table-hover table-striped" style="text-align:center">
+            <tr>
+                <td colspan="12">
+                    <b>
+                        <i>
+                            Nature and magnitude of work experience for category and class
+                        </i>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="12">
+                    <b>
+                        <i>
+                            Category: Civil(A+,A,B,C,D &amp; E) Magnitude in<br />
+                            Rs. Crore
+
+                        </i>
+                    </b>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4"> </td>
+                <td colspan="8">Class</td>
+
+            </tr>
+            <tr>
+                <td colspan="4">(a) Nature of completed work</td>
+                <td colspan="1">A+</td>
+                <td colspan="1">A</td>
+                <td colspan="1">B</td>
+                <td colspan="1">C</td>
+                <td colspan="1">D</td>
+                <td colspan="1">E</td>
+
+
+
+            </tr>
+
+            <tr>
+                <td colspan="4">Three Similar works each of value</td>
+                <td colspan="1">8.00</td>
+                <td colspan="1">2.00</td>
+                <td colspan="1">0.80</td>
+                <td colspan="1">0.20</td>
+                <td colspan="1">0.04</td>
+                <td colspan="1">-</td>
+
+
+
+            </tr>
+            <tr>
+                <td colspan="4">Or</td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+
+
+
+            </tr>
+            <tr>
+                <td colspan="4">Two Similar works each of value</td>
+                <td colspan="1">10.00</td>
+                <td colspan="1">2.50</td>
+                <td colspan="1">1.00</td>
+                <td colspan="1">0.25</td>
+                <td colspan="1">0.05</td>
+                <td colspan="1">-</td>
+
+
+
+            </tr>
+            <tr>
+                <td colspan="4">Or</td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+                <td colspan="1"></td>
+
+
+
+            </tr>
+            <tr>
+                <td colspan="4">One Similar work of value</td>
+                <td colspan="1">16.00</td>
+                <td colspan="1">4.00</td>
+                <td colspan="1">1.60</td>
+                <td colspan="1">0.40</td>
+                <td colspan="1">0.08</td>
+                <td colspan="1">0.10</td>
+
+
+
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <b> Note for Civil Category: </b><br />
+                    1.	Works having more than 40% E&M component shall not be considered for enlistment.<br />
+                    2.     For class A+ the applicant must have experience of one building of G+4 or more storey either as an                    eligible work or as part of some other work under different agreement. For this purpose, each          basement/stilt floor will be considered as a storey. Mumty, lift machine room and water tank shall not be          considered as a storey.<br />
+                    3.   For class A+, A and B the applicant must have experience of one building with Structure either as the               eligible work or as part of some other work under different agreement.
+
+                </td>
+
+
+
+
+            </tr>
+            @*<tr>
+                <td> 1</td>
+                <td> Graduate Engineer (5 Year experience) /Diploma Engineer (10 Year experience)</td>
+                <td> 2</td>
+                <td> 1</td>
+                <td> -</td>
+                <td> -</td>
+            </tr>
+
+
+            <tr>
+                <td> 2</td>
+                <td>
+                    Graduate Engineer (2 Year experience)/Diploma Engineer (5 Year experience)
+                </td>
+                <td> 2</td>
+                <td> 2</td>
+                <td> 2</td>
+                <td> -</td>
+            </tr>
+
+            <tr>
+                <td> 3</td>
+                <td> ITI Trained</td>
+                <td> 2</td>
+                <td> 2</td>
+                <td> 2</td>
+                <td> 1</td>
+            </tr>
+
+            <tr>
+                <td> 4</td>
+                <td> Wireman license holder</td>
+                <td> 3</td>
+                <td> 2</td>
+                <td> 1</td>
+                <td> 1</td>
+            </tr>*@
+
+
+
+        </table>
+        <b>Note:</b> The certificates issued by the above mentioned state departments/state institutions/public undertakings should mention the satisfactory completion of the works, which will be confirmed by the concerned department as per the requirement.
+
+        <li>The registration of contractors will be done for two years only. For renewal of registered contractors, character certificate, status certificate and certificate of satisfactory completion of the work done will have to be attached, and it should be sent through the Project’s manager office the work has been executed. Recommendation of the concerned office is must without which no renew will done. </li>
+        <li>If a firm is blacklisted by UP Projects Corporation for any reason, then the owner or partner of that firm is a partner or owner of any other firm, then that firm will also be blacklisted automatically.</li>
+
+        <li>Any advocate registered with the State Bar Council is eligible for registration/renewal of the contract. Even after the formation of the contract of work, if the above fact comes to notice, then in case of satisfaction and satisfaction, such registration/contract will be cancelled forthwith by promulgating a reasoned order by the Managing Director or the officer nominated by him.</li>
+
+        <li>No contract will also be accepted to such person/firm/company who come under the category of blacklisted in any other department. Applicants of this category are not eligible for registration/renewal.</li>
+
+        <li>Even after the contract has been awarded to any contractor, if any fact is proved that other potential tenderers have been threatened or prevented from participating in the process and tender by the concerned contractor / firm / company or it is found That the concerned contractor / person is<b> actively involved in mafia activities, anti-social works and organized criminal activities,</b> then the contract or contract awarded to him will be cancelled after receiving the inquiry report from the District Magistrate or the police.</li>
+
+        <li> The right to settle any dispute will be with the Managing Director, UP Project Corporation Limited, the decision taken by the Managing Director will be final. </li>
+
+        <li>The jurisdiction to settle any dispute under the said terms and conditions will be that of the court located at Lucknow.</li>
+
+        <li> Experience of sublet work by any contractor to any other contractor will not be accepted.</li>
+        <li>Electrical work, Fire fighting work and Anti Termite Treatment will have to be done through skilled agencies </li>
+        <li>
+            Affidavit should be done as per Appendix H.
+
+
+        </li>
+
+        @*<br />
+
+        <table class="table table-bordered table-hover table-striped" style="text-align:center" id="tbl11">
+            <tr>
+                <td colspan="6"><b> Nature and magnitude of work experience for category and class </b></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <i>
+                        Category:  Building(A+,A,B,C,D) Infrastructure(I) , Horticulture(H),Electrical Work(EL), LVN
+                        Work(LVN), Air conditioning   services (AC), Medical services (SM), Fire Fighting Work (FFW)
+                        Interior Decoration & Furnishing (IDF) Magnitude in<br /> Rs.Crore
+                    </i>
+                </td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td colspan="5">Class </td>
+            </tr>
+            <tr>
+                <td> <i>(a) Nature of completed work</i> </td>
+                <td>
+                    A+, I-1,
+                    H-1
+                </td>
+                <td>
+                    A, I-2, H-2
+                    EL-2,AC-2
+                    LVN-2 ,
+                    MS-2,
+                    FFW-2,
+                    IDF-2.
+                </td>
+                <td>
+                    B, I-3, H-3,
+                    EL-3, LVN-3
+                    AC-3,
+                    MS-3,
+                    FFW-3,
+                    IDF-3.
+                </td>
+                <td>
+                    C, I-4, H- 4
+                    EL-4, LVN-4,
+                    AC-4,
+                    MS-4,
+                    FFW-4,
+                    IDF-4.
+                </td>
+                <td>
+                    D, I-5, H-5,
+                    EL-5, LVN-5,
+                    AC-5,
+                    MS-5,
+                    FFW-5,
+                    IDF-5.
+                </td>
+
+            </tr>
+            <tr>
+                <td> Three Similar works each of value </td>
+                <td>8.00</td>
+                <td>2.00 </td>
+                <td>0.80</td>
+                <td>0.20</td>
+                <td>0.04</td>
+            </tr>
+            <tr>
+                <td> Or</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td> Two Similar works each of value</td>
+                <td> 10.00</td>
+                <td> 2.50</td>
+                <td> 1.00</td>
+                <td> 0.25</td>
+                <td> 0.05</td>
+            </tr>
+            <tr>
+                <td> Or</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td> One Similar work of value</td>
+                <td> 16.00</td>
+                <td>4.00 </td>
+                <td> 1.60</td>
+                <td> 0.40</td>
+                <td> 0.08</td>
+            </tr>
+
+            <tr>
+                <td> (b) Nature of ongoing work</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td> One Similar work of value </td>
+                <td>6.00 </td>
+                <td>1.50</td>
+                <td>0.60</td>
+                <td>0.15</td>
+                <td>0.03</td>
+            </tr>
+
+
+            <tr>
+                <td colspan="6" style="text-align:left">
+                    <b><i> Note for Building category </i></b><br />
+                    <i>
+                        <ol type="1">
+                            <li> Works having more than 40% E&M component shall not be considered for enlistment</li>
+                            <li>  For class A+ the applicant must have experience of one building of G+4 or more storey either as an eligible work or as part of some other work under different agreement. For this purpose, each basement/stilt floor will be considered as a storey. Mumty, lift machine room and water tank shall not be considered as a storey.</li>
+                            <li> For class A+, A and B the applicant must have experience of one building with Structure either as the eligible work or as part of some other work under different agreement.</li>
+                        </ol>
+
+                    </i>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <P style="font-weight:500">
+                <b>
+                    Note:&nbsp;&nbsp;&nbsp;
+                </b>The certificates issued by the above mentioned state departments /state institutions / public undertakings should mention the satisfactory completion of the  works,  which  will  be confirmed by the concerned department as per the requirement.
+            </P>
+        </div>
+
+        <br />
+        <li>
+            The registration of contractors will be done for two years  only.  For  renewal  of  registered contractors, character certificate, status certificate and certificate of satisfactory completion  of the work done will have to be attached, and it should be sent through the Project's manager office the
+            work has been executed. Recommendation of the concerned office is must without which  no renew will done.
+        </li>
+        <li> If a firm is blacklisted by UP Projects Corporation for any reason , then the owner or partner of that firm is a partner or owner of any other firm, then that firm will also be blacklisted automatically.</li>
+        <li>Any advocate registered with the State Bar Council is  eligible  for  registration/renewal  of  the contract. Even after the formation of the contract of work, if the above fact comes to not ice , then in case of satisfaction and sat is faction , such registration/contract will be cancelled forth with by promulgating a reasoned order by the Managing Director or the officer nominated by him.</li>
+        <li> No contract will also be accepted to such person / firm/company who come under the category of blacklisted    in   any   other   department.   Applicants   of   this   category   are   not   eligible   for registration/renewal.</li>
+        <li>Even after the contract has been awarded to any contractor, if any fact is proved that other potential tenderers have been threatened or prevented from participating in the process and tender by the concerned contractor / firm / company or it is found That the concerned contractor / person is actively involved in mafia activities, anti-social works and organized criminal activities, then the contract or contract awarded to him will be cancelled after receiving the inquiry report from the District Magistrate or the police. </li>
+        <li> The right to settle any dispute will be with the Managing Director, UP Project Corporation Limited, the decision taken by the Managing Director will be final.</li>
+        <li> The jurisdiction to settle any dispute under the said terms and conditions will be that of the court located at Lucknow.</li>
+        <li> Experience of sublet work by any contractor to any other contractor will not be accepted.</li>
+        <li> Electrical work, Fire fighting work and Anti Termite Treatment will have to be done through skilled agencies.</li>
+        <li> Affidavit should be done as per Appendix H.</li>
+        </ol>
+
+
+
+
+
+        <h6>
+            Note: The certificates issued by the above mentioned state departments/state
+            institutions/public undertakings should mention the satisfactory completion of the works,
+            which will be confirmed by the concerned department as per the requirement.
+        </h6>
+        <ul class="list-unstyled terms_list">
+            <li>
+                The registration of contractors will be done for two years only. For renewal of
+                registered contractors, character certificate, status certificate and certificate of
+                satisfactory completion of the work done will have to be attached.
+            </li>
+            <li>
+                If a firm is blacklisted by UP Projects Corporation for any reason, then the owner or
+                partner of that firm is a partner or owner of any other firm, then that firm will also be
+                blacklisted automatically.
+            </li>
+            <li>
+                Any advocate registered with the State Bar Council is eligible for registration/renewal
+                of the contract. Even after the formation of the contract of work, if the above fact
+                comes to notice, then in case of satisfaction and satisfaction, such registration/contract
+                will be cancelled forthwith by promulgating a reasoned order by the Managing
+                Director or the officer nominated by him.
+            </li>
+            <li>
+                No contract will also be accepted to such person/firm/company who come under the
+                category of blacklisted in any other department. Applicants of this category are not
+                eligible for registration/renewal.
+            </li>
+            <li>
+                Even after the contract has been awarded to any contractor, if any fact is proved that
+                other potential tenderers have been threatened or prevented from participating in the
+                process and tender by the concerned contractor / firm / company or it is found That
+                the concerned contractor / person is actively involved in mafia activities, anti-social
+                works and organized criminal activities, then the contract or contract awarded to him
+                will be cancelled after receiving the inquiry report from the District Magistrate or the
+                police.
+            </li>
+            <li>The Managing Director, UP Projects Corporation Ltd. will have the right to settle any dispute and the decision taken by the Managing Director will be final and binding.</li>
+            <li>
+                The right to settle any dispute will be with the Managing Director, UP Project
+                Corporation Limited, the decision taken by the Managing Director will be final.
+                Jurisdiction will be of court located in Lucknow
+            </li>
+            <li>
+                Experience of sub-letted work by any contractor to any other contractor will not be
+                accepted No.
+            </li>
+            <li>
+                Electrical car fire fighting work and anti termite treatment will have to be done
+                through skilled agencies in the jurisdiction
+            </li>
+        </ul>*@
+        <div class="row">
+            <div class="col-xl-8 col-lg-8  col-md-8  col-sm-8   col-xs-12">
+                <div class="form-group">
+
+                    @{
+                        var regForm = "/assets1/ContractorForm/ContractorApplication.pdf";
+                        if (ViewBag.RegForm != null && ViewBag.RegForm != "")
+                        {
+                            regForm = "/Upload/MasterDocuments/" + ViewBag.RegForm;
+                        }
+                    }
+                    <a href="@Url.Content(regForm)" target="_blank" class="download_annexure">Download Registration form</a>
+
+                </div>
+            </div>
+        </div>
+        <form>
+            <div class="form-group">
+                <label class="form-check-label">
+                    <input class="form-check-input" id="chktc" type="checkbox" name="remember" required> I agree to the terms of UPPCL for exporter login creation.
+                </label>
+                <div class="check_button">
+                    @*<a href="/home/frmContractor" class="btn btn-primary" >NEXT</a>*@
+                    <a class="btn btn-primary" onclick="Next()">NEXT</a>
+                    <button id="btnpopup" type="button" class="hidden" data-toggle="modal" data-target="#exampleModal"></button>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+    </div>
+</section>
+<!-- /End Board of Directors Tabler -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Guidelines For Filling The Registration/Renewal Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span style="color:red; ">
+                            * Please read the given terms and conditions carefully before filling the form.
+                            <br />
+                            * Before you start filling the form, make sure that you have scanned copies of all the documents required to be uploaded.
+                            <br />
+                            * All the documents required to be uploaded should be in jpeg, jpg, png, pdf format only.
+                            <br />
+                            * The size of all the documents required to be uploaded should not exceed 1024 KB.
+                            <br />
+                            * To fill the form, select the appropriate category and fill your working mobile number and click on the NEXT button.
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="cont_name"> Category</label>
+                            <select class="form-control" id="ddlCategory" onchange="Bindsubcategory()" style="font-size:14px">
+                                <option value="0">-- Select Category --</option>
+                                @*<option value="A">Category-A</option>
+                                    <option value="B">Category-B</option>
+                                    <option value="C">Category-C</option>
+                                    <option value="D">Category-D</option>*@
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="cont_name"> Sub Category</label>
+                            <select class="form-control" id="ddlSubCategory" style="font-size:14px">
+                                <option value="0">-- Select Sub Category --</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="cont_name"> Mobile Number</label>
+                            <input type="text" maxlength="10" autocomplete="off" class="form-control NumberOnly" id="txtmobile">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnclose">Close</button>
+                <a class="btn btn-primary" id="btnSubmit" href="#" cssclass="btn btn-primary" onclick="OnBegin()">NEXT</a>
+                <button id="btnpopup1" type="button" class="hidden" data-toggle="modal" data-target="#exampleModal1"></button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">OTP सत्यापित करें</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label for="cont_name">OTP भरें</label>
+                            <input type="password" maxlength="6" autocomplete="off" class="form-control NumberOnly" id="txtOTP">
+                            <span style="color:red">OTP is valid for only ten minute.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-primary" id="btnVerify" href="#" cssclass="btn btn-primary" onclick="OnBeginVerify()">Verify & NEXT</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetUpdatedRecords("frmContractor");
+            Bindcategory()
+        });
+
+
+        function Bindcategory() {
+            $('#ddlCategory').empty();
+            $.ajax({
+                type: "GET",
+                url: "/Home/BindMasterCategory",
+                data: {},
+                async: true,
+                success: function (response) {
+
+
+                    $('#ddlCategory').append('<option value="0">--Select Category--</option>');
+                    for (var i = 0; i < response.data.length; i++) {
+                        $('#ddlCategory').append('<option value="' + response.data[i].Id + '">' + response.data[i].categoryName + '</option>');
+
+                    }
+                },
+
+                failure: function (response) {
+                    $('#ddlCategory').append('<option value="0">--Select Category--</option>');
+                },
+                error: function (response) {
+                    $('#ddlCategory').append('<option value="0">--Select Category--</option>');
+                }
+            });
+        }
+
+        function Bindsubcategory() {
+            $('#ddlSubCategory').empty();
+            var categoryId = $('#ddlCategory').val();
+            if (categoryId == 0) {
+                $('#ddlSubCategory').empty();
+                $('#ddlSubCategory').append('<option value="0">--Select Sub Category--</option>');
+                return false;
+            }
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/BindMasterSubCategory",
+                data: { CategoryId: categoryId},
+                async: true,
+                success: function (response) {
+
+
+                    $('#ddlSubCategory').append('<option value="0">--Select Sub Category--</option>');
+                    for (var i = 0; i < response.data.length; i++) {
+                        $('#ddlSubCategory').append('<option value="' + response.data[i].Id + '">' + response.data[i].SubCategoryName + '</option>');
+
+                    }
+                },
+
+                failure: function (response) {
+                    $('#ddlSubCategory').append('<option value="0">--Select Sub Category--</option>');
+                },
+                error: function (response) {
+                    $('#ddlSubCategory').append('<option value="0">--Select Sub Category--</option>');
+                }
+            });
+        }
+
+        function Next() {
+            var s = $('#chktc').prop("checked");
+            if ($('#chktc').prop("checked") === true) {
+                $('#btnpopup').click();
+            }
+            else {
+                alert('Please click on checkbox to agree the terms and conditions of UPPCL!');
+            }
+        }
+        function OnBegin() {
+            debugger;
+            if ($('#ddlCategory').val() === "0") {
+                alert('Please select Category.');
+                return false;
+            }
+            else if ($('#ddlSubCategory').val() === "0") {
+                alert('Please select sub Category.');
+                return false;
+            }
+            else if ($('#txtmobile').val() === "" || $('#txtmobile').val() === "0") {
+                alert('Please enter valid Mobile Number.');
+                return false;
+            }
+            else {
+                 $('#btnSubmit').html('&nbsp;<img src="/assets/images/Ajax-loader.gif"  margin-right: 10px;" id="imgloader" alt="Loading"/>')
+                 $('#btnSubmit').attr('disabled', 'disabled');
+                $.get('@Url.Action("CheckContractorMobileNew","Home")', { Category: $('#ddlCategory').val(), Mobile: $('#txtmobile').val(), SubCategory: $('#ddlSubCategory').val() },
+                     function (data) {
+                           debugger;
+                         if (data.status === 0) {
+                              $('#btnSubmit').html('NEXT')
+                                 $('#btnSubmit').attr('disabled', false);
+                         }
+                         if (data.status === 1) {
+                             if (data.innerResult[0].isexists === "Success") {
+                                 //$('#btnpopup1').click();
+                                 //$('#btnclose').click();
+                                 //$('#btnSubmit').html('NEXT')
+                                 //$('#btnSubmit').attr('disabled', false);
+                                   location.href = '/home/frmContractorNew';
+                             }
+                             else {
+                                 alert(data.innerResult[0].isexists);
+                                 $('#btnSubmit').html('NEXT')
+                                 $('#btnSubmit').attr('disabled', false);
+                                 return false;
+                             }
+                         }
+                    }
+                );
+
+                //return true;
+            }
+        }
+        function OnBeginVerify() {
+            if ($('#txtOTP').val() === "" || $('#txtOTP').val() === "0") {
+                alert('Please enter valid OTP.');
+                return false;
+            }
+            else {
+                 $('#btnVerify').html('&nbsp;<img src="/assets/images/Ajax-loader.gif"  margin-right: 10px;" id="imgloader1" alt="Loading"/>')
+                 $('#btnVerify').attr('disabled', 'disabled');
+                 $.get('@Url.Action("ContractorVerifyOTP","Home")', { OTP: $('#txtOTP').val() },
+                     function (data) {
+                         if (data === "Success") {
+                             alert('OTP का सत्यापन सफलतापूर्वक हो गया हैं| दिए गए फॉर्म को भरें एवं रजिस्ट्रेशन प्रक्रिया पूरी करें|');
+                             location.href = '/home/frmContractor';
+                         }
+                             else {
+                                 alert('Either OTP is wrong or expired. Please try again.');
+                                 $('#btnVerify').html('Verify & NEXT')
+                                 $('#btnVerify').attr('disabled', false);
+                                 return false;
+                             }
+                         }
+                );
+            }
+        }
+    </script>
+}

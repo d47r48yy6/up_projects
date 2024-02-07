@@ -1,0 +1,270 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.TechnicalSanction
+@{
+    ViewData["Title"] = "Technical Sanction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Technical Sanction</h4>
+            @*<div style="float:right;">
+                <a href="/Master/TechnicalSanction" class="btn btn-outline-primary btn-rounded btn-fw">Upload File</a>
+            </div>*@
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" method="post" asp-action="TechnicalSanction"
+                  enctype="multipart/form-data" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label asp-for="file"> Upload File </label><span class="text-danger"> *</span>
+                            <input type="file" id="file" asp-for="file" class="form-control">
+                            <span style="color:red; font-size:15px;"> &nbsp;(file must be in xlsx , xls , pdf format and size should be less than or equal to 25MB.) </span>
+                            <span asp-validation-for="file" class="text-danger"> </span><br />
+                            @if (Model != null)
+                            {
+                                if (!string.IsNullOrEmpty(Model.FileName))
+                                {
+                                    
+                                        <a href="@Model.FileName" target="_blank">View File</a>
+
+                                    
+
+                                }
+                            }
+
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-success mr-2" id="btnsub" style="margin-top:27px;">@ViewBag.ButtonText </button>
+                        </div>
+                    </div>
+
+
+                </div>
+               
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+@*<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>FileName</th>
+                                <th>View</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>*@
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+           // BindTable();
+        });
+    </script>
+    <script type="text/javascript">
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#imgFile').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
+
+
+$("#file").change(function() {
+  readURL(this);
+});
+
+
+        var onBegin = function () {
+            if ($('#file').val() !== '') {
+                 var file = $('#file').get(0);
+                var FileSize = file.files[0].size;;
+                var path = $('#file').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var path = $('#file').val();
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "xlsx"||ext=="xls"||ext=="pdf") {
+                    if (FileSizeKB > 25600) {
+                        alert("Photo Size must be less than or equal to 25600 KB (25 MB).");
+                        $(this).val("");
+                        $(this).focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Upload file must be in xlsx, xls, pdf format only.");
+                    $('#file').focus();
+                    $('#file').val('');
+                    return false;
+                }
+            }
+            else {
+                var flag = "@ViewBag.ButtonText";
+                if (flag=== "Submit") {
+                    alert("Please upload file.");
+                    $('#file').focus();
+                    $('#file').val('');
+                    return false;
+                }
+            }
+                $('#loader').css("display","block");
+            return true;
+
+
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            alert(Response.dynamicResult.innerresult.Message);
+            if (parseInt(Response.dynamicResult.innerresult.Status) > 0) {
+
+                if (Response.dynamicResult.innerresult.Action == "U") {
+
+                    $('#file').val('');
+                }
+                else {
+                    window.location.reload();
+                }
+
+                // BindTable();
+               // $('#Title').val('');
+            }
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+
+
+
+
+        function BindTable() {
+            var url = "/Master/GetTechnicalSanction";
+              $.getJSON(url, function (data) {
+                BindDataTable(data);
+            })
+        }
+
+        function BindDataTable(data) {
+            debugger;
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+
+                        { "data": "FileName" },
+                          { "data": "FileNameButton" },
+
+                         {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="EditVideos(' + row.Id + ')" class="text-primary" >Edit</a>';
+                                return a;
+                            }, className: "text-left"
+                        },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "searchable": true,
+                            render: function (data, type, row, meta) {
+
+                                    var a = '<a data-ajax="true"  onclick="DeleteVideos(' + row.Id + ')" class="text-primary" >Delete</a>';
+                                return a;
+                            }, className: "text-left"
+                        }
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+                $("#tblList").show();
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+        }
+
+           function DeleteVideos(Id) {
+                        if (confirm("Are you sure?")) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Master/DeleteTechnicalSanction",
+                                data: { Id: Id },
+                                success: function (data) {
+                                    alert(data);
+                                    location.href = "/Master/TechnicalSanction";
+                                   // BindTable();
+
+                                }
+
+
+                            })
+                        }
+        }
+                      function EditVideos(Id) {
+            location.href = "/Master/TechnicalSanction/" + Id;
+        }
+    </script>
+
+}
+
+

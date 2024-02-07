@@ -1,0 +1,1067 @@
+﻿@model UPProjects.Models.ContractorNewData
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "frmContractorNew";
+    Layout = "~/Views/Shared/_HindiLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    <span id="CurrentName" style="display:none;">@currentActionName</span>
+}
+<style>
+    .form-control {
+        height: calc(1.8em + .75rem + 2px) !important;
+    }
+</style>
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>ठेकेदार पंजीकरण प्रपत्र</h1>
+    </div>
+</section>
+
+<section class="bod_section">
+    <div class="container">
+
+        <form class="forms-sample" method="post" asp-action="frmContractorNewSubmit" enctype="multipart/form-data"
+              data-ajax="true" data-ajax-method="POST"
+              data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+              data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+
+
+            <input type="hidden" asp-for="SubCategoryId" value="@ViewBag.SubCategory " />
+            <input type="hidden" asp-for="CategoryId" value="@ViewBag.Category " />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <fieldset>
+                <legend>ठेकेदारों के रजिस्ट्रेशन हेतु आवेदन फार्म</legend>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="FirmName">ठेकेदार का नाम/फर्म का नाम<span style="color:red">*</span></label>
+                            <input type="text" asp-for="FirmName" autocomplete="off" class="form-control" id="FirmName">
+                            <span asp-validation-for="FirmName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="ApplicantName">आवेदक का नाम एवं पद (प्रोपराइटर/पार्टनर/डायरेक्टर इत्यादि)<span style="color:red">*</span></label>
+                            <input type="text" asp-for="ApplicantName" autocomplete="off" class="form-control" id="ApplicantName">
+                            <span asp-validation-for="ApplicantName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="ApplicantPhoto">आवेदक का फोटो<span style="color:red">*</span></label>
+                            <input type="file" id="ApplicantPhoto" asp-for="ApplicantPhoto" class="form-control">
+                            <span asp-validation-for="ApplicantPhoto" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">(अधिकतम फ़ाइल आकार : 1 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी )</span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h6>पता</h6>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="OfficeAddress">कार्यालय<span style="color:red">*</span></label>
+                            <input type="text" asp-for="OfficeAddress" autocomplete="off" class="form-control" id="OfficeAddress">
+                            <span asp-validation-for="OfficeAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="ResidenceAddress">निवास<span style="color:red">*</span></label>
+                            <input type="text" asp-for="ResidenceAddress" autocomplete="off" class="form-control" id="ResidenceAddress">
+                            <span asp-validation-for="ResidenceAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h6>फोन नं0</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="OfficePhone">कार्यालय<span style="color:red">*</span></label>
+                            <input type="text" asp-for="OfficePhone" autocomplete="off" class="form-control" id="OfficePhone">
+                            <span asp-validation-for="OfficePhone" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="ResidencePhone">निवास</label>
+                            <input type="text" asp-for="ResidencePhone" autocomplete="off" class="form-control" id="ResidencePhone">
+                            <span asp-validation-for="ResidencePhone" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="Mobile">मोबाइल<span style="color:red">*</span></label>
+                            <input type="text" asp-for="Mobile" value="@ViewBag.Mobile" readonly autocomplete="off" class="form-control" id="Mobile">
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="WhatsAppNo">व्हाट्सएप  नं0</label>
+                            <input type="text" asp-for="WhatsAppNo" value="@ViewBag.WhatsAppNo" autocomplete="off" class="form-control" id="WhatsAppNo">
+                            <span asp-validation-for="WhatsAppNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="Fax">फैक्स नं0</label>
+                            <input type="text" asp-for="Fax" autocomplete="off" class="form-control" id="Fax">
+                            <span asp-validation-for="Fax" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="eMail"> ई-मेल<span style="color:red">*</span></label>
+                            <input type="text" asp-for="eMail" autocomplete="off" class="form-control" id="eMail">
+                            <span asp-validation-for="eMail" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h6>रजिस्ट्रेशन शुल्क का विवरण</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="RegFeeBank">बैंक का नाम/शाखा<span style="color:red">*</span></label>
+                            <input type="text" asp-for="RegFeeBank" autocomplete="off" class="form-control" id="RegFeeBank">
+                            <span asp-validation-for="RegFeeBank" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="RegFee">धनराशि रू0<span style="color:red">*</span></label>
+                            <input type="text" asp-for="RegFee" autocomplete="off" readonly class="form-control" id="RegFee" value="@ViewBag.RegFee">
+                            <span asp-validation-for="RegFee" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="RegFeeDemandNumber">डिमाण्ड ड्राफ्ट संख्या<span style="color:red">*</span></label>
+                            <input type="text" asp-for="RegFeeDemandNumber" autocomplete="off" class="form-control" id="RegFeeDemandNumber">
+                            <span asp-validation-for="RegFeeDemandNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="RegFeeDemandDate">डिमाण्ड ड्राफ्ट दिनांक<span style="color:red">*</span></label>
+                            <input type="text" asp-for="RegFeeDemandDate" autocomplete="off" readonly class="form-control calender" id="RegFeeDemandDate">
+                            <span asp-validation-for="RegFeeDemandDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h6>जनरल सिक्योरिटी का विवरण</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="SecurityBank">बैंक का नाम/शाखा<span style="color:red">*</span></label>
+                            <input type="text" asp-for="SecurityBank" autocomplete="off" class="form-control" id="SecurityBank">
+                            <span asp-validation-for="SecurityBank" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="SecurityAmount">धनराशि रू0<span style="color:red">*</span></label>
+                            <input type="text" asp-for="SecurityAmount" autocomplete="off" readonly class="form-control" id="SecurityAmount" value="@ViewBag.fdr">
+                            <span asp-validation-for="SecurityAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="SecurityFDRNuber">एफ0डी0आर0 संख्या<span style="color:red">*</span></label>
+                            <input type="text" asp-for="SecurityFDRNuber" autocomplete="off" class="form-control" id="SecurityFDRNuber">
+                            <span asp-validation-for="SecurityFDRNuber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="SecurityFDRDate">एफ0डी0आर0 दिनांक<span style="color:red">*</span></label>
+                            <input type="text" asp-for="SecurityFDRDate" readonly autocomplete="off" class="form-control calender" id="SecurityFDRDate">
+                            <span asp-validation-for="SecurityFDRDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="SecurityMatureDate">परिपक्वता तिथि<span style="color:red">*</span></label>
+                            <input type="text" asp-for="SecurityMatureDate" readonly autocomplete="off" class="form-control calender1" id="SecurityMatureDate">
+                            <span asp-validation-for="SecurityMatureDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h6>यदि फर्म है तो फर्म की संरचना का  उल्लेख किया जाये तथा एकल स्वामित्व, साझेदारी, प्राइवेट लि0. लिमिटेड इत्यादि<span style="color:red">*</span></h6>
+                        <p><b>नोट-</b>1. एकल स्वामित्व के मामले में परिशिष्ट-क के अनुसार शपथ पत्र, साझेदारी के मामले विलेख (रजिस्ट्रार आफ सोसायटी), प्रा0 लि0, लि0 कम्पनी के मामले में आर्टीकिल आफ एसोशियेशन संलग्न की जाये।</p>
+                        <p>2. फर्म का विवरण परिशिष्ट-ख के अनुसार</p>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  col-xs-12">
+                        <div class="form-group">
+                            <textarea asp-for="FirmDetail" autocomplete="off" class="form-control" id="FirmDetail"></textarea>
+                            <span asp-validation-for="FirmDetail" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                @*-----aks*@
+                <div class="row">
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="CharacterFile">परिशिष्ट-ग के अनुसार जिलाधिकारी द्वारा जारी चरित्र प्रमाण पत्र संलग्न है ? <span style="color:red">*</span></label>
+                            <input type="file" id="CharacterFile" asp-for="CharacterFile" class="form-control">
+                            <span asp-validation-for="CharacterFile" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 1 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="HasiyatCertificate">परिशिष्ट-डी के अनुसार जिला कलेक्टर द्वारा जारी स्थिति/ शोधक्षमता प्रमाण पत्र संलग्न है ? <span style="color:red">*</span></label>
+                            <input type="file" id="HasiyatCertificate" asp-for="HasiyatCertificate" class="form-control">
+                            <span asp-validation-for="HasiyatCertificate" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 1 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="SevenYearMainWorksFile">विगत सात वर्षों में किये गये अनुबंध पर मुख्य कार्य का विवरण परिशिष्ट-ई में दिया गया है। दिए गए विवरण के अनुसार संलग्न है? श्रेणी के अनुसार <span style="color:red">*</span></label>
+                            <input type="file" id="SevenYearMainWorksFile" asp-for="SevenYearMainWorksFile" class="form-control">
+                            <span asp-validation-for="SevenYearMainWorksFile" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 5 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="PrivateExperience">निजी अनुभव रखने वालों को नियोक्ता द्वारा जारी 16 और 26 से जमा करना होगा।<span style="color:red">*</span></label><br />
+                            <input type="file" id="PrivateExperience" asp-for="PrivateExperience" class="form-control">
+                            <span asp-validation-for="PrivateExperience" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 5 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="ListofStaffFile"> दिए गए विवरण के अनुसार तकनीकी कर्मचारियों की सूची परिशिष्ट-एफ संलग्न है? श्रेणी के अनुसार <span style="color:red">*</span></label>
+                            <input type="file" id="ListofStaffFile" asp-for="ListofStaffFile" class="form-control">
+                            <span asp-validation-for="ListofStaffFile" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 1 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="ToolsPlantsFile">परिशिष्ट-जी के अनुसार मशीनरी/उपकरणों और संयंत्रों का विवरण संलग्न है? श्रेणी के अनुसार।<span style="color:red">*</span></label>
+                            <input type="file" id="ToolsPlantsFile" asp-for="ToolsPlantsFile" class="form-control">
+                            <span asp-validation-for="ToolsPlantsFile" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 1 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="BlackListFile">क्या आवेदक या उसके भागीदारों या निदेशकों को राज्य सरकार के विभाग/संगठन या किसी निजी या सार्वजनिक क्षेत्र के उपक्रम द्वारा काली सूची में डाला गया है। संलग्न विवरण के अनुसार परिशिष्ट-एच? </label>
+                            <input type="file" id="BlackListFile" asp-for="BlackListFile" class="form-control">
+                            <span asp-validation-for="BlackListFile" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 1 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="BloodRelation">रक्त संबंधों से संबंधित शपथ पत्र परिशिष्ट-एच संलग्न के रूप में दिए गए विवरण के अनुसार है?<span style="color:red">*</span> </label>
+                            <br />
+                            <br />
+                            <input type="file" id="BloodRelation" asp-for="BloodRelation" class="form-control">
+                            <span asp-validation-for="BloodRelation" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 1 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="BalanceSheetFile">चार्टर्ड एकाउंटेंट द्वारा सत्यापित पिछले तीन वर्षों की बैलेंस शीट संलग्न है?<span style="color:red">*</span></label>
+                            <input type="file" id="BalanceSheetFile" asp-for="BalanceSheetFile" class="form-control">
+                            <span asp-validation-for="BalanceSheetFile" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 5 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="IncomeTaxReturnFile">पिछले तीन वर्षों का आयकर रिटर्न (भरा हुआ/मूल्यांकित) (जैसा कि पिछले अनुभाग में संलग्न है।)<span style="color:red">*</span></label>
+                            <input type="file" id="IncomeTaxReturnFile" asp-for="IncomeTaxReturnFile" class="form-control">
+                            <span asp-validation-for="IncomeTaxReturnFile" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 5 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="PAN">PAN का विवरण भरें<span style="color:red">*</span></label>
+                            <input type="text" asp-for="PAN" autocomplete="off" class="form-control" id="PAN">
+                            <span asp-validation-for="PAN" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="PANFile">PAN अपलोड करें<span style="color:red">*</span></label>
+                            <input type="file" id="PANFile" asp-for="PANFile" class="form-control">
+                            <span asp-validation-for="PANFile" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 1 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="GST">GST का विवरण भरें<span style="color:red">*</span></label>
+                            <input type="text" asp-for="GST" autocomplete="off" class="form-control" id="GST">
+                            <span asp-validation-for="GST" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <label asp-for="GSTFile">GST अपलोड करें<span style="color:red">*</span></label>
+                            <input type="file" id="GSTFile" asp-for="GSTFile" class="form-control">
+                            <span asp-validation-for="GSTFile" class="text-danger"></span>
+                            <span class="text-danger" style="font-size:12px;">अधिकतम फ़ाइल आकार : 1 MB , फाइल का प्रारूप : जेपीजी, जेपीईजी, पीएनजी ,पीडीएफ )</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group text-right">
+
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".calender").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy',
+                    maxDate: new Date()
+                });
+            $(".calender1").datepicker(
+                {
+                    dateFormat: 'dd/mm/yy'
+
+                });
+            GetUpdatedRecords($("#CurrentName").html());
+
+
+        });
+    </script>
+    <script type="text/javascript">
+        var onBegin = function () {
+            if ($('#ApplicantPhoto').val() !== '') {
+                var filetender = $('#ApplicantPhoto').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#ApplicantPhoto').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png") {
+                    if (FileSizeKB > 1024) {
+                        alert("The size of the applicant's photo should be less than 1024KB (1MB).");
+                        $('#ApplicantPhoto').val("");
+                        $('#ApplicantPhoto').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The applicant's photo type should be jpg, jpeg or png.");
+                    $('#ApplicantPhoto').val("");
+                    $('#ApplicantPhoto').focus();
+                    return false;
+                }
+            }
+            if ($('#PANFile').val() !== '') {
+                var filetender = $('#PANFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#PANFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("The size of PAN should be less than 1024 KB (1 MB).");
+                        $('#PANFile').val("");
+                        $('#PANFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The file type of PAN should be jpg, jpeg, png or pdf only.");
+                    $('#PANFile').val("");
+                    $('#PANFile').focus();
+                    return false;
+                }
+            }
+            if ($('#GSTFile').val() !== '') {
+                var filetender = $('#GSTFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#GSTFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("The file size of GST should be less than 1024 KB (1 MB).");
+                        $('#GSTFile').val("");
+                        $('#GSTFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The file type of GST should be jpg, jpeg, png or pdf only.");
+                    $('#GSTFile').val("");
+                    $('#GSTFile').focus();
+                    return false;
+                }
+            }
+
+            if ($('#ToolsPlantsFile').val() !== '') {
+                var filetender = $('#ToolsPlantsFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#ToolsPlantsFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Machinery/Tools & Plants file size should be less than 1024 KB (1 MB).");
+                        $('#ToolsPlantsFile').val("");
+                        $('#ToolsPlantsFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Machinery/Tools and Plants file type should be jpg, jpeg, png or pdf only.");
+                    $('#ToolsPlantsFile').val("");
+                    $('#ToolsPlantsFile').focus();
+                    return false;
+                }
+            }
+
+            if ($('#ListofStaffFile').val() !== '') {
+                var filetender = $('#ListofStaffFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#ListofStaffFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("List of Technical Staff File size should be less than 1024 KB (1 MB).");
+                        $('#ListofStaffFile').val("");
+                        $('#ListofStaffFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("List of Technical Staff File type should be jpg, jpeg, png or pdf only.");
+                    $('#ListofStaffFile').val("");
+                    $('#ListofStaffFile').focus();
+                    return false;
+                }
+            }
+
+            if ($('#BlackListFile').val() !== '') {
+                var filetender = $('#BlackListFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#BlackListFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Blacklist file size should be less than 1024 KB (1 MB).");
+                        $('#BlackListFile').val("");
+                        $('#BlackListFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Blacklist file type should be jpg, jpeg, png or pdf only.");
+                    $('#BlackListFile').val("");
+                    $('#BlackListFile').focus();
+                    return false;
+                }
+            }
+            if ($('#SevenYearMainWorksFile').val() !== '') {
+                var filetender = $('#SevenYearMainWorksFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#SevenYearMainWorksFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("Description of main functions File size should be less than 5120 KB (5 MB).");
+                        $('#SevenYearMainWorksFile').val("");
+                        $('#SevenYearMainWorksFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Description of main functions File type should be jpg, jpeg, png or pdf only.");
+                    $('#SevenYearMainWorksFile').val("");
+                    $('#SevenYearMainWorksFile').focus();
+                    return false;
+                }
+            }
+            if ($('#BalanceSheetFile').val() !== '') {
+                var filetender = $('#BalanceSheetFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#BalanceSheetFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("Balance sheet file size should be less than 5120 KB (5 MB) for three years.");
+                        $('#BalanceSheetFile').val("");
+                        $('#BalanceSheetFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The balance sheet file type for three years should be jpg, jpeg, png or pdf only.");
+                    $('#BalanceSheetFile').val("");
+                    $('#BalanceSheetFile').focus();
+                    return false;
+                }
+            }
+            if ($('#IncomeTaxReturnFile').val() !== '') {
+                var filetender = $('#IncomeTaxReturnFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#IncomeTaxReturnFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("The income tax return file size for the last three years should be less than 5120 KB (5 MB).");
+                        $('#IncomeTaxReturnFile').val("");
+                        $('#IncomeTaxReturnFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The type of income tax return file for the last three years should be jpg, jpeg, png or pdf only.");
+                    $('#IncomeTaxReturnFile').val("");
+                    $('#IncomeTaxReturnFile').focus();
+                    return false;
+                }
+            }
+            if ($('#HasiyatCertificate').val() !== '') {
+                var filetender = $('#HasiyatCertificate').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#HasiyatCertificate').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("The size of the status certificate should be less than 1024 KB (1 MB).");
+                        $('#HasiyatCertificate').val("");
+                        $('#HasiyatCertificate').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The type of status certificate should be jpg, jpeg, png or pdf only.");
+                    $('#HasiyatCertificate').val("");
+                    $('#HasiyatCertificate').focus();
+                    return false;
+                }
+            }
+            if ($('#BloodRelation').val() !== '') {
+                var filetender = $('#BloodRelation').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#BloodRelation').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("The size of the blood relation affidavit should be less than 1024 KB (1 MB).");
+                        $('#BloodRelation').val("");
+                        $('#BloodRelation').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The type of affidavit related to blood relation should be jpg, jpeg, png or pdf only.");
+                    $('#BloodRelation').val("");
+                    $('#BloodRelation').focus();
+                    return false;
+                }
+            }
+
+            var isValDate = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
+            var RegFeeDemandDate = $('#RegFeeDemandDate').val();
+            var SecurityFDRDate = $('#SecurityFDRDate').val();
+            var SecurityMatureDate = $('#SecurityMatureDate').val();
+            if (RegFeeDemandDate != "") {
+                if (!isValDate.test(RegFeeDemandDate)) {
+                    alert("Please Enter Valid Date Format (dd/mm/yyyy).");
+                    $('#RegFeeDemandDate').focus();
+                    return false;
+                }
+            }
+            if (SecurityFDRDate != "") {
+                if (!isValDate.test(SecurityFDRDate)) {
+                    alert("Please Enter Valid Date Format (dd/mm/yyyy).");
+                    $('#SecurityFDRDate').focus();
+                    return false;
+                }
+            }
+            if (SecurityMatureDate != "") {
+                if (!isValDate.test(SecurityMatureDate)) {
+                    alert("Please Enter Valid Date Format (dd/mm/yyyy).");
+                    $('#SecurityMatureDate').focus();
+                    return false;
+                }
+            }
+            $('#loader').css("display", "block");
+            return true;
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            if (Response.Statuskey > 0) {
+                alert(Response.msg);
+                location.href = '/HNHome/index';
+            }
+            else {
+
+
+                alert(Response.msg);
+            }
+
+        };
+        var onFailed = function () {
+            $('#loader').css("display", "none");
+        };
+
+
+        //////Photo Change Event/////
+        $('#ApplicantPhoto').change(function () {
+            if ($('#ApplicantPhoto').val() !== '') {
+                var filetender = $('#ApplicantPhoto').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#ApplicantPhoto').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png") {
+                    if (FileSizeKB > 1024) {
+                        alert("The size of the applicant's photo should be less than 1024KB (1MB).");
+                        $('#ApplicantPhoto').val("");
+                        $('#ApplicantPhoto').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The applicant's photo type should be jpg, jpeg or png.");
+                    $('#ApplicantPhoto').val("");
+                    $('#ApplicantPhoto').focus();
+                    return false;
+                }
+            }
+
+        })
+        //////Pan//////////////////
+        $('#PANFile').change(function () {
+            if ($('#PANFile').val() !== '') {
+                var filetender = $('#PANFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#PANFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("The size of PAN should be less than 1024 KB (1 MB).");
+                        $('#PANFile').val("");
+                        $('#PANFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The file type of PAN should be jpg, jpeg, png or pdf only.");
+                    $('#PANFile').val("");
+                    $('#PANFile').focus();
+                    return false;
+                }
+            }
+
+        })
+
+        //////GST Change Event
+        $('#GSTFile').change(function () {
+
+            if ($('#GSTFile').val() !== '') {
+                var filetender = $('#GSTFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#GSTFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("The file size of GST should be less than 1024 KB (1 MB).");
+                        $('#GSTFile').val("");
+                        $('#GSTFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The file type of GST should be jpg, jpeg, png or pdf only.");
+                    $('#GSTFile').val("");
+                    $('#GSTFile').focus();
+                    return false;
+                }
+            }
+        })
+
+        ////Tools plants file change event
+        $('#ToolsPlantsFile').change(function () {
+
+            if ($('#ToolsPlantsFile').val() !== '') {
+                var filetender = $('#ToolsPlantsFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#ToolsPlantsFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Machinery/Tools & Plants file size should be less than 1024 KB (1 MB).");
+                        $('#ToolsPlantsFile').val("");
+                        $('#ToolsPlantsFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Machinery/Tools and Plants file type should be jpg, jpeg, png or pdf only.");
+                    $('#ToolsPlantsFile').val("");
+                    $('#ToolsPlantsFile').focus();
+                    return false;
+                }
+            }
+
+
+        })
+        ////////Staff file change event//
+
+        $('#ListofStaffFile').change(function () {
+
+            if ($('#ListofStaffFile').val() !== '') {
+                var filetender = $('#ListofStaffFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#ListofStaffFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("List of Technical Staff File size should be less than 1024 KB (1 MB).");
+                        $('#ListofStaffFile').val("");
+                        $('#ListofStaffFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("List of Technical Staff File type should be jpg, jpeg, png or pdf only.");
+                    $('#ListofStaffFile').val("");
+                    $('#ListofStaffFile').focus();
+                    return false;
+                }
+            }
+
+        })
+
+
+        ///////Block List File Change Event////
+
+        $('#BlackListFile').change(function () {
+            if ($('#BlackListFile').val() !== '') {
+                var filetender = $('#BlackListFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#BlackListFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("Blacklist file size should be less than 1024 KB (1 MB).");
+                        $('#BlackListFile').val("");
+                        $('#BlackListFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Blacklist file type should be jpg, jpeg, png or pdf only.");
+                    $('#BlackListFile').val("");
+                    $('#BlackListFile').focus();
+                    return false;
+                }
+            }
+
+        })
+
+        $('#PrivateExperience').change(function () {
+            if ($('#PrivateExperience').val() !== '') {
+                var filetender = $('#PrivateExperience').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#PrivateExperience').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("Blacklist file size should be less than 1024 KB (1 MB).");
+                        $('#PrivateExperience').val("");
+                        $('#PrivateExperience').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Private Experience file type should be jpg, jpeg, png or pdf only.");
+                    $('#PrivateExperience').val("");
+                    $('#PrivateExperience').focus();
+                    return false;
+                }
+            }
+
+        })
+
+
+        ///Four Year Change event///
+        $('#SevenYearMainWorksFile').change(function () {
+            if ($('#SevenYearMainWorksFile').val() !== '') {
+                var filetender = $('#SevenYearMainWorksFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#SevenYearMainWorksFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("Description of main functions File size should be less than 5120 KB (5 MB).");
+                        $('#SevenYearMainWorksFile').val("");
+                        $('#SevenYearMainWorksFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("Description of main functions File type should be jpg, jpeg, png or pdf only.");
+                    $('#SevenYearMainWorksFile').val("");
+                    $('#SevenYearMainWorksFile').focus();
+                    return false;
+                }
+            }
+
+
+
+        })
+
+        //Balance Sheet Change Event///
+        $('#BalanceSheetFile').change(function () {
+            if ($('#BalanceSheetFile').val() !== '') {
+                var filetender = $('#BalanceSheetFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#BalanceSheetFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("Balance sheet file size should be less than 5120 KB (5 MB) for three years.");
+                        $('#BalanceSheetFile').val("");
+                        $('#BalanceSheetFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The balance sheet file type for three years should be jpg, jpeg, png or pdf only.");
+                    $('#BalanceSheetFile').val("");
+                    $('#BalanceSheetFile').focus();
+                    return false;
+                }
+            }
+
+
+        })
+
+
+        ////Income Tax change event///
+        $('#IncomeTaxReturnFile').change(function () {
+            if ($('#IncomeTaxReturnFile').val() !== '') {
+                var filetender = $('#IncomeTaxReturnFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#IncomeTaxReturnFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 5120) {
+                        alert("The income tax return file size for the last three years should be less than 5120 KB (5 MB).");
+                        $('#IncomeTaxReturnFile').val("");
+                        $('#IncomeTaxReturnFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The type of income tax return file for the last three years should be jpg, jpeg, png or pdf only.");
+                    $('#IncomeTaxReturnFile').val("");
+                    $('#IncomeTaxReturnFile').focus();
+                    return false;
+                }
+            }
+
+        })
+
+        //Hasiyat change event
+        $('#HasiyatCertificate').change(function () {
+
+            if ($('#HasiyatCertificate').val() !== '') {
+                var filetender = $('#HasiyatCertificate').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#HasiyatCertificate').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("The size of the status certificate should be less than 1024 KB (1 MB).");
+                        $('#HasiyatCertificate').val("");
+                        $('#HasiyatCertificate').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The type of status certificate should be jpg, jpeg, png or pdf only.");
+                    $('#HasiyatCertificate').val("");
+                    $('#HasiyatCertificate').focus();
+                    return false;
+                }
+            }
+
+        })
+
+        //Blood Relation Change event
+
+        $('#BloodRelation').change(function () {
+            if ($('#BloodRelation').val() !== '') {
+                var filetender = $('#BloodRelation').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#BloodRelation').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("The size of the blood relation affidavit should be less than 1024 KB (1 MB).");
+                        $('#BloodRelation').val("");
+                        $('#BloodRelation').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The type of affidavit related to blood relation should be jpg, jpeg, png or pdf only.");
+                    $('#BloodRelation').val("");
+                    $('#BloodRelation').focus();
+                    return false;
+                }
+            }
+
+
+        })
+
+
+        $('#CharacterFile').change(function () {
+            if ($('#CharacterFile').val() !== '') {
+                var filetender = $('#CharacterFile').get(0);
+                var FileSize = filetender.files[0].size;;
+                var path = $('#CharacterFile').val();
+                var FileSizeKB = (FileSize / 1024).toFixed(2);
+                var ext = path.substring(path.lastIndexOf(".") + 1, path.length).toLowerCase();
+                if (ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "pdf") {
+                    if (FileSizeKB > 1024) {
+                        alert("The size of the Character file should be less than 1024 KB (1 MB).");
+                        $('#CharacterFile').val("");
+                        $('#CharacterFile').focus();
+                        return false;
+                    }
+                }
+                else {
+                    alert("The type of character file related to blood relation should be jpg, jpeg, png or pdf only.");
+                    $('#CharacterFile').val("");
+                    $('#CharacterFile').focus();
+                    return false;
+                }
+            }
+
+
+        })
+    </script>
+
+}

@@ -1,0 +1,116 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.SliderMaster>
+@{
+    ViewData["Title"] = "SetSliderPriority";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var s = 1;
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Set Banner Priority</h4>
+
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card"  id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Main Title(English)</th>
+                                <th>Sub Title(English)</th>
+                                <th>Main Title(Hindi)</th>
+                                <th>Sub Title(Hindi)</th>
+                                <th>View</th>
+                                <th> Display Priority</th>
+                                <th>Update</th>
+                               
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@(s)<input type="hidden" value="@item.Id" class="Id" /></td>
+                                <td>@item.MainTitle</td>
+                                <td>@item.Title</td>
+                                <td>@item.HNMainTitle</td>
+                                <td>@item.HNTitle</td>
+                                <td><a href="@item.FileNameButton" target="_blank">View</a></td>
+                                <td><select class="form-control priority" style="width:200px;" asp-for="@item.OrderPriroity">
+    <option value="0">Select Priority</option>
+    <option value="1">1-Priority</option>
+    <option value="2">2-Priority</option>
+    <option value="3">3-Priority</option>
+    <option value="4">4-Priority</option>
+    <option value="5">5-Priority</option>
+    <option value="6">6-Priority</option>
+    <option value="7">7-Priority</option>
+    <option value="8">8-Priority</option>
+    <option value="9">9-Priority</option>
+    <option value="10">10-Priority</option>
+    <option value="11">11-Priority</option>
+    <option value="12">12-Priority</option>
+    <option value="13">13-Priority</option>
+    <option value="14">14-Priority</option>
+    <option value="15">15-Priority</option>
+    <option value="16">16-Priority</option>
+    <option value="17">17-Priority</option>
+    <option value="18">18-Priority</option>
+    <option value="19">19-Priority</option>
+    <option value="20">20-Priority</option>
+
+</select></td>
+                                <td><input type="button" value="Update" onclick="UpdatePriority(this)" class="btn btn-primary" /></td>
+                            </tr>
+                                s++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+          //  BindTable();
+        });
+    </script>
+    <script type="text/javascript">
+        
+
+         function UpdatePriority(e) {
+               var $row = $(e).closest("tr");     
+              var prior = $row.find(".priority").val();
+             var rowid = $row.find(".Id").val();
+             
+             //alert(rowid); 
+             //alert(prior);
+          $.post('/Master/UpdateBannerPriority',
+              $.param({
+                  Id: rowid,
+                  Priority: prior,
+                }, true), function (data) {
+
+                  alert(data.Message);
+                  window.location.reload();
+                    //BindRegisterPaperTable();
+                    
+                   
+
+                });
+    }
+
+    </script>
+}

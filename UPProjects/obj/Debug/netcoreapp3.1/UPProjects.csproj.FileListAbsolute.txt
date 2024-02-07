@@ -1,0 +1,7 @@
+D:\Software codes\UP Projects 06-11-2023\UP Projects 21-07-2023\UPProjects\obj\Debug\netcoreapp3.1\UPProjects.csproj.AssemblyReference.cache
+D:\Software codes\UP Projects 06-11-2023\UP Projects 21-07-2023\UPProjects\obj\Debug\netcoreapp3.1\UPProjects.GeneratedMSBuildEditorConfig.editorconfig
+D:\Software codes\UP Projects 06-11-2023\UP Projects 21-07-2023\UPProjects\obj\Debug\netcoreapp3.1\UPProjects.AssemblyInfoInputs.cache
+D:\Software codes\UP Projects 06-11-2023\UP Projects 21-07-2023\UPProjects\obj\Debug\netcoreapp3.1\UPProjects.AssemblyInfo.cs
+D:\Software codes\UP Projects 06-11-2023\UP Projects 21-07-2023\UPProjects\obj\Debug\netcoreapp3.1\UPProjects.csproj.CoreCompileInputs.cache
+D:\Software codes\UP Projects 06-11-2023\UP Projects 21-07-2023\UPProjects\obj\Debug\netcoreapp3.1\UPProjects.MvcApplicationPartsAssemblyInfo.cs
+D:\Software codes\UP Projects 06-11-2023\UP Projects 21-07-2023\UPProjects\obj\Debug\netcoreapp3.1\UPProjects.MvcApplicationPartsAssemblyInfo.cache

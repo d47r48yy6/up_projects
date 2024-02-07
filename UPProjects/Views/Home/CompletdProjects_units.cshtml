@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "CompletdProjects_units";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Select Unit</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section" style="background: #f3f3f3;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="units"></div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+@section Scripts{
+    <script src="~/APPjs/GetQuerryString.js"></script>
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var zone = getQuerryStringDataByName("zone", "");
+            Bindunits(zone);
+              GetUpdatedRecords("ongoingprojects_uppcl");
+    });
+
+        function Bindunits(zone) {
+            $('#loader').css("display","block");
+
+            $.get('@Url.Action("GetUnitsByZone","Home")', {
+                zone:zone
+    }, function (data) {
+                    try {
+                        debugger;
+                        var htmlCont = '<div class="zone_box"> <div class="row">';
+                        var counter = 1;
+                        $('#units').empty();
+                        $.each(data, function (key, value) {
+                            htmlCont = htmlCont + '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><a href="/Home/CompleteProjects?units=' + value.Id + '"><span class="our_services_text">' + value.UnitName + '</span>' +
+                                '<span class="zone_arrow_link"><img src="/assets1/images/right-arrow.svg"></span> <img class="zone_icon" src="/assets1/images/zone_icons/zone_' + (counter).toString() + '.svg"> </a> </div>';
+                            counter = counter + 1;
+                        });
+                        $('#units').append(htmlCont+'</div></div>');
+                        $('#loader').css("display", "none");
+        }
+                    catch (err) {
+                        $('#loader').css("display","none");
+        }
+            }).done(function (data) {
+        $('#loader').css("display","none");
+        })
+                .fail(function (data) {
+            $('#loader').css("display","none");
+        });
+        }
+    </script>
+
+}
+<!-- /End Board of Directors Tabler -->

@@ -1,0 +1,143 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.Supervisor>
+@{
+    ViewData["Title"] = "GetSupervisorListById";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var c = 1;
+}
+
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">List Of Supervisors</h4>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="tblData">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Supervisor Name</th>
+                                <th>Mobile Number</th>
+
+                                <th>Contractor Name</th>
+                                <th>Total Districts</th>
+                                <th>Total Sites</th>
+                                <th>Pump Lowering</th>
+                                <th>Pump Installation</th>
+                                <th>Water Flowing</th>
+                                <th>Handover</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var x in Model)
+                            {
+                                <tr>
+                                    <td>@c</td>
+                                    <td>@x.SupervisorName</td>
+                                    <td>@x.MobileNumber</td>
+                                    <td>@x.ContractorName</td>
+                                    <td>@x.TotalDistricts</td>
+                                    <td>@x.TotalSites</td>
+                                    <td>
+
+                                        @if (Convert.ToInt32(x.WorkStartedSites) > 0)
+                                        {
+                                            <a target="_blank" href="/Master/SiteList?WorkStatus=1&SupervisorId=@x.Id" data-placement="top" data-toggle="tooltip" title="Edit"><i class="icon-pencil7"></i>@x.WorkStartedSites</a>
+                                        }
+                                        else
+                                        {
+                                            @x.WorkStartedSites
+                                        }
+
+                                    </td>
+                                    <td>
+                                        @if (Convert.ToInt32(x.WorkInProgressSites) > 0)
+                                        {
+                                            <a target="_blank" href="/Master/SiteList?WorkStatus=2&SupervisorId=@x.Id" data-placement="top" data-toggle="tooltip" title="Edit"><i class="icon-pencil7"></i>@x.WorkInProgressSites</a>
+                                        }
+                                        else
+                                        {
+                                            @x.WorkInProgressSites
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Convert.ToInt32(x.WorkCompletedSites) > 0)
+                                        {
+                                            <a target="_blank" href="/Master/SiteList?WorkStatus=3&SupervisorId=@x.Id" data-placement="top" data-toggle="tooltip" title="Edit"><i class="icon-pencil7"></i>@x.WorkCompletedSites</a>
+                                        }
+                                        else
+                                        {
+                                            @x.WorkCompletedSites
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Convert.ToInt32(x.WorkHandoverSites) > 0)
+                                        {
+                                            <a target="_blank" href="/Master/SiteList?WorkStatus=4&SupervisorId=@x.Id" data-placement="top" data-toggle="tooltip" title="Edit"><i class="icon-pencil7"></i>@x.WorkHandoverSites</a>
+                                        }
+                                        else
+                                        {
+                                            @x.WorkHandoverSites
+                                        }
+                                    </td>
+                                </tr>
+                                c++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tblData").DataTable({
+                   
+                      dom:'Bfrtip',
+                    buttons: [
+            {
+                extend: 'print',
+                  title: 'Supervisors List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Supervisors List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                     
+                });
+        });
+      
+       
+    </script>
+
+}
+
+

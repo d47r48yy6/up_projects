@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "CompletedProjects";
+    Layout = "~/Views/Shared/_HNLayout.cshtml";
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>ज़ोन का चयन करें</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section" style="background: #f3f3f3;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="zone_box">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <a href="/HNhome/CompletdProjects_units?zone=1">
+                                <span class="our_services_text">Zone 1</span>
+                                <span class="zone_arrow_link"><img src="/assets1/images/right-arrow.svg"></span>
+                                <img class="zone_icon" src="/assets1/images/zone_icons/zone_1.svg">
+                            </a>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <a href="/HNhome/CompletdProjects_units?zone=2">
+                                <span class="our_services_text">Zone 2</span>
+                                <span class="zone_arrow_link"><img src="/assets1/images/right-arrow.svg"></span>
+                                <img class="zone_icon" src="/assets1/images/zone_icons/zone_2.svg">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <a href="/HNhome/CompletdProjects_units?zone=3">
+                                <span class="our_services_text">Zone 3</span>
+                                <span class="zone_arrow_link"><img src="/assets1/images/right-arrow.svg"></span>
+                                <img class="zone_icon" src="/assets1/images/zone_icons/zone_3.svg">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <a href="/HNhome/CompletdProjects_units?zone=4">
+                                <span class="our_services_text">Zone 4</span>
+                                <span class="zone_arrow_link"><img src="/assets1/images/right-arrow.svg"></span>
+                                <img class="zone_icon" src="/assets1/images/zone_icons/zone_4.svg">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <a href="/HNhome/CompletdProjects_units?zone=5">
+                                <span class="our_services_text">Zone 5</span>
+                                <span class="zone_arrow_link"><img src="/assets1/images/right-arrow.svg"></span>
+                                <img class="zone_icon" src="/assets1/images/zone_icons/zone_5.svg">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <a href="/HNhome/CompletdProjects_units?zone=6">
+                                <span class="our_services_text">Zone 6</span>
+                                <span class="zone_arrow_link"><img src="/assets1/images/right-arrow.svg"></span>
+                                <img class="zone_icon" src="/assets1/images/zone_icons/zone_6.svg">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <a href="/HNhome/CompletdProjects_units?zone=7">
+                                <span class="our_services_text">Zone 7</span>
+                                <span class="zone_arrow_link"><img src="/assets1/images/right-arrow.svg"></span>
+                                <img class="zone_icon" src="/assets1/images/zone_icons/zone_7.svg">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <a href="/HNhome/CompletdProjects_units?zone=8">
+                                <span class="our_services_text">Zone 8</span>
+                                <span class="zone_arrow_link"><img src="/assets1/images/right-arrow.svg"></span>
+                                <img class="zone_icon" src="/assets1/images/zone_icons/zone_8.svg">
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- /End Board of Directors Tabler -->
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            GetUpdatedRecords("OnGoingProjects_uppcl");
+        })
+
+
+    </script>
+}

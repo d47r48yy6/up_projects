@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewData["Title"] = "chiefgenmanagers";
+    Layout = "~/Views/Shared/_HNLayout.cshtml";
+       string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>
+            मुख्य महाप्रबंधक
+        </h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container">
+        <div style="overflow-x:auto">
+            <table class="table table-bordered table-hover table-striped css-serial">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            क्रम.संख्या
+                        </th>
+                        <th>
+                            मुख्य महाप्रबंधक
+                        </th>
+                        <th>आरंभ </th>
+                        <th>तक</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+
+                    <tr>
+                        <td></td>
+                        <td>
+
+                            श्री श्याम बिहारी पांडे
+                        </td>
+                        <td>28.06.2007</td>
+                        <td>31.03.2009</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+
+                            श्री श्याम बिहारी पांडे
+                        </td>
+                        <td>15.05.2013</td>
+                        <td>15.05.2013</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>श्री कौशल गोयल</td>
+                        <td>01.02.2014</td>
+                        <td>30.04.2015</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>श्री अनिल कुमार जैन</td>
+                        <td>02.05.2015 </td>
+                        <td>31.10.2015</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            श्री ज्ञानेंद्र सिंह
+                        </td>
+                        <td>02.11.2015</td>
+                        <td>31.05.2017</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>श्री सत्येन्द्र नाथ सिंह</td>
+                        <td>01.06.2017</td>
+                        <td>31.07.2018</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>श्री रमेश चन्द्र </td>
+                        <td>01.08.2018</td>
+                        <td>31.10.2018</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>श्री गोपाल मिश्रा</td>
+                        <td>01.11.2018</td>
+                        <td>Till Date</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        </div>
+</section>
+<!-- /End Board of Directors Tabler -->
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}
+
+

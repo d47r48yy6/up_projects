@@ -1,0 +1,72 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.Contractor>
+@{
+    ViewData["Title"] = "ListOfContractors";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+    var count = 1;
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Registered Contractor List</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm table-hover" id="tblData">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>ठेकेदार का नाम/फर्म का नाम</th>
+                                <th>आवेदक का नाम एवं पद</th>
+                                <th>कैटेगरी</th>
+                                <th>कार्यालय का पता</th>
+                                <th>मोबाइल</th>
+                                <th>ई-मेल</th>
+                                <th>रजिस्ट्रेशन दिनांक</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@item.FirmName</td>
+                                    <td>@item.ApplicantName</td>
+                                    <td>@item.Category</td>
+                                    <td>@item.OfficeAddress</td>
+                                    <td>@item.Mobile</td>
+                                    <td>@item.eMail</td>
+                                    <td>@Convert.ToDateTime(item.CreatedOn).ToString("dd-MM-yyyy")</td>
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetUpdatedRecords($("#CurrentName").html())
+        });
+       
+    </script>
+
+}
+
+

@@ -1,0 +1,87 @@
+﻿@model List<UPProjects.Models.MPR>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Sr no.
+            </th>
+            <th>
+                Financial Year
+            </th>
+            <th>
+                Month
+            </th>
+            <th>
+                File
+            </th>
+            <th>
+                Status
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{ int i = 0; }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ i++; }
+                    <label>@i</label>
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinancialYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    <a href="@Html.DisplayFor(modelItem => item.FilePath)">View<i class="fa fa-eye"></i></a>
+                </td>
+                <td>
+                    @if (item.IsApproved is null || item.IsApproved == "0")
+                    {<span style="color:red">Not Approve</span>}
+                    else
+                    {<span style="color:green">Approved</span>}
+
+                </td>
+                <td>
+                    @if (item.IsApproved is null)
+                    {<a data-ajax="true"
+                        data-ajax-complete="onEditComplete"
+                        data-ajax-success="onEditSuccess"
+                        href='@Url.Action("Edit", "MPR", new { Id = @item.Id })'
+                        class="btn btn-info"><i class="menu-icon mdi mdi-pencil"></i>Edit</a>}
+
+                    @if (item.IsApproved is null)
+                    {<a data-ajax="true"
+                        data-ajax-complete="onChangeStatusComplete"
+                        data-ajax-success="onChangeStatusSuccess"
+                        href='@Url.Action("ApproveMPR", "MPR", new { Id = @item.Id })'
+                        class="btn btn-info"><i class="menu-icon mdi mdi-check"></i>Approve </a>
+                        <a data-ajax="true"
+                           data-ajax-complete="onChangeStatusComplete"
+                           data-ajax-success="onChangeStatusSuccess"
+                           href='@Url.Action("DisapproveMPR", "MPR", new { Id = @item.Id })'
+                           class="btn btn-info"><i class="menu-icon mdi mdi-account-remove"></i>Reject</a>}
+                    @if (item.IsApproved == "0")
+                    {<a data-ajax="true"
+                        data-ajax-complete="onChangeStatusComplete"
+                        data-ajax-success="onChangeStatusSuccess"
+                        href='@Url.Action("ApproveMPR", "MPR", new { Id = @item.Id })'
+                        class="btn btn-info"><i class="menu-icon mdi mdi-check"></i>Approve </a>}
+                    @if (item.IsApproved == "1")
+                    {<a data-ajax="true"
+                        data-ajax-complete="onChangeStatusComplete"
+                        data-ajax-success="onChangeStatusSuccess"
+                        href='@Url.Action("DisapproveMPR", "MPR", new { Id = @item.Id })'
+                        class="btn btn-info"><i class="menu-icon mdi mdi-account-remove"></i>Reject</a>}
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

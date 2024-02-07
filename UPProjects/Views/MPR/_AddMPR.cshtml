@@ -1,0 +1,42 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.MPR
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title" id="mainHeading">MPR</h4>
+            <form class="forms-sample" enctype="multipart/form-data"
+                  method="post" asp-action="MPR"
+                  data-ajax="true" data-ajax-method="POST"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label >Financial Year</label>
+                    <select class="form-control" asp-for="FinancialYear" id="FinancialYear" asp-items="@ViewBag.YearList">
+                    </select>
+                    <span asp-validation-for="FinancialYear" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label >Month</label>
+                    <select class="form-control" asp-for="Month" id="Month" asp-items="@ViewBag.MonthList">
+                    </select>
+                    <span asp-validation-for="Month" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label >File Upload</label>
+                    <div class="input-group col-xs-12">
+                        <input asp-for="file" type="file" id="myfile" class="form-control file-upload-info" placeholder="Upload Image">
+
+                    </div>
+                    <span asp-validation-for="file" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success mr-2" id="btnsub">Submit</button>
+                <button class="btn btn-light">Cancel</button>
+
+            </form>
+        </div>
+    </div>
+</div>

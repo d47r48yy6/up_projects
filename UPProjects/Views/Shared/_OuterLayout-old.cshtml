@@ -1,0 +1,881 @@
+﻿<!DOCTYPE html>
+
+
+<html lang="zxx">
+
+<head>
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content='pavilan'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-site-verification" content="rYZ5Wl-0Np9GgSXKOT0JFHbJMQNoVDfD8lq04RZ04-w" />
+    <!-- Title Tag  -->
+    <title>Uttar Pradesh Projects Corporate Limited.</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/favicon.jpg" href="../../assets1/images/favicon.jpg">
+
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bizwheel Plugins CSS -->
+    <link rel="stylesheet" href="../../assets1/css/animate.min.css">
+    <link rel="stylesheet" href="../../assets1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets1/css/cubeportfolio.min.css">
+    <link rel="stylesheet" href="../../assets1/css/font-awesome.css">
+    <link rel="stylesheet" href="../../assets1/css/themify-icons.css">
+    <link rel="stylesheet" href="../../assets1/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="../../assets1/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../../assets1/css/owl-carousel.min.css">
+    <link rel="stylesheet" href="../../assets1/css/slicknav.min.css">
+
+    <!-- Bizwheel Stylesheet -->
+    <link rel="stylesheet" href="../../assets1/css/reset.css">
+    <link rel="stylesheet" href="../../assets1/css/style.css">
+    <link rel="stylesheet" href="../../assets1/css/responsive.css">
+    <link rel="stylesheet" href="../../assets1/news_slider/news_slider.css">
+    @*<link rel="stylesheet" href="../../assets1/theme_font_changer/change.css">*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="#" id="elena_custom">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179304171-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-179304171-1');
+    </script>
+
+    <style type="text/css">
+
+
+        #progressBackgroundFilter {
+            position: fixed;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            background-color: #000;
+            filter: alpha(opacity=50);
+            opacity: 0.5;
+            z-index: 1000;
+        }
+
+        #processMessage {
+            position: fixed;
+            top: 30%;
+            left: 43%;
+            padding: 10px;
+            width: 14%;
+            z-index: 1001;
+            background-color: #fff;
+            border: solid 1px #000;
+            text-align: center;
+        }
+
+
+        .modalBackground {
+            background-color: Gray;
+            filter: alpha(opacity=80);
+            opacity: 0.8;
+            z-index: 10000;
+        }
+    </style>
+    @RenderSection("CSS", required: false)
+</head>
+
+<body id="bg">
+    <div id="loader" style="display:none" align="center">
+        <div id="progressBackgroundFilter">
+        </div>
+        <div id="processMessage">
+            <img alt="Loading" src="~/assets/images/please_wait.gif" />
+        </div>
+    </div>
+    <!-- Boxed Layout -->
+    <div id="page" class="site">
+
+        <!-- Preloader -->
+        <!-- <div class="preeloader">
+            <div class="preloader-spinner"></div>
+        </div> -->
+        <!--/ End Preloader -->
+        <!-- Header -->
+        <header class="header">
+            <!-- Topbar -->
+            <div class="topbar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-12">
+                            <!-- Top Contact -->
+                            <div class="top-contact">
+                                <div class="single-contact"><i class="fa fa-calendar"></i> <span id="datedisplay"></span> &nbsp; <i class="fa fa-clock-o"></i> <span id="clockDisplay"></span></div>
+
+                            </div>
+                            <!-- End Top Contact -->
+                        </div>
+                        <div class="col-lg-7 col-12">
+                            <div class="topbar-right">
+                                <!-- Social Icons -->
+                                <ul class="social-icons">
+                                    <li>
+                                        <a class="topbar-rec" id="skip_content" href="#main_content" title="Skip To Main Content">
+                                            <i class="fa fa-reply" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/SiteMap" class="topbar-rec" title="Site Map"> <i class="fa fa-sitemap" aria-hidden="true"></i> </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="topbar-rec" title="Screen Reader Access"> <i class="fa fa-volume-up" aria-hidden="true"></i> </a>
+                                    </li>
+
+                                    <li><a href="#" id="btn-increase" class="topbar-rec" title="Font Large">A+ </a></li>
+                                    <li><a href="#" id="btn-orig" class="topbar-rec" title="Font Normal">A </a></li>
+                                    <li>
+                                        <a href="#" id="btn-decrease" class=" topbar-rec" title="Font Small">A- </a>
+                                    </li>
+
+
+                                    <li>
+                                        <a href="/HNHome/Index" class="topbar-rec" title="Hindi Sanskaran"> हिन्दी संस्करण </a>
+                                        @*<a href="#" class="topbar-rec" title="Hindi Sanskaran"> हिन्दी संस्करण </a>*@
+                                    </li>
+
+                                </ul>
+                                <!-- Right Bar -->
+                                <div class="right-bar">
+                                    <!-- Search Bar -->
+                                    <ul class="right-nav" id="switcher">
+                                        <li id="whiteButton" class="high-contrast light check-gray2 ">T</li>
+                                        <li id="grayButton" class="high-contrast dark check-gray2">T</li>
+                                    </ul>
+                                    <!--/ End Search Bar -->
+
+                                </div>
+                                <!--/ End Right Bar -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ End Topbar -->
+            <!-- Middle Header -->
+            <div class="middle-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="middle-inner">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-5 col-12">
+                                        <!-- Logo -->
+                                        <div class="logo">
+                                            <!-- Image Logo -->
+                                            <div class="logo img-logo">
+                                                <a href="/Home/Index" class="navbar-brand">
+                                                    <img src="../../assets1/images/project_logo.svg" alt="logo">
+                                                    <div class="logo_name">
+                                                        <h1 class="eng_text">
+                                                            U.P. Projects Corporation Ltd.
+                                                        </h1>
+                                                        <h1 class="hindi_text">
+                                                            (An Undertaking of UP Government)
+                                                            <br />
+                                                            <small>
+                                                                CIN : U15209UP1976SGC004285
+                                                            </small>
+                                                        </h1>
+
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <!-- <div class="img-logo">
+                                                <a href="/Home//Home/Index.html">
+                                                    <img src="img/logo.png" alt="#">
+                                                </a>
+                                            </div> -->
+                                        </div>
+                                        <div class="mobile-nav"></div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-7 col-12">
+                                        <div class="menu-area">
+                                            <!-- Main Menu -->
+                                            <nav class="navbar navbar-expand-lg">
+                                                <div class="navbar-collapse">
+                                                    <div class="nav-inner">
+                                                        <div class="menu-home-menu-container">
+                                                            <!-- Naviagiton -->
+                                                            <ul id="nav" class="nav main-menu menu navbar-nav">
+                                                                <li>
+                                                                    <a href="/Home/Index">
+                                                                        <div class="menu_icon">
+
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                                                                <defs>
+                                                                                    <style>
+                                                                                        .cls-1 {
+                                                                                            fill: none;
+                                                                                            stroke: #fff;
+                                                                                            stroke-linecap: round;
+                                                                                            stroke-linejoin: round;
+                                                                                            stroke-width: 5px;
+                                                                                        }
+                                                                                    </style>
+                                                                                </defs>
+
+                                                                                <g id="Layer_1" data-name="Layer 1">
+                                                                                    <polygon class="cls-1"
+                                                                                             points="19.09 89.84 79.53 89.84 79.53 50.63 88 50.63 49.51 15.67 11.36 49.93 19.09 49.93 19.09 89.84" />
+                                                                                    <polyline class="cls-1"
+                                                                                              points="41.2 89.84 41.2 62.64 57.97 62.64 57.97 89.84" />
+                                                                                    <polyline class="cls-1"
+                                                                                              points="20 42.16 20 26.09 28.12 26.09 28.12 33.86" />
+                                                                                </g>
+                                                                            </svg>
+                                                                        </div>
+                                                                        Home
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icon-active">
+                                                                    <a href="#">
+                                                                        <div class="menu_icon">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                                                                <defs>
+                                                                                    <style>
+                                                                                        .cls-1 {
+                                                                                            fill: none;
+                                                                                            stroke: #000;
+                                                                                            stroke-linecap: round;
+                                                                                            stroke-linejoin: round;
+                                                                                            stroke-width: 5px;
+                                                                                        }
+                                                                                    </style>
+                                                                                </defs>
+
+                                                                                <g id="Layer_1" data-name="Layer 1">
+                                                                                    <path class="cls-1"
+                                                                                          d="M39.55,50.09a16.3,16.3,0,0,1-4.67-5.44C32,39,31.84,33.37,35,27.85a16.09,16.09,0,0,1,12.51-8.24A17,17,0,0,1,60,49.72c-.45.37-.45.36.11.61a25.72,25.72,0,0,1,11.34,9.73,26.92,26.92,0,0,1,4.1,11.08,22.9,22.9,0,0,1,.22,3.51,6.54,6.54,0,0,1-2.45,4.93,18.84,18.84,0,0,1-6.93,3.64A50.35,50.35,0,0,1,55,85.32a69.64,69.64,0,0,1-11.28,0,44.71,44.71,0,0,1-13.41-3,17.23,17.23,0,0,1-4-2.27,7.29,7.29,0,0,1-3-6.71,27.41,27.41,0,0,1,4.08-12.9A25.74,25.74,0,0,1,39,50.37Z" />
+                                                                                    <path class="cls-1"
+                                                                                          d="M13.86,74.83a17.59,17.59,0,0,1-5.81-2.47,5.07,5.07,0,0,1-2.36-4.83A18.83,18.83,0,0,1,15,51.8a17.62,17.62,0,0,1,2.61-1.29,12.66,12.66,0,0,1-4-5.11A12.41,12.41,0,0,1,25,28.07" />
+                                                                                    <path class="cls-1"
+                                                                                          d="M85.33,74.83a17.73,17.73,0,0,0,5.82-2.47,5.11,5.11,0,0,0,2.36-4.83A18.86,18.86,0,0,0,84.2,51.8a18.25,18.25,0,0,0-2.62-1.29,12.58,12.58,0,0,0,4-5.11A12.4,12.4,0,0,0,74.21,28.07" />
+                                                                                </g>
+                                                                            </svg>
+                                                                        </div>
+                                                                        About US
+                                                                    </a>
+                                                                    <ul class="sub-menu">
+                                                                        <h6>Organization Structure</h6>
+                                                                        <li>
+                                                                            <a href="/Home/boardofdirectors">
+                                                                                Board of
+                                                                                Directors
+                                                                            </a>
+                                                                        </li>
+                                                                        <li><a href="/Home/organizationstructure">Organization Structure</a></li>
+
+                                                                        <li>
+                                                                            <a href="/Home/managingdirectors">
+                                                                                Managing
+                                                                                Directors
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="/Home/chiefgenmanagers">
+                                                                                Chief
+                                                                                General Managers
+                                                                            </a>
+                                                                        </li>
+                                                                        <li><a href="/Home/vision2020">Vision, Mission and Value</a></li>
+                                                                        <!-- <li><a href="under_construction.html">Retired Officers List</a></li> -->
+                                                                        <li><a href="/Home/ProfileofCorporations" target="_blank">Company Profile</a></li>
+                                                                        <li><a href="/Home/ISOcertificate">ISO Certificate</a></li>
+                                                                        <li><a href="../../assets1/images/csr_policy.pdf" target="_blank">CSR Policy</a></li>
+                                                                        <li><a href="/Home/achievements">Achievements</a></li>
+                                                                        <h6>Messages</h6>
+                                                                        @*<li><a href="/Home/underconstruction">Message of Hon'ble Minister</a></li>*@
+                                                                        @*<li><a href="/Home/chairman">Message of Chairman</a></li>*@
+                                                                        <li><a href="#">Message of Chairman</a></li>
+                                                                        <li><a href="/Home/mdmessage">Message of MD</a></li>
+
+                                                                    </ul>
+                                                                </li>
+                                                                <li class="icon-active ">
+                                                                    <a href="#">
+                                                                        <div class="menu_icon">
+
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                                                                <defs>
+                                                                                    <style>
+                                                                                        .cls-1 {
+                                                                                            fill: none;
+                                                                                            stroke: #fff;
+                                                                                            stroke-linecap: round;
+                                                                                            stroke-linejoin: round;
+                                                                                            stroke-width: 5px;
+                                                                                        }
+                                                                                    </style>
+                                                                                </defs>
+
+                                                                                <g id="Layer_1" data-name="Layer 1">
+                                                                                    <path class="cls-1"
+                                                                                          d="M27.13,74.29a8.82,8.82,0,1,0-8.82,8.81H92.67V21h-65" />
+                                                                                    <path class="cls-1"
+                                                                                          d="M9.5,75.53V22.06a8.82,8.82,0,0,1,8.81-8.81c4.87,0,8.82,2.9,8.82,7.77v52.6" />
+                                                                                    <path class="cls-1"
+                                                                                          d="M69.81,68.62l-4.12-1.93a3.86,3.86,0,0,0-5.14,2.24L60.19,70C59,73.58,59,73.55,55.29,73.39a1.29,1.29,0,0,1-1.39-1.08C53.56,71.2,53,70.14,52.74,69a3.11,3.11,0,0,0-2-2.19,3.4,3.4,0,0,0-3.85.22,4,4,0,0,1-.74.39c-3,1.52-3.85,1.28-5.86-1.51a1.12,1.12,0,0,1,0-1.36c.6-1.25,1.15-2.52,1.77-3.76a2.54,2.54,0,0,0,.13-1.88c-.48-2.07-1.87-2.88-3.76-3.41-3.26-.91-3.79-2-3.16-5.33.11-.59.46-.68.86-.82,1.15-.42,2.29-.87,3.45-1.22a3.73,3.73,0,0,0,2.2-2c1-1.75.2-3-.53-4.46-1.65-3.22-1.48-3.87,1.41-6a1,1,0,0,1,1.21-.1,21.45,21.45,0,0,1,2.69,1.29,4,4,0,0,0,4.62,0,2.11,2.11,0,0,0,1.27-1.37c.34-1.28.9-2.5,1.21-3.79.26-1.08.82-1.32,1.86-1.31,3.4.05,3.38,0,4.51,3.22.48,1.34.68,2.69,2.34,3.53,2,1,3.38,0,4.91-.78,2.61-1.3,2.54-1.24,4.64.67,1.14,1,1.44,1.94.53,3.23a13.42,13.42,0,0,0-.93,2c-1.31,2.81-.38,5,2.58,5.94.16.05.31.13.47.18,3.54,1.19,3.51,1.19,3.36,4.89a1.33,1.33,0,0,1-1.07,1.42c-1.16.36-2.28.85-3.45,1.19a3,3,0,0,0-2,1.81,3.56,3.56,0,0,0,.22,4.14,4,4,0,0,1,.45.9c.39.89,1.47,1.87,1.07,2.64a14.57,14.57,0,0,1-2.83,3A1.78,1.78,0,0,1,69.81,68.62ZM63.39,52.08a6.74,6.74,0,0,0-6.81-6.89,6.84,6.84,0,0,0-6.85,6.72,6.83,6.83,0,1,0,13.66.17Z" />
+                                                                                </g>
+                                                                            </svg>
+                                                                        </div>
+                                                                        Projects
+                                                                    </a>
+                                                                    <ul class="sub-menu">
+                                                                        @*<li><a href="/Home/ongoingprojects">Ongoing Projects </a></li>*@
+                                                                        <li><a href="/Home/ongoingprojects_uppcl">Ongoing Projects </a></li>
+                                                                        <li><a href="/Home/completedprojects">Completed Projects </a></li>
+                                                                        <li><a href="/Home/NamamiGange">Namami Gange Project 100 Days </a></li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li class="icon-active ">
+                                                                    <a href="#">
+                                                                        <div class="menu_icon">
+
+
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                                                                <defs>
+                                                                                    <style>
+                                                                                        .cls-1 {
+                                                                                            fill: none;
+                                                                                        }
+
+                                                                                        .cls-1, .cls-2 {
+                                                                                            stroke: #fff;
+                                                                                            stroke-linecap: round;
+                                                                                            stroke-linejoin: round;
+                                                                                            stroke-width: 5px;
+                                                                                        }
+
+                                                                                        .cls-2, .cls-3 {
+                                                                                            fill: #fff;
+                                                                                        }
+
+                                                                                        .cls-3 {
+                                                                                            font-size: 27px;
+                                                                                            font-family: Poppins-Bold, Poppins;
+                                                                                            font-weight: 700;
+                                                                                        }
+                                                                                    </style>
+                                                                                </defs>
+                                                                                <title></title>
+                                                                                <g id="Layer_1" data-name="Layer 1"><polygon class="cls-1" points="15.94 93.44 15.94 11.74 66.89 11.74 83.77 27.34 83.77 93.44 15.94 93.44" /><polygon class="cls-2" points="66.89 11.74 66.89 27.38 83.77 27.38 66.89 11.74" /><line class="cls-1" x1="26.89" y1="64.75" x2="73.62" y2="64.75" /><line class="cls-1" x1="26.89" y1="80.75" x2="73.62" y2="80.75" /><text class="cls-3" transform="translate(22.91 54.14)">GST</text></g>
+                                                                            </svg>
+                                                                        </div>
+                                                                        Online Registration
+                                                                    </a>
+                                                                    <ul class="sub-menu">
+                                                                        <li><a href="/home/RegContractor">Registration for Contractor</a></li>
+                                                                        <li><a href="/home/architectTC">Registration for Architecture</a></li>
+                                                                        @*<li><a href="/home/ContractorRenewalTermsandConditions">Renewal for Contractor</a></li>*@
+                                                                        <!-- <li><a href="services-related.html">Service Related</a></li>
+                                                                        <li><a href="work-related.html">Work Related</a></li>
+
+                                                                        <li><a href="list-of-zonal-and-unit-identification-number-for-gst.html">List of Zonal and Unit Identification Number for GST</a></li>
+                                                                        <li><a href="download-form.html">Download Form</a></li> -->
+                                                                    </ul>
+                                                                </li>
+                                                                <li class="icon-active ">
+                                                                    <a href="#">
+                                                                        <div class="menu_icon">
+
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                                                                <defs>
+                                                                                    <style>
+                                                                                        .cls-1 {
+                                                                                            fill: none;
+                                                                                            stroke: #fff;
+                                                                                            stroke-linecap: round;
+                                                                                            stroke-linejoin: round;
+                                                                                            stroke-width: 5px;
+                                                                                        }
+                                                                                    </style>
+                                                                                </defs>
+                                                                                <title></title>
+                                                                                <g id="Layer_1" data-name="Layer 1">
+                                                                                    <polyline class="cls-1"
+                                                                                              points="27.62 88.01 27.62 65.76 9.24 65.76 9.24 88.01 90.14 88.01 90.14 39.76 70.96 39.76 70.96 51.26" />
+                                                                                    <polyline class="cls-1"
+                                                                                              points="27.62 65.76 27.62 58.76 49.76 58.76 49.76 88.01" />
+                                                                                    <polyline class="cls-1"
+                                                                                              points="49.76 58.76 49.76 51.26 70.96 51.26 70.96 88.01" />
+                                                                                    <polyline class="cls-1"
+                                                                                              points="6.67 55.76 17.67 45.26 33.67 48.26 46.67 36.76 58.17 39.76 76.92 20.01" />
+                                                                                    <polyline class="cls-1"
+                                                                                              points="68.42 17.69 79.55 17.01 79.55 26.88" />
+                                                                                </g>
+                                                                            </svg>
+                                                                        </div>
+                                                                        Progress
+                                                                    </a>
+                                                                    <ul class="sub-menu">
+                                                                        <li><a href="" class="cm" target="_blank">CM Announcements</a></li>
+                                                                        @*<li><a href="/Home/MonthlyProgressReport">Monthly Progress Report</a></li>*@
+                                                                        <li><a href="" target="_blank" class="mcr">Monthly Complied Report</a></li>
+                                                                        <li><a href="/Home/financial">Financial Position of Corporation</a></li>
+                                                                    </ul>
+
+                                                                </li>
+                                                                <li class="icon-active ">
+                                                                    <a href="#">
+                                                                        <div class="menu_icon">
+
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                                                                <defs>
+                                                                                    <style>
+                                                                                        .cls-1 {
+                                                                                            fill: none;
+                                                                                            stroke: #fff;
+                                                                                            stroke-linecap: round;
+                                                                                            stroke-linejoin: round;
+                                                                                            stroke-width: 5px;
+                                                                                        }
+                                                                                    </style>
+                                                                                </defs>
+
+                                                                                <g id="Layer_1" data-name="Layer 1">
+                                                                                    <path class="cls-1"
+                                                                                          d="M50,82.84H11.08c-1.67,0-2.05-.38-2.05-2V22.11c0-1.49.44-1.93,1.94-1.93H89.13c1.4,0,1.87.45,1.87,1.86V81.16c0,1.23-.52,1.68-1.9,1.68ZM57.91,58l-.47-.78Q55,53.08,52.59,49q-5.15-8.75-10.27-17.5c-.85-1.44-1.93-1.42-2.77,0Q34.23,40.73,28.9,50q-6.1,10.6-12.19,21.21c-.36.63-.89,1.22-.45,2s1.25.71,2,.71H82.59a1.33,1.33,0,0,0,1.17-2c-.12-.24-.26-.48-.4-.72l-15-26.38c-.75-1.33-1.89-1.34-2.67,0L60.5,53.62Zm1.58-19.12a5.77,5.77,0,1,0-5.75-5.82A5.77,5.77,0,0,0,59.49,38.88Z" />
+                                                                                </g>
+                                                                            </svg>
+                                                                        </div>
+                                                                        Gallery
+                                                                    </a>
+                                                                    <ul class="sub-menu">
+                                                                        @*<li><a href="/Home/PhotoGallery">Photo Gallery</a></li>*@
+                                                                        <li><a href="/Home/Photo_album">Photo Gallery</a></li>
+                                                                        <li><a href="/Home/VideoGallery">Video Gallery</a></li>
+                                                                        @*<li><a href="/Home/MediaGallery">Media Gallery</a></li>*@
+                                                                    </ul>
+                                                                </li>
+                                                                <li class="icon-active ">
+                                                                    <a href="#">
+                                                                        <div class="menu_icon">
+
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                                                                <defs>
+                                                                                    <style>
+                                                                                        .cls-1 {
+                                                                                            fill: none;
+                                                                                            stroke: #fff;
+                                                                                            stroke-linecap: round;
+                                                                                            stroke-linejoin: round;
+                                                                                            stroke-width: 5px;
+                                                                                        }
+                                                                                    </style>
+                                                                                </defs>
+
+                                                                                <g id="Layer_1" data-name="Layer 1">
+                                                                                    <polygon class="cls-1"
+                                                                                             points="90.75 59.56 90.75 89.01 11.67 89.01 11.67 59.56 22.67 59.56 22.67 75.53 79.17 75.53 79.17 59.56 90.75 59.56" />
+                                                                                    <line class="cls-1" x1="51.48"
+                                                                                          y1="16.67" x2="51.48"
+                                                                                          y2="61.36" />
+                                                                                    <polyline class="cls-1"
+                                                                                              points="37.34 52.16 51.48 65.63 64.05 52.16" />
+                                                                                </g>
+                                                                            </svg>
+
+                                                                        </div>
+                                                                        Downloads
+                                                                    </a>
+                                                                    <ul class="sub-menu last-menu">
+                                                                        <h6>Tender</h6>
+                                                                        <li>
+                                                                            @Html.ActionLink("Tender & Notice", "Tenders", "Home")
+                                                                            @*<a href="@Html.ActionLink( "Tenders", "Home" )">Tender & Notice</a>*@
+                                                                        </li>
+
+                                                                        <li><a href="~/Tender/Tender Document.pdf" target="_blank">Tender Document</a></li>
+                                                                        <li><a href="/Home/EOI">EOI</a></li>
+                                                                        <h6>Government Orders</h6>
+                                                                        <li><a href="/Home/GOS">GO's</a></li>
+
+                                                                        <h6>Office Orders</h6>
+                                                                        <li><a href="/assets1/OfficeOrder/assistant.pdf" target="_blank">Assistant Accountant Seniority List</a></li>
+                                                                        <li><a href="/assets1/OfficeOrder/cleark.pdf" target="_blank">Clerk Seniority List</a></li>
+
+
+                                                                        <h6>Others</h6>
+                                                                        <li><a href="/Home/Proforma">Proforma</a></li>
+                                                                        @*<li><a href="/Home/ListOfContractors">List of Registered Contractors</a></li>*@
+                                                                        <h6>Forms/GST</h6>
+                                                                        <li><a href="/Home/listofstateofgstnumber">List of State GST Number</a></li>
+                                                                    </ul>
+                                                                </li>
+
+
+                                                                <li class="icon-active">
+                                                                    <a href="#">
+                                                                        <div class="menu_icon">
+
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                                                                <defs>
+                                                                                    <style>
+                                                                                        .cls-1 {
+                                                                                            fill: none;
+                                                                                            stroke: #fff;
+                                                                                            stroke-linecap: round;
+                                                                                            stroke-linejoin: round;
+                                                                                            stroke-width: 5px;
+                                                                                        }
+                                                                                    </style>
+                                                                                </defs>
+
+                                                                                <g id="Layer_1" data-name="Layer 1">
+                                                                                    <path class="cls-1"
+                                                                                          d="M3,44.89s13.26,37.81,52.77,47A24,24,0,0,0,69.28,83S66.37,72.52,53.9,69.4c0,0-6.75,2.55-7.84,8,0,0-18.13-.34-29.35-26.1,0,0,8.31-.21,8.94-7.69,0,0-5.41-10.39-14.55-13.71C11.1,29.93,4,33.87,3,44.89Z" />
+                                                                                    <polyline class="cls-1"
+                                                                                              points="15.47 32.18 15.47 18.5 88.81 18.5 88.81 69.4 55.15 69.4 29.15 69.4" />
+                                                                                    <polyline class="cls-1"
+                                                                                              points="15.47 18.5 52.13 51.12 88.81 18.5" />
+                                                                                    <line class="cls-1" x1="88.8"
+                                                                                          y1="69.4" x2="61.17"
+                                                                                          y2="43.95" />
+                                                                                    <line class="cls-1" x1="22.66"
+                                                                                          y1="62.03" x2="44.08"
+                                                                                          y2="43.95" />
+                                                                                </g>
+                                                                            </svg>
+                                                                        </div>
+                                                                        Contact Us
+                                                                    </a>
+                                                                    <ul class="sub-menu last-menu">
+                                                                        <li>
+                                                                            <a href="/Home/webdirectory">
+                                                                                Web
+                                                                                Directory
+                                                                            </a>
+                                                                        </li>
+                                                                        <li><a href="/Home/ReachUs">Reach Us</a></li>
+                                                                        @*<li><a href="/Home/Feedback">Feedback</a></li>*@
+
+
+                                                                    </ul>
+                                                                </li>
+
+                                                                 <li class="icon-active">
+                                                                    <a target="_blank" href="http://upprojects.in/user/login">
+                                                                        <div class="menu_icon">
+                                                                           <svg id="Layer_1" data-name="Layer 1" style="color:white;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9m6-9-4-4m4 4-4 4m4-4H5"/></svg>
+                                                                        </div>
+                                                                       PMS Login
+                                                                    </a>
+                                                                    </li>
+                                                                    
+
+                                                                <li class="icon-active">
+                                                                    <a href="#">
+                                                                        <div class="menu_icon">
+
+                                                                            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><title>central_lab</title><polyline points="67.48 74.81 67.48 90.8 8.02 90.8 8.02 22.91 21.02 22.91" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><polyline points="54.54 22.91 67.48 22.91 67.48 49.78" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><path d="M54.54,25.91V20.49c0-3.29-2.66-5-6-5H43.25l-1.78-.11a5,5,0,1,0-10,0L30,15.53H27c-3.29,0-6,1.67-6,5v5.42Z" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><circle cx="59.19" cy="62.07" r="14.82" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><line x1="71.05" y1="70.96" x2="77.14" y2="76.65" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><path d="M90.73,93.23,74.41,79.89l4.8-5.68L96,88a2.65,2.65,0,0,1,.32,3.75l-1,1.14A3.28,3.28,0,0,1,90.73,93.23Z" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><polyline points="16.3 40.92 18.75 45.05 27.36 38.61" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><line x1="35.09" y1="44.06" x2="49" y2="44.06" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><polyline points="16.3 59.92 18.75 64.06 27.36 57.61" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><line x1="35.09" y1="63.06" x2="43" y2="63.06" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><polyline points="16.3 77.92 18.75 82.06 27.36 75.61" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /><line x1="35.09" y1="81.06" x2="49" y2="81.06" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:5px" /></svg>
+                                                                        </div>
+                                                                       Central Lab
+                                                                    </a>
+                                                                    <ul class="sub-menu last-menu">
+                                                                        <li>
+                                                                            <a href="~/CentralLab/Central Lab ISO.pdf" target="_blank">
+
+                                                                                ISO Certificate
+                                                                            </a>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <a href="~/CentralLab/Rate List Lab.pdf" target="_blank">
+
+                                                                                Material Testing List
+                                                                            </a>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <a href="/Home/LabPhotogallery" target="_blank">
+
+                                                                               Photo Gallery
+                                                                            </a>
+                                                                        </li>
+
+
+
+                                                                    </ul>
+                                                                </li>
+
+
+
+                                                            </ul>
+                                                            <!--/ End Naviagiton -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ End Middle Header -->
+
+        </header>
+        <!--/ End Header -->
+        @RenderBody()
+        <!-- Footer -->
+        <footer class="footer" style="background-image:url('img/map.png')" id="Footercontent">
+            <!-- Footer Top -->
+            <div class="footer-top">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5 col-12">
+                            <!-- Footer About -->
+                            <div class="single-widget footer-about widget">
+                                <div class="logo">
+                                    <div class="logo  img-logo">
+                                        <a href="/Home/Index" class="navbar-brand">
+                                            <img src="../../assets1/images/project_logo.svg" alt="logo">
+                                            <div class="logo_name">
+                                                <h1 class="eng_text">
+                                                    U.P. Projects Corporation Ltd.
+                                                </h1>
+                                                <h1 class="hindi_text">
+                                                    यू.पी. प्रोजेक्ट्स काॅरपोरेशन लि0
+                                                </h1>
+
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="footer-widget-about-description">
+                                    <p>
+                                        This is the official website of the "U.P. Projects Corporation Limited", Lucknow, Uttar Pradesh, India. The work published on this website and its management is done by the U.P. Projects Corporation
+                                        Limited. For any query related to this website <a href="/Home/WebManager"> "Web Information Manager"</a>
+                                    </p>
+                                </div>
+                                <p><span style="color: #f3a712;">Last Updated On :</span> &nbsp;<span id="LastUpdated"></span></p>
+                                <p><span style="color: #f3a712;">Visitors’ No. :</span>&nbsp;<span id="VisitorCount"></span></p>
+                            </div>
+                            <!--/ End Footer About -->
+                        </div>
+
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <!-- Footer Contact -->
+                            <div class="single-widget f-link widget">
+                                <h3 class="widget-title">Our Policies</h3>
+                                <ul>
+                                    <li><a href="/Policy/TermsCondition">Terms & Conditions</a></li>
+                                    <li><a href="/Policy/Copyright">Copyright Policy</a></li>
+                                    <li><a href="/Policy/hyperlink">Hyperlinking Policy</a></li>
+                                    <li><a href="/Policy/Policy">Privacy Policy</a></li>
+                                    <li><a href="/Home/SecurityPolicy">Security Policy</a></li>
+                                    <li><a href="/Policy/help">Help</a></li>
+                                    <li><a href="/Home/SiteMap">Site Map</a></li>
+                                </ul>
+                                <div class="social">
+                                    <!-- Social Icons -->
+                                    <ul class="social-icons">
+                                        <li>
+                                            <a class="facebook" href="https://www.facebook.com/upprojectscorporation/" target="_blank"><i class="fa fa-facebook"></i></a>
+                                        </li>
+                                        <li>
+                                            <a class="twitter" href="https://twitter.com/ProjectsLucknow?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3AProjectsLucknow&ref_url=https%3A%2F%2Flocalhost%3A44313%2F" target="_blank">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        @*<li>
+                                                <a class="linkedin" href="#" target="_blank">
+                                                    <i class="fa fa-linkedin"></i>
+                                                </a>
+                                            </li>*@
+                                        <li>
+                                            <a class="youtube" href="https://www.youtube.com/channel/UCS8ngLbcUjjObunKYOzvvag" target="_blank">
+                                                <i class="fa fa-youtube"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p><a href="#"><img src="~/assets/images/google_play.png" style="width: 150px;" /></a></p>
+                            <!--/ End Footer Contact -->
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <!-- Footer Contact -->
+                            <div class="single-widget footer_contact widget">
+                                <h3 class="widget-title">Contact</h3>
+                                <p>
+                                    Left Bank, Gomti Barrage, Eldeco Greens, Gomti Nagar, Lucknow, Uttar Pradesh 226010
+                                </p>
+                                <ul class="address-widget-list">
+                                    <li class="footer-mobile-number"><i class="fa fa-phone"></i>+91-522-2684332</li>
+                                    <li class="footer-mobile-number">
+                                        <i class="fa fa-envelope"></i>info@upprojects.org
+                                    </li>
+                                    <li class="footer-mobile-number"><i class="fa fa-globe"></i>www.upprojects.org</li>
+
+                                </ul>
+                            </div>
+                            <!--/ End Footer Contact -->
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            Footer Links
+                            <div class="single-widget f-link widget">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14236.590573601017!2d80.97942432281494!3d26.86704987641232!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x975aa1a956b547d2!2sU%20P%20Projects%20Corporation%20Ltd!5e0!3m2!1sen!2sin!4v1596102306260!5m2!1sen!2sin"
+                                        width="600" height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            </div>
+                            / End Footer Links
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Copyright -->
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="copyright-content">
+                                <!-- Copyright Text -->
+                                <p>
+                                    © Copyright <a href="https://upprojects.org/">U.P. Projects Corporation Limited</a>. Design &amp; Development By <a target="_blank" href="https://www.previewtechnologies.com/">Preview Technologies Pvt Ltd.</a> through
+                                    <a target="_blank" href="http://upite.gov.in/UPDESCO/Index.aspx">UPDESCO</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ End Copyright -->
+        </footer>
+        <!--/  End Footer -->
+        @*<div class="quick_links">
+                <ul class="quick_list">
+                    <li><a href="#Footercontent" id="gen1" style="background: #b61a1e;">Get Social </a> </li>
+                    <li><a href="#read_content" id="gen" style="background: #1ab675;">Quick Links</a> </li>
+                </ul>
+            </div>*@
+    </div>
+    <!-- End Boxed Layout -->
+    <!-- Jquery JS -->
+    <script src="../../assets1/js/jquery.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+    <script src="~/lib/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="../../assets1/js/jquery-migrate-3.0.0.js"></script>
+    <!-- Popper JS -->
+    <script src="../../assets1/js/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../../assets1/js/bootstrap.min.js"></script>
+    <!-- Modernizr JS -->
+    <script src="../../assets1/js/modernizr.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <!-- ScrollUp JS -->
+    <script src="../../assets1/js/scrollup.js"></script>
+    <!-- FacnyBox JS -->
+    <script src="../../assets1/js/jquery-fancybox.min.js"></script>
+    <!-- Cube Portfolio JS -->
+    <script src="../../assets1/js/cubeportfolio.min.js"></script>
+    <!-- Slick Nav JS -->
+    <script src="../../assets1/js/slicknav.min.js"></script>
+    <!-- Way Points JS -->
+    <script src="../../assets1/js/waypoints.min.js"></script>
+    <!-- CounterUp JS -->
+    <script src="../../assets1/js/jquery.counterup.min.js"></script>
+    <!-- Slick Nav JS -->
+    <script src="../../assets1/js/slicknav.min.js"></script>
+    <!-- Slick Slider JS -->
+    <script src="../../assets1/js/owl-carousel.min.js"></script>
+    <!-- Easing JS -->
+    <script src="../../assets1/js/easing.js"></script>
+    <!-- Theme Option JS -->
+    <script src="../../assets1/js/theme-option.js"></script>
+    <!-- Magnipic Popup JS -->
+    <script src="../../assets1/js/magnific-popup.min.js"></script>
+    <!-- Active JS -->
+    <script src="../../assets1/js/active.js"></script>
+    <script src="../../assets1/js/main_scripts.js"></script>
+    <script src="../../assets1/news_slider/jquery.easy-ticker.min.js"></script>
+    <script src="../../assets1/theme_font_changer/top_header.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+
+<script>
+
+
+    $(document).ready(function () {
+
+
+        $.ajax({
+
+            type: "GET",
+            url: "/Home/GetLastestCMAnnouncement",
+            data: { Id: 0 },
+            success: function (data) {
+
+                var ext = data[0].FileName.substring(data[0].FileName.lastIndexOf(".") + 1, data[0].FileName.length).toLowerCase();
+                $("a.cm").attr("href", data[0].FileName);
+                $("a.cm").attr("download", "CMAnnouncement" + "." + ext);
+
+
+            }
+        })
+        $.ajax({
+
+            type: "GET",
+            url: "/Home/GetLastestMonthlyCompileReport",
+            data: { Id: 0 },
+            success: function (data) {
+
+                var ext = data[0].FileName.substring(data[0].FileName.lastIndexOf(".") + 1, data[0].FileName.length).toLowerCase();
+                $("a.mcr").attr("href", data[0].FileName);
+
+
+            }
+        })
+        InsertVisitorCount();
+
+    });
+
+    function InsertVisitorCount() {
+
+        var url = "/Home/insertVisitor";
+        $.getJSON(url, function (data) {
+
+            console.log(1);
+
+
+        })
+        GetVisitorCount();
+
+    }
+
+    function GetVisitorCount() {
+
+        var url = "/Home/GetVisitor";
+        $.getJSON(url, function (data) {
+            console.log(1);
+            var result = parseInt(data[0].visitor) + 10000;
+
+            $("#VisitorCount").html(result);
+
+        })
+    }
+
+</script>
+</html>

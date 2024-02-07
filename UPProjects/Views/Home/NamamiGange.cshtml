@@ -1,0 +1,62 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.NamamiGange>
+@{
+    ViewData["Title"] = "NamamiGange";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+<style>
+    .services_box a:after {
+        content: "";
+        background: white;
+        height: 0px;
+        width: 0px;
+        position: absolute;
+        top: -115px;
+        right: 2px;
+        transition: all 0.5s ease-in-out;
+    }
+</style>
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+        <h1>Namami Gange Photo</h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container ongoing-project">
+
+        <div class="services_box">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <a data-fancybox="gallery" href="@item.FileName"><img src="@item.FileName"><span class="our_services_text">@item.Description</span></a>
+
+                    </div>
+                }
+            </div>
+        </div>
+       
+
+    </div>
+</section>
+<!-- /End Board of Directors Tabler -->
+<!-- /End Board of Directors Tabler -->
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+           GetUpdatedRecords("Photo_Album");
+        })
+
+
+    </script>
+}
+

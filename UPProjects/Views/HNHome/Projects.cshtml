@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewData["Title"] = "Projects";
+    Layout = "~/Views/Shared/_HindiLayout.cshtml";
+}
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>जारी प्रोजेक्ट </h1>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<!-- Board of Directors Table -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="Projects"></div>
+                @*<div class="services_box">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="meerut.html"><img src="assets/images/project-images/on-going-project/meerut/03.png"> <span class="our_services_text">Skill Devolopment Training Centre at SVP A&T University, Meerut</span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span></a>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="meerut.html"><img src="assets/images/project-images/on-going-project/meerut/01.png"> <span class="our_services_text">B.Com Department at CCS University, Meerut </span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span></a>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="varuna_river.html"><img src="assets/images/project-images/on-going-project/varuna_river/varuna_1.png"> <span class="our_services_text">Work of channelization and coastal development of Varuna River in Varanasi city</span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span></a>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="prayagraj.html"><img src="assets/images/project-images/on-going-project/koraon/001.jpg"> <span class="our_services_text">Fire Station Center Pathartaal, Koraon, Prayagraj</span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span></a>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="jhansi.html"><img src="assets/images/project-images/on-going-project/Jhansi/002.jpg"> <span class="our_services_text">Restoration of Capacity of PalraTalab in Distt. Jhansi</span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span></a>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="mahoba.html">
+                                    <img src="assets/images/project-images/on-going-project/Mahoba/013.jpg">
+                                    <span class="our_services_text">Restoration of Capacity of UrwaraTalab in Distt. Mahoba and PalraTank in Distt Jhansi</span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="pond.html">
+                                    <img src="assets/images/project-images/on-going-project/Pond/004.jpg">
+                                    <span class="our_services_text">Pond (Kulpahar Talab 26.02.2015)</span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="varanasi.html">
+                                    <img src="assets/images/project-images/on-going-project/Varanasi/008.jpg">
+                                    <span class="our_services_text">Bhupauli Pump House Project Cost Rs. 4793.18 Lacs</span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="kaushambi.html">
+                                    <img src="assets/images/project-images/on-going-project/Fire-station-kaushambi/01.jpg">
+                                    <span class="our_services_text">Fire Station Kaushambi</span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a href="rampur.html">
+                                    <img src="assets/images/project-images/on-going-project/Fire-station-Milak-rampur/01.jpg">
+                                    <span class="our_services_text">Fire Station Milak Rampur</span><span class="arrow_link"><img src="assets/images/right-arrow.svg"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+        <div class="row" style="display:none; " id="divNoRecord">
+            <div class="col-md-12" align="center">
+                <span style="font-weight:bold; color:maroon; font-size: 33px;">प्रोजेक्ट उपलब्ध नहीं हैं.</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script src="~/APPjs/Common.js"></script>
+    <script src="~/APPjs/GetQuerryString.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var unit = getQuerryStringDataByName("units", "");
+            Bindunits(unit);
+            GetUpdatedRecords("OnGoingProjects_uppcl");
+    });
+
+        function Bindunits(unit) {
+            $('#loader').css("display","block");
+            $.get('@Url.Action("GetOnGoingProjects","HNHome")', {
+                unit:unit
+    }, function (data) {
+                    try {
+                        if (data.length > 0) {
+                            var htmlCont = '<div class="services_box"><div class="row">';
+                            var counter = 1;
+                            $('#Projects').empty();
+                            $.each(data, function (key, value) {
+                                htmlCont = htmlCont + '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"><a href="/HNhome/Project_Photos?unit=' + unit + '&pid=' + (value.ProjectId).toString() + '"><img src="/upload/ProgressPhoto/' + (value.ImageId).toString() + '/' + (value.FileName).toString() + '">' +
+                                    '<span class="our_services_text">' + value.HNProjectTitle + '</span><span class="arrow_link"><img src="/assets1/images/right-arrow.svg"></span></a></div >';
+                                counter = counter + 1;
+                            });
+                            $('#Projects').append(htmlCont + '</div></div>');
+                        }
+                        else {
+                              $('#divNoRecord').css("display", "block");
+                        }
+                        $('#loader').css("display", "none");
+        }
+                    catch (err) {
+                        $('#loader').css("display","none");
+        }
+            }).done(function (data) {
+        $('#loader').css("display","none");
+        })
+                .fail(function (data) {
+            $('#loader').css("display","none");
+        });
+        }
+    </script>
+    }
+
+    <!-- /End Board of Directors Tabler -->

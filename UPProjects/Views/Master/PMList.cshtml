@@ -1,0 +1,213 @@
+﻿@using UPProjects.Models
+@model UPProjects.Models.PMList
+@{
+    ViewData["Title"] = "Project Manager List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Survey Details</h4>
+
+        </div>
+    </div>
+</div>
+<label id="UserRole" style="display:none;">@ViewBag.UserRole</label>
+<label id="ZoneIdCurrent" style="display:none;">@ViewBag.ZoneId1</label>
+<label id="UnitIdCurrent" style="display:none;">@ViewBag.UnitId1</label>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4">
+
+                        <label><b>Select Zone</b></label>
+                        <select id="ZoneId" asp-items="@Model.ZoneList" name="ZoneId" class="form-control">
+                        </select>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <label><b>Select Unit</b></label>
+                        <select id="UnitId" name="UnitId" class="form-control">
+                            <option value="0">Select</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success mr-2 mt-4" id="btnsub">Submit</button>
+                        <button type="button" class="btn btn-dark mr-2 mt-4" id="reset">Reset</button>
+                    </div>
+
+                </div>
+
+
+                <br />
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card" style="display:none;" id="tblList">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="table-responsive ">
+                    <table class="table table-bordered " id="tblData" style="width:100%; font-size:12px;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                <th>Zone Name</th>
+                                <th>Unit Name</th>
+                                <th>Project Manager(PM)</th>
+                                <th>Mobile Number</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(document).ready(function () {
+                var role = $("#UserRole").html();
+                if (role == "gm") {
+                   
+                    $("#ZoneId").val($("#ZoneIdCurrent").html());
+                    $('#ZoneId').attr("disabled", true);
+                    BindUnit($("#ZoneIdCurrent").html());
+                }
+                if (role == "unit") {
+                    $("#ZoneId").val($("#ZoneIdCurrent").html());
+                    $('#ZoneId').attr("disabled", true);
+                    BindUnit($("#ZoneIdCurrent").html());
+                }
+
+
+            })
+        });
+    </script>
+    <script type="text/javascript">
+        function BindTable() {
+
+            var ZoneId = $("#ZoneId").val();
+            var UnitId = $('#UnitId').val();
+
+
+            var url = "/Master/GetPMListByZoneUnit?ZoneId=" + ZoneId + "&UnitId=" + UnitId;
+
+            $.getJSON(url, function (data) {
+                BindDataTable(data);
+            })
+        }
+        function BindDataTable(data) {
+
+            $("#tblList").show();
+            $("#tblData tbody").empty();
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                    "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { "data": "ZoneName" },
+                        { "data": "UnitName" },
+                        { "data": "Name" },
+                        { "data": "MobileNumber" },
+
+
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true,
+
+                });
+
+
+            }
+            else {
+                $("#tblData tbody").html("No record exist.");
+            }
+               $('#loader').css("display","none");
+        }
+
+
+
+
+        $("#ZoneId").change(function () {
+            var Zone = $("#ZoneId").val();
+            BindUnit(Zone)
+
+        })
+        function BindUnit(id) {
+            $('#loader').css("display", "block");
+            var url = "/MPR/BindUnits?ZoneId=" + id;
+            $("#UnitId").empty();
+            $('#UnitId').append('<option value="0">Select Unit</option>');
+            $.getJSON(url, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#UnitId').append('<option value="' + data[i].id + '">' + data[i].unitName + '</option>');
+                }
+                if (parseInt($("#UnitIdCurrent").html()) > 0) {
+                     $("#UnitId").val($("#UnitIdCurrent").html());
+                    $('#UnitId').attr("disabled", true);
+                }
+                  
+
+
+            })
+            $('#loader').css("display", "none");
+        }
+
+
+        $("#reset").click(function () {
+
+            location.reload();
+        })
+
+        $("#btnsub").click(function () {
+           $('#loader').css("display","block");
+            BindTable();
+
+        })
+
+
+
+
+    </script>
+
+}
+
+
+
+

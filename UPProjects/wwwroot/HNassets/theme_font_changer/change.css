@@ -1,0 +1,203 @@
+                    @charset "utf-8";
+
+                    body {
+                        background: #000;
+                        color: #fff;
+                    }
+
+                    .middle-header,
+                    .video-feature,
+                    .filling_section,
+                    .counterup,
+                    .footer {
+                        background: #000;
+                    }
+
+                    .section-bg {
+                        background: #292929;
+                    }
+
+                    .uppc-causes-section {
+                        background: #424242;
+                    }
+
+                    .color_purple,
+                    .single-feature h5,
+                    .single-feature p,
+                    .header .nav li a,
+                    .header .nav li a:hover,
+                    .portfo_heading h1,
+                    .filling_heading h2,
+                    .single-counter p,
+                    .single-counter h3,
+                    .footer-about h1.hindi_text,
+                    .footer-about h1.eng_text,
+                    .footer p,
+                    .footer .f-link ul li a,
+                    .footer .address-widget-list li,
+                    .footer .address-widget-list li a,
+                    .footer .address-widget-list li i,
+                    .footer .address-widget-list li i, .footer .social li a  {
+                        color: #FFEB3B;
+                    }
+                    .footer .address-widget-list li i{
+                        border: 1px solid #FFEB3B;
+                    }
+
+                    .header .nav li .sub-menu li:hover a {
+                        color: #fff;
+                        background: #292929;
+                    }
+
+                    .notify_btn {
+                        background: #fff;
+                    }
+                    
+                    .features-main h2,
+                    .features-main p,
+                    .single-head h4 {
+
+                        color: #FFEB3B;
+                    }
+
+                    .topbar {
+                        background-color: #292929;
+
+                    }
+
+                    .topbar .single-contact:hover,
+                    .topbar .single-contact a:hover {
+                        color: #FFEB3B;
+                    }
+
+                    .heading_wrap h1:after {
+                        background: #383838;
+                    }
+
+                    .single-feature {
+                        background: #000;
+                        border-top: 3px solid #FFEB3B;
+                    }
+
+                    .morenav_sec {
+                        background: #efdfec;
+                    }
+
+                    .service-section {
+                        background: #000;
+                    }
+
+                    .main_header #header {
+                        background: #4c4b4b;
+                    }
+
+                    .header-top {
+                        background: rgb(0, 0, 0);
+                    }
+
+                    .header-top-three .my-account li a {
+                        color: #fff;
+                    }
+
+                    .header-top-three .my-account li:before {
+                        border-right: 1px solid rgba(255, 255, 255, 0.58);
+                    }
+
+                    div#demos {
+                        background: rgb(0, 0, 0);
+                    }
+
+                    .xl-slategray {
+                        background: #292929 !important;
+                    }
+
+                    .section-title h2 span {
+                        color: #fff;
+                    }
+
+                    .section-title h2:before {
+                        background-color: #fff;
+                    }
+
+                    section .section-top p strong {
+                        font-weight: 700;
+                        color: #fff;
+                    }
+
+                    .vision_mission_box .content {
+                        background: #000000;
+                    }
+
+                    .home-blog {
+                        background: #000;
+                    }
+
+                    .box_wrapper_2 {
+                        background: #292929;
+                    }
+
+                    .box_wrapper_2 marquee a {
+                        color: #ccc;
+                    }
+
+                    .wrap_box {
+                        border: 1px solid #292929;
+                    }
+
+                    .department-list {
+                        background: #252525;
+                    }
+
+                    .section-title h2 {
+                        color: #fff;
+                    }
+
+                    .section-title p {
+                        color: #fff;
+                    }
+
+                    .box-img-cnt .box-cnt h4 {
+                        color: #fff;
+                    }
+
+                    .box-img-cnt {
+                        background: #000;
+                    }
+
+                    .about-us-section.doctor-detail-cnt .doctor-cnt>ul li {
+                        color: #fff;
+                    }
+
+                    .our-team .team-box h4 {
+                        color: #fff;
+                    }
+
+                    .our-team .team-box h4 span {
+                        color: #ccc;
+                    }
+
+                    .service_box {
+                        background: #8c8888;
+                    }
+
+                    .card {
+                        background: #101010;
+                    }
+
+                    .card .body {
+                        color: #fff;
+                    }
+
+                    .list-group-item {
+                        background-color: #101010;
+                        border: 1px solid rgb(0, 0, 0);
+                    }
+
+                    table.tender tbody tr td a {
+                        color: #fff !important;
+                    }
+
+                    h1.hindi_text,
+                    h1.eng_text {
+                        color: #fff;
+                    }

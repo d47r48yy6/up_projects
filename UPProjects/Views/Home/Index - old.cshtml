@@ -1,0 +1,868 @@
+﻿@using UPProjects.Models
+@model IEnumerable<UPProjects.Models.NewsMaster>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+    string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+<style>
+    #modal_img .modal-dialog { max-width: 800px; margin: 6rem auto;z-index:9999}
+.modal-body img {  width: 100%;}
+div#modal_img .modal-body { padding: 0;}
+.modal_butons button.close { margin: 5px 10px;}
+.modal_butons button:focus { border: 0; outline: none;}
+.middle-header{
+    z-index:999;
+}
+</style>
+<span id="CurrentName" style="display:none;">@currentActionName</span>
+<!-- Hero Slider -->
+<section class="hero-slider style1">
+    <div class="home-slider">
+        @foreach (var item in ViewBag.slider)
+        {
+            <div class="single-slider">
+                <img src="@item.FileName" />
+                <div class="welcome-text">
+                    <div class="hero-text">
+                        @if (item.MainTitle != null)
+                        {
+                        <h4>@item.MainTitle  </h4>
+                        }
+
+                        <h1 style="font-size:20px;line-height:35px;">@item.Title</h1>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="minister_box">
+        <div class="single-feature chief_box">
+            @foreach (var item in ViewBag.Minister)
+            {
+                <div class="icon-head">
+
+                    @if (item.Category == "Chief Minister")
+                    {
+                        <img src="@item.FileName" />
+                    }
+
+
+                </div>
+                @if (item.Category == "Chief Minister")
+                {
+                    <h5>@item.MainTitle</h5>
+                    <P>@item.SubTitle</P>
+                }
+            }
+        </div>
+
+
+        <div class="single-feature cabinet_box">
+            @foreach (var item in ViewBag.Minister)
+            {
+                <div class="icon-head">
+
+                    @if (item.Category == "Cabinet Minister")
+                    {
+                        <img src="@item.FileName" />
+                    }
+
+
+                </div>
+                @if (item.Category == "Cabinet Minister")
+                {
+                    <h5>@item.MainTitle</h5>
+                    <P>@item.SubTitle</P>
+                }
+            }
+
+
+        </div>
+
+    </div>
+</section>
+<section class="video-feature side overlay" id="main_content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="news_wrapper">
+                    <div class="new-sec">
+                        <div class="news_sucess_inn ">
+                            <h3 class="section-heading"> Latest News </h3>
+                            <div class="cover box-top3">
+                                <div id="box4">
+                                    <div class="news_div">
+                                        <div class=" demo-wrapper news_box_wrapper">
+                                            <div class="demo2 demof gallery_box">
+                                                <ul>
+                                                    @if (Model != null)
+                                                    {
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            if (item.ContentType.Trim() == "P")
+                                                            {
+                                                                <li><a href="~/Upload/NewsContent/@item.NewsContent" target="_blank">@item.NewsTitle &nbsp; @item.FileSize  &nbsp; format-@item.FileType</a></li>
+                                                            }
+                                                            else
+                                                            {
+                                                                if (item.ContentType.Trim() == "T")
+                                                                {
+                                                                    <li>
+                                                                        <a href="#">
+                                                                            @item.NewsTitle
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li><a href="/Home/@item.Attachment">@item.NewsTitle</a></li>
+                                                                }
+
+
+                                                            }
+
+                                                        }
+                                                    }
+
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="div_navigation">
+                                <a class="btnUp"> <i class="fa fa-angle-down news_control" id="nt-example1-prev"></i></a> <a class="btnDown">
+                                    <i class="fa fa-angle-up news_control" id="nt-example1-next"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="features-main ">
+                    <div class="title">
+                        <h2>About Us</h2>
+                        <p>
+                            U. P. PROJECTS CORPORATION LTD. is a U. P. Govt. undertaking entrusted with construction of Infrastructure Projects e.g. Residential, Non-residential buildings including Hospitals, Colleges, Offices etc, Dams, Canals and
+                            different types of Hydraulic Structures, Roads and works related to Rural Development. The Corporation is carrying out projects in the State of Uttar Pradesh as well as other states of the country. In year 1999 U.P.
+                            Govt. declared the corporation as CONSTRUCTION AGENCY vide G.O. No. 1434/99-27-Irrigation-5-36 Tw. Dt. 14-7-99 for construction of shallow and deep tubewells, hydrological structure such as Barrage, aqueduct, syphon,
+                            pump house, drainage, lining of canals, reservoir, underground and over head water tanks and distribution systems etc. In the year 2001 Govt. of U.P. again recognized it as Construction agency for construction of buildings
+                            wide letter no.E-8-667/10/ 06-89/2004 Dt. 6 June 2006.
+                        </p>
+                    </div>
+
+                    <div class="feature-btn">
+                        <a href="/Home/organizationstructure" class="bizwheel-btn theme-2">Know More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!--------------------------------Counter on Home Page----------------------------------------------->
+<section class="counterup project_stats">
+    <div class="container">
+        <div class="feat_section">
+            <div class="row">
+                <div class="feature_box">
+                    <div class="single-counter">
+                        <div class="icon">
+                            <img src="/assets1/images/project_stats/building.svg">
+                        </div>
+                        <div class="conter-content">
+                            <div class="counter-head">
+                                @*<h3><b class="number">3239</b></h3>*@
+                                <h3><b class="number">2520</b></h3>
+                            </div>
+                            <p>Total Projects</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="feature_box">
+                    <div class="single-counter">
+                        <div class="icon">     <img src="/assets1/images/project_stats/building_2.svg"></div>
+                        <div class="conter-content">
+                            <div class="counter-head">
+                                @*<h3><b class="number">1301</b></h3>*@
+                                <h3><b class="number">683</b></h3>
+                            </div>
+                            <p>Completed Projects</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature_box">
+                    <div class="single-counter">
+                        <div class="icon">
+                            <img src="/assets1/images/project_stats/building_3.svg">
+                        </div>
+                        <div class="conter-content">
+                            <div class="counter-head">
+                                @*<h3><b class="number">718</b></h3>*@
+                                <h3><b class="number">182</b></h3>
+                            </div>
+                            @*<p>Transferred Projects</p>*@
+                        <p>Handover Projects</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature_box">
+                    <div class="single-counter">
+                        <div class="icon">
+                            <img src="/assets1/images/project_stats/building_4.svg">
+                        </div>
+                        <div class="conter-content">
+                            <div class="counter-head">
+                                @*<h3><b class="number">583</b></h3>*@
+                                <h3><b class="number">500</b></h3>
+                            </div>
+                            @*<p>Non Transferred Projects</p>*@
+                        <p>Non Handover Projects</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature_box">
+                    <div class="single-counter">
+                        <div class="icon">
+                            <img src="/assets1/images/project_stats/building_5.svg">
+                        </div>
+                        <div class="conter-content">
+                            <div class="counter-head">
+                                @*<h3><b class="number">1938</b></h3>*@ 
+                                <h3><b class="number">1837</b></h3>
+                            </div>
+                            <p>Total Ongoing Projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section class="projects section-bg">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-3">
+            <div class="portfo_heading">
+                <h1>Our Projects</h1>
+            </div>
+                                </div> -->
+            <div class="col-12">
+                <div class="features-main ">
+                    <div class="title">
+                        <h2>Our Services</h2>
+                    </div>
+
+                    <div class="blog-latest-slider">
+
+                        @foreach (var item in ViewBag.services)
+                        {
+                            <!-- Single client -->
+                            <div class="single-slider">
+                                <div class="single-client">
+                                    <a href="#" target="_blank"><img src="@item.FileName" alt="@item.Title">@item.Title</a>
+                                </div>
+                            </div>
+                        }
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="our_services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title">
+                    <h2>Our Projects</h2>
+                </div>
+                <div class="services_box">
+                    <div class="row">
+                        @foreach (var item in ViewBag.ourproject)
+                        {
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 no-padding">
+                                <a data-fancybox="gallery" href="@item.FileName"><img src="@item.FileName" alt="@item.Title" /> <span class="our_services_text">@item.Title</span><span class="arrow_link"><img src="/assets1/images/right-arrow.svg"></span></a>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="sec_padding filling_section">
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <div class="filling_wrap">
+                    <div class="filling_heading">
+                        <h2>Click Atom Payment Gateway</h2>
+                        <a href="#" class="bizwheel-btn theme-2 click_btn">Click Here</a>
+                    </div>
+                </div>
+
+            </div> -->
+            <div class="col-lg-10 offset-lg-1 col-md-12 offset-md-1 col-sm-12 col-xs-12">
+                <div class="filling_content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="filling_boxes">
+                                <div class="box_bg">
+                                    <img src="/assets1/images/credit-card.svg">
+                                </div>
+                                <h4><a href="https://pg.atomtech.in/payment/form/pay.action?mId=197" target="_blank"> Online Payment Gateway</a></h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="filling_boxes">
+                                <div class="box_bg">
+                                    <img src="/assets1/images/email_login.svg">
+                                </div>
+                                <h4><a href="https://email.gov.in" target="_blank"> Email Sign In</a></h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="filling_boxes">
+                                <div class="box_bg">
+                                    <img src="/assets1/images/mis_login_icon.svg">
+                                </div>
+                                <h4><a href="/account/index">MIS Log In</a></h4>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<section class="notification_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="social_wrap ">
+                    <div class="facebook_box social_box">
+                        <div class="flyer">
+                            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="306px" height="59px" viewBox="0 0 306 59" enable-background="new 0 0 306 59" xml:space="preserve">
+
+                            <path fill="#3b5998" d="M10.212,3.61c0,0-6.5,2-6.5,11s0,41.5,0,41.5s28-46,97.5-42c0,0,29.5,1,63.5,12c0,0,61.75,22.25,73,22.25
+	c0,0,25,6,44.25-8.5c0,0,17.5-12.5,21.25-35L10.212,3.61z" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+									</svg>
+                        </div>
+                        <div class="social_header">
+                            <h2><i class="fa fa-facebook-square"></i> Facebook</h2>
+                        </div>
+                        <div class="social_body">
+                            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FUPProjectcorp%2F%3Fmodal%3Dadmin_todo_tour&tabs=timeline&width=400&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                                    width="400" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="social_wrap">
+                    <div class="twitter_box social_box">
+                        <div class="flyer">
+                            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="306px" height="59px" viewBox="0 0 306 59" enable-background="new 0 0 306 59" xml:space="preserve">
+                            <path fill="#00acee" d="M10.212,3.61c0,0-6.5,2-6.5,11s0,41.5,0,41.5s28-46,97.5-42c0,0,29.5,1,63.5,12c0,0,61.75,22.25,73,22.25
+	c0,0,25,6,44.25-8.5c0,0,17.5-12.5,21.25-35L10.212,3.61z" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+									</svg>
+                        </div>
+                        <div class="social_header">
+                            <h2><i class="fa fa-twitter-square"></i> Twitter</h2>
+                        </div>
+                        <div class="social_body">
+                            <a class="twitter-timeline" href="https://twitter.com/ProjectsLucknow?ref_src=twsrc%5Etfw">Tweets by ProjectsLucknow</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="social_wrap">
+                    <div class="youtube_box social_box">
+                        <div class="flyer">
+                            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="306px" height="59px" viewBox="0 0 306 59" enable-background="new 0 0 306 59" xml:space="preserve">
+                            <path fill="#c4302b" d="M10.212,3.61c0,0-6.5,2-6.5,11s0,41.5,0,41.5s28-46,97.5-42c0,0,29.5,1,63.5,12c0,0,61.75,22.25,73,22.25
+	c0,0,25,6,44.25-8.5c0,0,17.5-12.5,21.25-35L10.212,3.61z" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+									</svg>
+                        </div>
+                        <div class="social_header">
+                            <h2> <i class="fa fa-youtube-square"></i> Youtube</h2>
+                        </div>
+                        <div class="social_body">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/x24LelfOUOw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Counterup -->
+<section class="counterup">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Single Counterup -->
+                <div class="single-counter">
+                    <div class="icon"><i class="fa fa-fire"></i></div>
+                    <div class="conter-content">
+                        <div class="counter-head">
+                            <h3><b class="number">45</b><span>+</span></h3>
+                        </div>
+                        <p>Completed Year</p>
+                    </div>
+                </div>
+                <!--/ End Single Counterup -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Single Counterup -->
+                <div class="single-counter">
+                    <div class="icon"><i class="fa fa-building"></i></div>
+                    <div class="conter-content">
+                        <div class="counter-head">
+                            <h3><b class="number">10000</b><span>+</span></h3>
+                        </div>
+                        <p>Completed Works</p>
+                    </div>
+                </div>
+                <!--/ End Single Counterup -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Single Counterup -->
+                <div class="single-counter">
+                    <div class="icon"><i class="fa fa-users"></i></div>
+                    <div class="conter-content">
+                        <div class="counter-head">
+                            <h3><b class="number">250</b><span>+</span></h3>
+                        </div>
+                        <p>Happy clients</p>
+                    </div>
+                </div>
+                <!--/ End Single Counterup -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-12">
+                <!-- Single Counterup -->
+                <div class="single-counter">
+                    <div class="icon"><i class="fa fa-life-ring"></i></div>
+                    <div class="conter-content">
+                        <div class="counter-head">
+                            <h3><b class="number">40</b><span>+</span></h3>
+                        </div>
+                        <p>City</p>
+                    </div>
+                </div>
+                <!--/ End Single Counterup -->
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End Counterup -->
+<!-- Services -->
+<section class="userful_links section-bg section-space" id="read_content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <!-- Single Service -->
+                <div class="single-head">
+                    <h4>Useful Links</h4>
+                </div>
+                <!--/ End Single Service -->
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <!-- Single Service -->
+                <div class="single-service " style="background: #fb5516;
+							color: #fff;">
+                    <div class="service-content">
+                        <a href="/assets1/images/csr_policy.pdf" target="_blank"> <img src="/assets1/images/policy.svg" /> <br>Policy</a>
+                    </div>
+                </div>
+                <!--/ End Single Service -->
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <!-- Single Service -->
+                <div class="single-service " style="background: #923408;
+							color: #fff;">
+                    <div class="service-content">
+                        <a href="/home/Financial"><img src="/assets1/images/growth.svg" /> <br>Financials</a>
+                    </div>
+                </div>
+                <!--/ End Single Service -->
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <!-- Single Service -->
+                <div class="single-service " style="background: #b61a1e;color: #fff;">
+                    <div class="service-content">
+                        <a href="/home/Achievements"> <img src="/assets1/images/achievement.svg" /> Achievements</a>
+                    </div>
+                </div>
+                <!--/ End Single Service -->
+            </div>
+          
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <!-- Single Service -->
+                <div class="single-service " style="background: #1ab675;color: #fff; ">
+                    <div class="service-content">
+                        <a href="/home/tenders"><img src="/assets1/images/portfolio.svg" /> <br>Tenders & Notices</a>
+                    </div>
+                </div>
+                <!--/ End Single Service -->
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <!-- Single Service -->
+                <div class="single-service " style="background: #1ab675;color: #fff; ">
+                    <div class="service-content">
+                        <a href="https://play.google.com/store/apps/details?id=apps.uppcl_tubewell_app">100 Days Mission App<br></a>
+                        @*<a href="/app-release.apk">Days 100 Mobile App<br></a>*@
+                    </div>
+                </div>
+                <!--/ End Single Service -->
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End Services -->
+<!-- Client Area -->
+<section class="clients section-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="title">
+                    <h2>Important Links </h2>
+                </div>
+                <div class="partner-slider">
+                    <!-- Single client -->
+                    <div class="single-slider" onclick="ShowAlert('http://sewayojan.up.nic.in/')">
+                        <div class="single-client">
+                            <a href="#" target="_blank"><img src="/assets1/images/gov_logo/g1.jpg" alt="#"></a>
+                        </div>
+                    </div>
+                    <!--/ End Single client -->
+                    <!-- Single client -->
+                    <div class="single-slider" onclick="ShowAlert('http://up.gov.in/')">
+                        <div class="single-client">
+                            <a href="#" target="_blank"><img src="/assets1/images/gov_logo/g2.jpg" alt="#"></a>
+                        </div>
+                    </div>
+                    <!--/ End Single client -->
+                    <!-- Single client -->
+                    <div class="single-slider" onclick="ShowAlert('https://www.india.gov.in/')">
+                        <div class="single-client">
+                            @*<a href="https://www.india.gov.in/" target="_blank"><img src="/assets1/images/gov_logo/g3.jpg" alt="#"></a>*@
+                            <a href="#" target="_blank"><img src="/assets1/images/gov_logo/g3.jpg" alt="#"></a>
+                        </div>
+                    </div>
+                    <!--/ End Single client -->
+                    <!-- Single client -->
+                    <div class="single-slider" onclick="ShowAlert('http://uphed.gov.in/hi')">
+                        <div class="single-client">
+                            @*<a href="http://uphed.gov.in/hi" target="_blank"><img src="/assets1/images/gov_logo/g4.jpg" alt="#"></a>*@
+                            <a href="#" target="_blank"><img src="/assets1/images/gov_logo/g4.jpg" alt="#"></a>
+                        </div>
+                    </div>
+                    <!--/ End Single client -->
+                    <!-- Single client -->
+                    <div class="single-slider" onclick="ShowAlert('http://www.uptourism.gov.in/')">
+                        <div class="single-client">
+                            @*<a href="http://www.uptourism.gov.in/" target="_blank"><img src="/assets1/images/gov_logo/g5.jpg" alt="#"></a>*@
+                            <a href="#" target="_blank"><img src="/assets1/images/gov_logo/g5.jpg" alt="#"></a>
+                        </div>
+                    </div>
+                    <!--/ End Single client -->
+                    <!-- Single client -->
+                    <div class="single-slider" onclick="ShowAlert('http://upcmo.up.nic.in/')">
+                        <div class="single-client">
+                            @*<a href="http://upcmo.up.nic.in/" target="_blank"><img src="/assets1/images/gov_logo/g6.jpg" alt="#"></a>*@
+                            <a href="#" target="_blank"><img src="/assets1/images/gov_logo/g6.jpg" alt="#"></a>
+
+                        </div>
+                    </div>
+                    <!--/ End Single client -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="quick_links">
+    <ul class="quick_list">
+        <li><a href="#Footercontent" id="gen1" style="background: #b61a1e;">Get Social </a> </li>
+        <li><a href="#read_content" id="gen" style="background: #1ab675;">Quick Links</a> </li>
+    </ul>
+</div>
+
+<!---------------------------------
+   modal image popup start here
+---------------------------------->
+
+@*<div class="modal fade" id="modal_img" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal_butons">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <a href="https://janhit.upda.in/Default.aspx" target="_blank">
+                <img src="https://pdaprayagraj.in/assets/images/modal-img.jpg" alt="">
+            </a>
+
+                <div class="col-sm-4 col-md-4 col-xl-12">
+                    This is dummy reocrd for notification
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>*@
+
+
+<!---------------------------------
+   modal image popup end here
+---------------------------------->
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //$('#loader').css("display", "block");
+            //setTimeout(function(){$('#loader').css("display", "none"); }, 1500);
+            GetUpdatedRecords($("#CurrentName").html());
+
+            // popup start here
+	
+	
+	setTimeout(function() {
+		$('#modal_img').modal('show');
+	}, 2000);
+	
+		
+
+// popup end here
+	
+
+
+        })
+
+         function ShowAlert(obj) {
+            if (confirm("You are about to leave the website of Uttar Pradesh  Projects Corporation, India and view the content of an external website.")) {
+                window.open(obj);
+            }
+            else {
+                return false;
+            }
+        }
+
+
+    </script>
+}

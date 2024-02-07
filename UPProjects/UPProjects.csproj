@@ -1,0 +1,127 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>69d296dd-fd6c-4eba-9b03-e9b21b86f7d1</UserSecretsId>
+    <StartupObject>UPProjects.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <Content Remove="Helpers\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <None Remove="Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="AzureAdExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="DNTCaptcha.Core" Version="2.9.1" />
+    <PackageReference Include="ExcelDataReader" Version="3.0.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.4" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Upload\MPR\" />
+    <Folder Include="wwwroot\Upload\Announcements\" />
+    <Folder Include="wwwroot\Upload\MediaGallery\" />
+    <Folder Include="wwwroot\Upload\EOI\" />
+    <Folder Include="wwwroot\Upload\GOS\" />
+    <Folder Include="wwwroot\Upload\MinisterPhotos\" />
+    <Folder Include="wwwroot\Upload\MonthlyCompiled\" />
+    <Folder Include="wwwroot\Upload\NamamiGange\" />
+    <Folder Include="wwwroot\Upload\Proforma\" />
+    <Folder Include="wwwroot\Upload\TechnicalSanction\" />
+    <Folder Include="wwwroot\Upload\Videos\" />
+    <Folder Include="wwwroot\Upload\OurProjectPhotos\" />
+    <Folder Include="wwwroot\Upload\SliderPhotos\" />
+    <Folder Include="wwwroot\Upload\ServicesPhotos\" />
+    <Folder Include="wwwroot\Upload\NewsContent\" />
+    <Folder Include="wwwroot\Upload\PhotoGallery\" />
+    <Folder Include="wwwroot\Upload\ProgressPhoto\" />
+    <Folder Include="wwwroot\Upload\Tender\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets2\fonts\Flaticon.svg" />
+    <None Include="wwwroot\assets2\fonts\Flaticon.woff2" />
+    <None Include="wwwroot\assets2\fonts\fontawesome-webfont3e6e.svg" />
+    <None Include="wwwroot\assets2\fonts\fontawesome-webfont3e6e.woff2" />
+    <None Include="wwwroot\assets2\fonts\linea-basic-10.svg" />
+    <None Include="wwwroot\assets2\fonts\linea-basic-10.svg.readme" />
+    <None Include="wwwroot\assets2\images\icons8-home.svg" />
+    <None Include="wwwroot\assets2\images\project_logo.svg" />
+    <None Include="wwwroot\assets2\images\slider\h2-1.1jpg" />
+    <None Include="wwwroot\assets2\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets2\js\contact.form.js" />
+    <None Include="wwwroot\assets2\js\imagesloaded.pkgd.min.js" />
+    <None Include="wwwroot\assets2\js\isotope.pkgd.min.js" />
+    <None Include="wwwroot\assets2\js\jquery.counterup.min.js" />
+    <None Include="wwwroot\assets2\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\assets2\js\jquery.mb.YTPlayer.min.js" />
+    <None Include="wwwroot\assets2\js\jquery.min.js" />
+    <None Include="wwwroot\assets2\js\jquery.nav.js" />
+    <None Include="wwwroot\assets2\js\main.js" />
+    <None Include="wwwroot\assets2\js\modernizr-2.8.3.min.js" />
+    <None Include="wwwroot\assets2\js\owl.carousel.min.js" />
+    <None Include="wwwroot\assets2\js\parallax-effect.min.js" />
+    <None Include="wwwroot\assets2\js\plugins.js" />
+    <None Include="wwwroot\assets2\js\rsmenu-main.js" />
+    <None Include="wwwroot\assets2\js\skill.bars.jquery.js" />
+    <None Include="wwwroot\assets2\js\slick.min.js" />
+    <None Include="wwwroot\assets2\js\tilt.jquery.min.js" />
+    <None Include="wwwroot\assets2\js\waypoints.min.js" />
+    <None Include="wwwroot\assets2\js\wow.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\additional-methods.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\additional-methods.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\jquery.validate.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-validation\LICENSE.md">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+
+
+</Project>

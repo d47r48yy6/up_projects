@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "Chairman";
+    Layout = "~/Views/Shared/_OuterLayout.cshtml";
+        string currentActionName = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<!-- Feature header -->
+<section class="feature_section feature_img">
+    <div class="container">
+        <h1>Message of Chairman</h1>
+        <span id="CurrentName" style="display:none;">@currentActionName</span>
+    </div>
+</section>
+<!--/ End Hero Slider -->
+<section class="bod_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 chairman-pic"><img src="../../HNassets/images/senior-ias-t-venkatesh.jpeg"></div>
+            <div class="col-md-8 chairman-massage ">
+
+                <h2>T. Venkatesh (I.A.S.)</h2>
+                <p class="subtitle">chairman <span>(U.P. Projects Corporation Ltd.)</span></p>
+                <p class="mt-20">
+                    <b>PROJECTS CORPORATION LTD.</b> is committed to provide the service to the fullest satisfaction of our clients regarding safety, quality, delivery and cost expectations. It has been possible through our continuous improvement
+                    efforts and approach of "FIRST TIME RIGHT" for the construction of the project under our scope of work.We are committed to providing economical, speedy and excellent quality work and to remain among the top ranked in the nation.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/APPjs/Common.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+              GetUpdatedRecords($("#CurrentName").html());
+        })
+
+
+    </script>
+}
+

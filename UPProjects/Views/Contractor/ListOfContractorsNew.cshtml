@@ -1,0 +1,664 @@
+﻿
+@{
+    ViewData["Title"] = "ListOfContractorsNew";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section CSS{
+    <style type="text/css">
+
+        .modal-dialog {
+            max-width: 85%;
+            margin: 30px auto;
+        }
+
+        .lblpopup {
+            font-weight: bold;
+            font-size: 14px;
+            color: #2e2751;
+        }
+
+        p, a:not([href]):not([tabindex]) {
+            color: #a50026;
+        }
+    </style>
+
+}
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">List Of Contractors</h4>
+            <div style="float: right;">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="tblData">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+
+                                <th>ठेकेदार का नाम/फर्म का नाम</th>
+                                <th>आवेदक का नाम एवं पद</th>
+                                <th>कैटेगरी</th>
+                                <th>कार्यालय का पता</th>
+                                <th>मोबाइल</th>
+                                <th>ई-मेल</th>
+                                <th>रजिस्ट्रेशन दिनांक</th>
+                                <th class="not-export-column">#</th>
+                                <th class="not-export-column">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <button id="btnpopup" type="button" class="hidden" data-toggle="modal" data-target="#exampleModal"></button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h5 class="modal-title">Contractor Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body">
+
+                <section class="bod_section prev_formdetails">
+                    <div class="container">
+
+                        <fieldset>
+                            <legend id="exampleModalLabel">Contractor Details</legend>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">ठेकेदार का नाम/फर्म का नाम</label>
+                                        <p id="firmname"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">आवेदक का नाम एवं पद</label>
+                                        <p id="applicantname"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">आवेदक का फोटो</label>
+                                        <br />
+                                        <img src="/assets/images/user-image.png" id="imgapplicant">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">श्रेणी</label>
+                                        <p id="Category"></p>
+                                    </div>
+                                    <br />
+                                    <div class="form-group">
+                                        <label class="lblpopup">सब  श्रेणी</label>
+                                        <p id="SubCategory"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">कार्यालय पता</label>
+                                        <p id="officeaddress"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">
+                                            निवास पता
+                                        </label>
+                                        <p id="residenceaddress"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">कार्यालय फोन नं0</label>
+                                        <p id="OfficePhone"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">निवास फोन नं0</label>
+                                        <p id="ResidencePhone"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">मोबाइल</label>
+                                        <p id="Mobile"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">Whats App</label>
+                                        <p id="WhatsApp"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">फैक्स नं0</label>
+                                        <p id="Fax"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">ई-मेल</label>
+                                        <p id="eMail"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <h6>रजिस्ट्रशन शुल्क का विवरण</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">बैंक का नाम/शाखा</label>
+                                        <p id="RegFeeBank"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">धनराशि रू0</label>
+                                        <p id="RegFee"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">डिमाण्ड ड्राफ्ट संख्या</label>
+                                        <p id="RegFeeDemandNumber"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">डिमाण्ड ड्राफ्ट दिनांक</label>
+                                        <p id="RegFeeDemandDate"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <h6>जनरल सिक्योरिटी का विवरण</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">बैंक का नाम/शाखा</label>
+                                        <p id="SecurityBank"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">धनराशि रू0</label>
+                                        <p id="SecurityAmount"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">एफ0डी0आर0 संख्या</label>
+                                        <p id="SecurityFDRNuber"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">एफ0डी0आर0 दिनांक</label>
+                                        <p id="SecurityFDRDate"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">परिपक्वता तिथि</label>
+                                        <p id="SecurityMatureDate"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+
+                                        <label class="lblpopup">PAN</label>
+                                        <p id="PAN"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">PAN Document</label>
+                                        <br />
+                                        <span id="spnPANFile">NA</span>
+                                        <a href="" target="_blank" id="PANFile"><img src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">GST</label>
+                                        <p id="GST"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">GST Document</label>
+                                        <br />
+                                        <span id="spnGSTFile">NA</span>
+                                        <a href="" target="_blank" id="GSTFile"><img src="/assets/images/file.png">Click to view/download</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label class="lblpopup">फर्म का विवरण</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  col-xs-12">
+                                    <div class="form-group">
+                                        <p id="FirmDetail"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">मशीनरी/टूल्स एवं प्लान्ट्स का विवरण</label>
+                                        <br />
+                                        <span id="spnToolsPlantsFile">NA</span>
+                                        <a href="" target="_blank" id="ToolsPlantsFile"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">पिछले सात वर्षों में सम्पादित मुख्य कार्यों का विवरण</label>
+                                        <br />
+                                        <span id="spnFourYearMainWorksFile">NA</span>
+                                        <a href="" target="_blank" id="FourYearMainWorksFile"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">तकनीकी स्टाफ की सूची</label>
+                                        <br />
+                                        <span id="spnListofStaffFile">NA</span>
+                                        <a href="" target="_blank" id="ListofStaffFile"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">आवेदक या उसके साझेदारों को ब्लैक लिस्ट किये जाने का विवरण)</label>
+                                        <br />
+                                        <span id="spnBlackListFile">NA</span>
+                                        <a href="" target="_blank" id="BlackListFile"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">विगत तीन वर्षों की बैलेंससीट</label>
+                                        <br />
+                                        <span id="spnBalanceSheetFile">NA</span>
+                                        <a href="" target="_blank" id="BalanceSheetFile"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">विगत तीन वर्षों का आयकर रिटर्न</label>
+                                        <br />
+                                        <span id="spnIncomeTaxReturnFile">NA</span>
+                                        <a href="" target="_blank" id="IncomeTaxReturnFile"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">जिलाधिकारी द्वारा निर्गत हैसियत प्रमाण पत्र</label>
+                                        <br />
+                                        <span id="spnHasiyatCertificate">NA</span>
+                                        <a href="" target="_blank" id="HasiyatCertificate"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">ब्लड रिलेशन सम्बन्धी शपथ पत्र</label>
+                                        <br />
+                                        <span id="spnBloodRelation">NA</span>
+                                        <a href="" target="_blank" id="BloodRelation"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">जिलाधिकारी द्वारा निर्गत चरित्र प्रमाण पत्र</label>
+                                        <br />
+                                        <span id="spnCharacterFile">NA</span>
+                                        <a href="" target="_blank" id="CharacterFile"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6  col-xs-12">
+                                    <div class="form-group">
+                                        <label class="lblpopup">जिनके पास नियोक्ता द्वारा जारी निजी अनुभव है।</label>
+                                        <br />
+                                        <span id="spnPrivateExperience">NA</span>
+                                        <a href="" target="_blank" id="PrivateExperience"><img src="/assets/images/file.png">Click to view/download</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+
+                    </div>
+                </section>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+    });
+        function BindTable() {
+            $.get('@Url.Action("GetListOfContractorsNew", "Contractor")', {
+    }, function (data) {
+                    try {
+                        BindDataTable(data);
+        }
+        catch (err) {
+        }
+    })
+        .done(function (data) {
+        })
+        .fail(function (data) {
+        });
+        }
+
+        function BindDataTable(data) {
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                      dom:'Bfrtip',
+          buttons: [
+            {
+                extend: 'print',
+                  title: 'Contractors List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Contractors List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+
+                        { "data": "FirmName" },
+                        { "data": "ApplicantName" },
+                        { "data": "Category" },
+                        { "data": "OfficeAddress" },
+                        { "data": "Mobile" },
+                        { "data": "eMail" },
+                        { "data": "CreatedOn" },
+                        { "data": "ViewButton" },
+                        { "data": "RemoveButton" },
+
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true
+                });
+            }
+            else {
+                $("#tblData").DataTable({
+                    data: null               ,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    }
+                });
+            }
+        }
+
+        function ViewDetails(Id) {
+            debugger;
+                   $.get('@Url.Action("GetDetailsOfContractorsNew", "Contractor")', {ID:Id
+    }, function (data) {
+                           try {
+                               debugger;
+                               $('#firmname').text(data[0].FirmName);
+                               $('#applicantname').text(data[0].ApplicantName);
+                               if (data[0].ApplicantPhoto !== "")
+                                   $('#imgapplicant').attr("src", "/upload/contractornew/" + Id + "/" + data[0].ApplicantPhoto)
+                               else
+                                   $('#imgapplicant').html('');
+                               $('#officeaddress').text(data[0].OfficeAddress);
+                               $('#residenceaddress').text(data[0].ResidenceAddress);
+                               $('#OfficePhone').text(data[0].OfficePhone);
+                               $('#ResidencePhone').text(data[0].ResidencePhone);
+                               $('#Mobile').text(data[0].Mobile);
+                               $('#WhatsApp').text(data[0].WhatsApp);
+                               $('#Fax').text(data[0].Fax);
+                               $('#eMail').text(data[0].eMail);
+                               $('#RegFeeBank').text(data[0].RegFeeBank);
+                               $('#RegFee').text(data[0].RegFee);
+                               $('#Category').text(data[0].Category);
+                               $('#SubCategory').text(data[0].SubCategory);
+
+                               $('#RegFeeDemandNumber').text(data[0].RegFeeDemandNumber);
+                               $('#RegFeeDemandDate').text(data[0].RegFeeDemandDate);
+                               $('#SecurityBank').text(data[0].SecurityBank);
+                               $('#SecurityAmount').text(data[0].SecurityAmount);
+                               $('#SecurityFDRNuber').text(data[0].SecurityFDRNuber);
+                               $('#SecurityFDRDate').text(data[0].SecurityFDRDate);
+                               $('#SecurityMatureDate').text(data[0].SecurityMatureDate);
+                               $('#FirmDetail').text(data[0].FirmDetail);
+                               $('#PAN').text(data[0].PAN );
+                               $('#GST').text(data[0].GST);
+
+                                 if (data[0].ToolsPlantsFile !== "") {
+                                     $('#ToolsPlantsFile').attr("href", "/upload/contractornew/" + Id + "/" + data[0].ToolsPlantsFile)
+                                   $('#ToolsPlantsFile').css("display", "block");
+                                   $('#spnToolsPlantsFile').css("display", "none");
+                               }
+                               else {$('#ToolsPlantsFile').css("display", "none");
+                                   $('#spnToolsPlantsFile').css("display", "block"); }
+
+                                     if (data[0].FourYearMainWorksFile !== "") {
+                                         $('#FourYearMainWorksFile').attr("href", "/upload/contractornew/" + Id + "/" + data[0].SevenYearMainWorksFile)
+                                   $('#FourYearMainWorksFile').css("display", "block");
+                                   $('#spnFourYearMainWorksFile').css("display", "none");
+                               }
+                               else {$('#FourYearMainWorksFile').css("display", "none");
+                                   $('#spnFourYearMainWorksFile').css("display", "block"); }
+
+                                 if (data[0].ListofStaffFile !== "") {
+                                     $('#ListofStaffFile').attr("href", "/upload/contractornew/" + Id + "/" + data[0].ListofStaffFile)
+                                   $('#ListofStaffFile').css("display", "block");
+                                   $('#spnListofStaffFile').css("display", "none");
+                               }
+                               else {$('#ListofStaffFile').css("display", "none");
+                                   $('#spnListofStaffFile').css("display", "block"); }
+
+
+                               if (data[0].BlackListFile !== "") {
+                                   $('#BlackListFile').attr("href", "/upload/contractornew/" + Id + "/" + data[0].BlackListFile)
+                                   $('#BlackListFile').css("display", "block");
+                                   $('#spnBlackListFile').css("display", "none");
+                               }
+                               else {$('#BlackListFile').css("display", "none");
+                                   $('#spnBlackListFile').css("display", "block"); }
+
+
+                                if (data[0].BalanceSheetFile !== "") {
+                                    $('#BalanceSheetFile').attr("href", "/upload/contractornew/" + Id + "/" + data[0].BalanceSheetFile)
+                                   $('#BalanceSheetFile').css("display", "block");
+                                   $('#spnBalanceSheetFile').css("display", "none");
+                               }
+                               else {$('#BalanceSheetFile').css("display", "none");
+                                   $('#spnBalanceSheetFile').css("display", "block"); }
+
+                               if (data[0].IncomeTaxReturnFile !== "") {
+                                   $('#IncomeTaxReturnFile').attr("href", "/upload/contractornew/" + Id + "/" + data[0].IncomeTaxReturnFile)
+                                   $('#IncomeTaxReturnFile').css("display", "block");
+                                   $('#spnIncomeTaxReturnFile').css("display", "none");
+                               }
+                               else {$('#IncomeTaxReturnFile').css("display", "none");
+                                   $('#spnIncomeTaxReturnFile').css("display", "block"); }
+
+
+                               if (data[0].HasiyatCertificate !== "") {
+                                   $('#HasiyatCertificate').attr("href", "/upload/contractornew/" + Id + "/" + data[0].HasiyatCertificate)
+                                   $('#HasiyatCertificate').css("display", "block");
+                                   $('#spnHasiyatCertificate').css("display", "none");
+                               }
+                               else {$('#HasiyatCertificate').css("display", "none");
+                                   $('#spnHasiyatCertificate').css("display", "block");
+                               }
+
+
+
+                               if (data[0].CharacterFile !== "") {
+                                   $('#CharacterFile').attr("href", "/upload/contractornew/" + Id + "/" + data[0].CharacterFile)
+                                   $('#CharacterFile').css("display", "block");
+                                   $('#spnCharacterFile').css("display", "none");
+                               }
+                               else {
+                                   $('#CharacterFile').css("display", "none");
+                                   $('#spnCharacterFile').css("display", "block");
+                               }
+                               if (data[0].PrivateExperience !== "") {
+                                   $('#PrivateExperience').attr("href", "/upload/contractornew/" + Id + "/" + data[0].PrivateExperience)
+                                   $('#PrivateExperience').css("display", "block");
+                                   $('#spnPrivateExperience').css("display", "none");
+                               }
+                               else {
+                                   $('#PrivateExperience').css("display", "none");
+                                   $('#spnPrivateExperience').css("display", "block");
+                               }
+
+
+
+
+                               if (data[0].BloodRelation !== "") {
+                                   $('#BloodRelation').attr("href", "/upload/contractornew/" + Id + "/" + data[0].BloodRelation)
+                                   $('#BloodRelation').css("display", "block");
+                                   $('#spnBloodRelation').css("display", "none");
+                               }
+                               else {$('#BloodRelation').css("display", "none");
+                                   $('#spnBloodRelation').css("display", "block"); }
+
+
+
+                               if (data[0].GSTFile !== "") {
+                                   $('#GSTFile').attr("href", "/upload/contractornew/" + Id + "/" + data[0].GSTFile)
+                                   $('#GSTFile').css("display", "block");
+                                   $('#spnGSTFile').css("display", "none");
+                               }
+                               else {$('#GSTFile').css("display", "none");
+                                   $('#spnGSTFile').css("display", "block"); }
+
+                                        if (data[0].PANFile !== "") {
+                                            $('#PANFile').attr("href", "/upload/contractornew/" + Id + "/" + data[0].PANFile)
+                                   $('#PANFile').css("display", "block");
+                                   $('#spnPANFile').css("display", "none");
+                               }
+                               else {$('#PANFile').css("display", "none");
+                                   $('#spnPANFile').css("display", "block"); }
+
+                         $('#btnpopup').click();
+        }
+        catch (err) {
+        }
+    })
+        .done(function (data) {
+        })
+        .fail(function (data) {
+        });
+
+        }
+
+         function Remove(Id) {
+            var status = confirm("Are you sure you want to remove?");
+            if (status == true) {
+                $.get('@Url.Action("RemoveContractorNew", "Contractor")', {
+                    ID: Id
+                }, function (data) {
+                    alert(data);
+                    window.location.href = "/Contractor/ListOfContractorsNew";
+
+    })
+        .done(function (data) {
+        })
+        .fail(function (data) {
+        });
+            }
+        }
+</script>
+
+}
+

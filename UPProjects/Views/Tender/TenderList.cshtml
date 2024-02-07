@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewData["Title"] = "TenderList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="row page-title-header">
+        <div class="col-12">
+            <div class="page-header">
+                <h4 class="page-title">List Of Tenders</h4>
+                <div style="float:right;">
+                    <a href="/tender/tender" class="btn btn-outline-primary btn-rounded btn-fw">Create New Tender</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+               
+                <div class="table-responsive">
+                    <table class="table table-bordered " id="tblData">
+                        <thead class="thead-light">
+                            <tr>
+                                <th> # </th>
+                                @*<th> Category </th>*@
+                                <th>Tender Ref.No.</th>
+                                <th> Tender Title(English) </th>
+                                <th> Tender Title(Hindi) </th>
+                                <th>e-Published Date</th>
+                                <th>Closing Date</th>
+                                <th>Opening Date</th>
+                                <th class="not-export-column">Document</th>
+                                <th class="not-export-column">Edit</th>
+                                <th class="not-export-column">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BindTable();
+    });
+        function BindTable() {
+            $.get('@Url.Action("TendersList","Tender")', {
+    }, function (data) {
+                    try {                      
+                        BindDataTable(data);
+        }
+        catch (err) {
+        }
+    })
+        .done(function (data) {
+        })
+        .fail(function (data) {
+        });
+        }
+
+        function BindDataTable(data) {
+            if (data.length > 0) {
+                $("#tblData").DataTable({
+                    data: data,
+                      dom:'Bfrtip',
+                    buttons: [
+            {
+                extend: 'print',
+                  title: 'Tenders List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            },
+            {
+                extend: 'excel',
+                title: 'Tenders List',
+                 exportOptions: {
+                   columns: ":not(.not-export-column)"
+                }
+            }
+            ],
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    },
+                   "searching": true,
+                    "paging": true,
+                    "lengthMenu": [[-1, 100, 50, 10], ["All", 100, 50, 10]],
+                    columns: [
+                        {
+                            'data': null,
+                            'render': function (data, type, fill, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        //{
+                        //    'data': 'Category',
+                        //},
+                        { "data": "TenderNumber" },
+                        { "data": "TenderTitle" },
+                         { "data": "HNTenderTitle" },
+                        { "data": "DateofTender" },
+                        { "data": "LastDateofSale" },
+                        { "data": "OpeningDate" },
+                        { "data": "FileNameButton" },
+                        { "data": "EditButton" },
+                        { "data": "DeleteButton" },
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:nth-child(1)", nRow).html(nRow._DT_RowIndex + 1);
+                        return nRow;
+                    },
+                    responsive: true,
+                    "bDestroy": true
+                });
+            }
+            else {
+                $("#tblData").DataTable({
+                    data: null               ,
+                    "oLanguage": {
+                        "emptyTable": "No record exist."
+                    }
+                });
+            }
+        }
+
+        var onBegin = function () {
+            if (confirm('Are you sure?')) {
+                $('#loader').css("display", "block");
+                return true;
+            }
+            else
+                return false;
+        };
+        var onComplete = function (result) {
+            $('#loader').css("display", "none");
+        };
+        var onSuccess = function (Response) {
+            debugger;
+            BindDataTable(Response);
+        };
+        var onFailed = function () {
+              $('#loader').css("display", "none");
+        };
+    </script>
+
+}
+
